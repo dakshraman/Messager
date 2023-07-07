@@ -105,8 +105,8 @@ class _ChatPageState extends State<ChatPage> {
                 itemCount: 10,
               padding: EdgeInsets.only(top: 5),
               itemBuilder: (context, index),{
-                  //return CupertinoListTile()
-            }
+              return CupertinoListTile();
+                },  
               );
             }
           )
