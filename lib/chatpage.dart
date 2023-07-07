@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:Messager/card.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -42,18 +43,20 @@ class _ChatPageState extends State<ChatPage> {
         slivers: [
           CupertinoSliverNavigationBar(
             backgroundColor: Colors.black,
-            leading: TextButton(onPressed: () {
-              FirebaseAuth.instance.signOut();
-              GoogleSignIn().signOut();
+            leading: TextButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                GoogleSignIn().signOut();
               },
-              child: const Text("Exit",
-              style: TextStyle(
-                //fontSize: 18,
-                fontWeight: FontWeight.bold,
+              child: const Text(
+                "Exit",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            largeTitle: const Text('Chats',
+            largeTitle: const Text(
+              'Chats',
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -64,7 +67,7 @@ class _ChatPageState extends State<ChatPage> {
                 CupertinoButton(
                   padding: EdgeInsets.zero,
                   onPressed: () {
-                    //Navigator.push((context), MaterialPageRoute(builder: (context)=> CameraApp()));// Handle camera icon tap
+                    // Handle camera icon tap
                   },
                   child: Icon(CupertinoIcons.camera),
                 ),
@@ -87,68 +90,16 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
           ),
-          // SliverList(
-          //   delegate: SliverChildBuilderDelegate(
-          //         (context, index) {
-          //       final item = filteredItems[index];
-          //       return _buildChatItem(
-          //         item,
-          //         'Hello',
-          //         '10:00 AM',
-          //       );
-          //     },
-          //     childCount: filteredItems.length,
-          //   ),
-          // ),
-          StreamBuilder(builder: (context, snapshot){
-            return ListView.builder(
-                itemCount: 10,
-              padding: EdgeInsets.only(top: 5),
-              itemBuilder: (context, index),{
-              return CupertinoListTile();
-                },  
-              );
-            }
-          )
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                final item = filteredItems[index];
+                return CustomCard();
+              },
+              childCount: filteredItems.length,
+            ),
+          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildChatItem(
-      String name,
-      String lastMessage,
-      String timestamp,
-      ) {
-    return Material(
-      color: Colors.grey.shade900,
-      child: CupertinoListTile.notched(
-        leading: CircleAvatar(
-          child: Icon(CupertinoIcons.person),
-        ),
-        title: Text(
-          name,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Text(lastMessage,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        trailing: Text(
-          timestamp,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        onTap: () {
-          // Handle chat item tap
-        },
       ),
     );
   }
