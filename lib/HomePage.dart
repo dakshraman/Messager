@@ -17,14 +17,11 @@ class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: CupertinoTabScaffold(
-        controller: CupertinoTabController(
-        ),
         backgroundColor: Colors.white,
         tabBar: CupertinoTabBar(
-          height: 60,
           backgroundColor: Colors.black,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -56,7 +53,6 @@ class Homepage extends StatelessWidget {
             builder: (BuildContext context) => defaultPage,
           );
         },
-
       ),
     );
   }

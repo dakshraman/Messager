@@ -154,6 +154,13 @@ class LoginPage extends StatelessWidget {
                       _handlegsignin();
                     },
                   ),
+                  const SizedBox(width: 25,),
+                  SquareTile(
+                    imagePath: "images/facebook.png",
+                    onTap: () {
+
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 30),

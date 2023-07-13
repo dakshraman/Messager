@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^4.6.3
   google_sign_in: ^6.1.4
   cloud_firestore: ^4.8.2
+  flutter_facebook_auth: ^6.0.0
 
 #flutter_launcher_icons:
 #  android: "ic_launcher"
