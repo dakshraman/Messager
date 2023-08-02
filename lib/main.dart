@@ -3,6 +3,9 @@ import 'package:Messager/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:flutter/services.dart';
+import 'package:Messager/MyCustomWidget.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      color: Colors.blueAccent,
       debugShowCheckedModeBanner: false,
       title: 'Messager',
-      home: LoginPage()
+      home: MyCustomSplashScreen()
     );
   }
 }

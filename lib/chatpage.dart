@@ -1,10 +1,8 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:Messager/apis.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:Messager/card.dart';
+import 'package:Messager/user.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -14,39 +12,32 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  List<ChatUser> list = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          'Chats',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
+      backgroundColor: Colors.grey[850],
       body: StreamBuilder(
         stream: APIs.firestore.collection("users").snapshots(),
         builder: (context, snapshot) {
-          final list = [10];
-          if (snapshot.hasData) {
-            final data = snapshot.data?.docs;
-            for (var i in data!) {
-              print("Data: ${jsonEncode(i.data())}" as num);
-              list.add(i.data()['name']);
-            }
+          switch (snapshot.connectionState){
+            case ConnectionState.waiting:
+            case ConnectionState.none:
+            case ConnectionState.active:
+            case ConnectionState.done:
+              final data = snapshot.data?.docs;
+              list = data?.map((e) => ChatUser.fromJson(e.data() as Map<String, dynamic>)).toList() ?? [];
+
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return const CustomCard();
+                  // return Text('Name: ${list[index].name}');
+                },
+              );
           }
-          return ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return CustomCard();
-              // return Text('Name: ${list[index]}');
-            },
-          );
         },
       ),
     );
