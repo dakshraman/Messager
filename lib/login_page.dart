@@ -1,5 +1,8 @@
 import 'dart:developer';
 import 'package:Messager/HomePage.dart';
+import 'package:Messager/apis.dart';
+import 'package:Messager/card.dart';
+import 'package:Messager/chatpage.dart';
 import 'package:Messager/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,13 +57,24 @@ class _LoginPageState extends State<LoginPage> {
       loading = true; // Set loading to true when the sign-in process starts
     });
 
-    _signInWithGoogle().then((user) {
-      log('\nUser: ${user.user}');
-      log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Homepage()),
-      );
+    _signInWithGoogle().then((user) async{
+      if (user !=null) {
+        log('\nUser: ${user.user}');
+        log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
+
+        if((await APIs.userExists())){
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => ChatPage1()),);
+        }
+        else{
+          await APIs.createUser().then((value) {
+            Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => ChatPage1()),);
+            }
+          );
+        }
+
+      }
     }).catchError((error) {
       print(error);
     }).whenComplete(() {
@@ -135,7 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                        if (loading)
                         Positioned.fill(
                           child: Center(
-                            child: CupertinoActivityIndicator(),
+                            child: Container(color: Colors.white,
+                                child: CupertinoActivityIndicator(radius: 20.0, color: CupertinoColors.white,)),
                           ),
                         ),
                     ],
@@ -148,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                         Expanded(
                           child: Divider(
                             thickness: 5,
-                            color: Colors.grey[500],
+                            color: Colors.black,
                           ),
                         ),
                         Padding(
@@ -156,14 +171,16 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             "continue with",
                             style: TextStyle(
-                              color: Colors.grey[800],
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
                         Expanded(
                           child: Divider(
                             thickness: 5,
-                            color: Colors.grey[500],
+                            color: Colors.black,
                           ),
                         ),
                       ],
@@ -211,18 +228,18 @@ class background extends StatelessWidget {
         height: h,
         awayRadius: w / 5,
         numberOfParticles: 150,
-        speedOfParticles: 1.5,
-        maxParticleSize: 7,
+        speedOfParticles: 5,
+        maxParticleSize: 5,
         particleColor: Colors.white.withOpacity(.7),
         awayAnimationDuration: Duration(milliseconds: 600),
-        awayAnimationCurve: Curves.easeInOutBack,
+        awayAnimationCurve: Curves.easeInOutCubic,
         onTapAnimation: true,
         isRandSize: true,
         isRandomColor: false,
         connectDots: true,
-        enableHover: true,
-        hoverColor: Colors.black,
-        hoverRadius: 90,
+        enableHover: false,
+        //hoverColor: Colors.black,
+        //hoverRadius: 90,
       ),
     );
   }

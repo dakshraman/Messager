@@ -1,4 +1,6 @@
+import 'package:Messager/MyCustomWidget.dart';
 import 'package:Messager/card.dart';
+import 'package:Messager/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,7 +73,7 @@ class HomepageState extends State<Homepage>
     _controller.dispose();
     super.dispose();
   }
-
+  List<ChatUser> list = [];
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -87,7 +89,7 @@ class HomepageState extends State<Homepage>
             tooltip: 'Settings',
             enableFeedback: true,
             icon: Icon(
-              CupertinoIcons.gear_alt_fill,
+              CupertinoIcons.settings_solid,
             ),
             onPressed: () {
               // Navigator.push(
@@ -102,19 +104,14 @@ class HomepageState extends State<Homepage>
       ),
       body: Stack(
         children: [
-          ListView(
+          ListView.builder(
             physics:
             BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              SizedBox(height: _w / 13),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-              CustomCard(),
-            ],
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              //return const CustomCard();
+              // return Text('Name: ${list[index].name}');
+            },
           ),
           CustomPaint(
             painter: MyPainter(),
@@ -130,30 +127,6 @@ class HomepageState extends State<Homepage>
   return true;
   }
 }
-class RouteWhereYouGo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 50,
-        centerTitle: true,
-        shadowColor: Colors.black.withOpacity(.5),
-        title: Text('EXAMPLE  PAGE',
-            style: TextStyle(
-                color: Colors.black.withOpacity(.7),
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1)),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black.withOpacity(.8)),
-          onPressed: () => Navigator.maybePop(context),
-        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
-    );
-  }
-}
-
-
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
