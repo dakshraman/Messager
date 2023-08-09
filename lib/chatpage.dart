@@ -1,4 +1,6 @@
+import 'package:Messager/Profile.dart';
 import 'package:Messager/apis.dart';
+import 'package:Messager/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Messager/card.dart';
@@ -16,6 +18,12 @@ class ChatPage1 extends StatefulWidget {
 class _ChatPage1State extends State<ChatPage1> {
   List<ChatUser> list = [];
   @override
+  void initState(){
+    super.initState();
+    APIs.getSelfInfo();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -25,21 +33,20 @@ class _ChatPage1State extends State<ChatPage1> {
         centerTitle: true,
         actions: [
           IconButton(
-            tooltip: 'Settings',
+            tooltip: 'Profile',
             enableFeedback: true,
             icon: Icon(
-              CupertinoIcons.arrow_turn_down_right,
+              CupertinoIcons.person_alt_circle,
             ),
             onPressed: () async{
-              await APIs.auth.signOut();
-              await GoogleSignIn().signOut();
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> Profile(user: APIs.me)));
             },
           ),
         ], systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       backgroundColor: Colors.white,
       body: StreamBuilder(
-        stream: APIs.firestore.collection("users").snapshots(),
+        stream: APIs.getAllUsers(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState){
             case ConnectionState.waiting:
@@ -64,10 +71,47 @@ class _ChatPage1State extends State<ChatPage1> {
                 ),
               );
               }
-              else {return const Center(child: const Text("No Connection Found!", style: TextStyle(fontSize: 25, color: Colors.black)));}
+              else {return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "No Connection Found!",
+                      style: TextStyle(fontSize: 25, color: Colors.black),
+                    ),
+                    SizedBox(height: 20),
+                    CupertinoButton.filled(
+                      child: Text("Logout"),
+                        onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()), // Navigate to the login page
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              );
+             }
           }
         },
       ),
+    );
+  }
+}
+
+class LogoutButton extends StatelessWidget{
+  Widget build(BuildContext context){
+    return CupertinoButton.filled(
+      child: Text("Logout"),
+      onPressed: () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()), // Navigate to the login page
+        );
+      },
     );
   }
 }

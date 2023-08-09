@@ -12,8 +12,8 @@ class MyCustomSplashScreen extends StatefulWidget {
 }
 
 class _MyCustomSplashScreenState extends State<MyCustomSplashScreen> with TickerProviderStateMixin {
-  double _fontSize = 2;
-  double _containerSize = 1.5;
+  double _fontSize = 3;
+  double _containerSize = 3;
   double _textOpacity = 0.0;
   double _containerOpacity = 0.0;
 
@@ -24,7 +24,7 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen> with Ticker
   void initState() {
     super.initState();
 
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 4));
 
     animation1 = Tween<double>(begin: 40, end: 20).animate(
       CurvedAnimation(parent: _controller, curve: Curves.fastLinearToSlowEaseIn),

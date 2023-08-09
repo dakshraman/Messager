@@ -47,7 +47,7 @@ dependencies:
   particles_flutter: ^0.1.4
   flutter_staggered_animations: ^1.1.1
   cached_network_image: ^3.2.3
-
+  image_picker: ^1.0.2
 #flutter_launcher_icons:
 #  android: "ic_launcher"
 #  ios: true
