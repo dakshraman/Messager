@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:Messager/card.dart';
 import 'package:Messager/user.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 
 class ChatPage1 extends StatefulWidget {
   const ChatPage1({Key? key}) : super(key: key);

@@ -1,4 +1,3 @@
-import 'package:Messager/chatpage.dart';
 import 'package:Messager/chatscreen.dart';
 import 'package:Messager/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -30,7 +29,7 @@ class _CustomCardState extends State<CustomCard> {
                 color: Colors.grey.withOpacity(0.3),
                 spreadRadius: 5,
                 blurRadius: 5,
-                offset: Offset(0, 3), // changes the position of the shadow
+                offset: const Offset(0, 3), // changes the position of the shadow
               ),
             ],
           ),
@@ -48,14 +47,14 @@ class _CustomCardState extends State<CustomCard> {
             ),
             title: Text(
               widget.user.name,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
             subtitle: Text(
               widget.user.about,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
               ),
