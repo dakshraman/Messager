@@ -23,6 +23,9 @@ class _MyCustomSplashScreenState extends State<MyCustomSplashScreen> with Ticker
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Colors.white),);
+
 
     _controller = AnimationController(vsync: this, duration: Duration(seconds: 4));
 

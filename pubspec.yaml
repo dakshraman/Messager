@@ -38,6 +38,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_signin_button: ^2.0.0
   firebase_core: ^2.14.0
+  firebase_storage: ^11.2.5
   firebase_auth: ^4.6.3
   google_sign_in: ^6.1.4
   cloud_firestore: ^4.8.2

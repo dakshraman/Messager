@@ -1,6 +1,6 @@
+import 'dart:io';
 import 'package:Messager/apis.dart';
 import 'package:Messager/chatpage.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Messager/user.dart';
@@ -18,9 +18,10 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final _formkey = GlobalKey<FormState>();
-  String newImageUrl = '';
+  String? _image;
 
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()=> FocusScope.of(context).unfocus(),
@@ -30,38 +31,28 @@ class _ProfileState extends State<Profile> {
           elevation: 0,
           title: const Text('Profile'),
           centerTitle: true,
-          ),
-        body: Form(
-          key: _formkey,
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
+        ),
+
+
+        body: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Form(
+            key: _formkey,
             child: SingleChildScrollView(
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Stack(
-                    children: [
-                        ClipRRect(borderRadius: BorderRadius.circular(300),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.fill,
-                            height: 200,
-                            width: 200,
-                            imageUrl: widget.user.image,
-                            errorWidget: (context, url, error)=> const CircleAvatar(child: Icon(CupertinoIcons.person),),
-                          ),
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child:
-                          MaterialButton(
-                            elevation: 1,
-                            shape: const CircleBorder(),
-                            color: Colors.blue,
-                            child: IconButton(onPressed: (){_showImagePickerBottomSheet();}, icon: const Icon(Icons.edit,color: Colors.white,)), onPressed: (){_showImagePickerBottomSheet();}
-                          ),
-                      )
-                    ]
+                      children: [
+                        _image != null ?
+                        Image.file(File(_image!),
+                            )
+                            :
+                        CupertinoButton.filled(
+                          
+                            onPressed: (){_showImagePickerBottomSheet();}, child: Text("Change Profile Pic"),
+                        )
+                      ]
                   ),
                   const SizedBox(height: 20),
                   Text(widget.user.email, style: const TextStyle(color: Colors.blue, fontSize: 20),),
@@ -128,29 +119,33 @@ class _ProfileState extends State<Profile> {
     );
   }
   void _showImagePickerBottomSheet() {
-    showModalBottomSheet(
+    showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo_library),
-              title: Text('Choose from Gallery'),
-              onTap: () {
-                _pickImage(ImageSource.gallery);
+        return CupertinoActionSheet(
+          title: Text('Choose an option'),
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: () async {
                 Navigator.pop(context);
+                await _pickImage(ImageSource.gallery);
               },
+              child: Text('Choose from Gallery'),
             ),
-            ListTile(
-              leading: Icon(Icons.photo_camera),
-              title: Text('Take a Photo'),
-              onTap: () {
-                _pickImage(ImageSource.camera);
+            CupertinoActionSheetAction(
+              onPressed: () async {
                 Navigator.pop(context);
+                await _pickImage(ImageSource.camera);
               },
+              child: Text('Take a Photo'),
             ),
           ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
+          ),
         );
       },
     );
@@ -162,10 +157,9 @@ class _ProfileState extends State<Profile> {
 
     if (pickedFile != null) {
       setState(() {
-        newImageUrl = pickedFile.path; // Use the picked file path as the new image URL
+        _image = pickedFile.path;
       });
+      await APIs.updateProfilePicture(File(_image!));
     }
   }
 }
-
-

@@ -1,12 +1,15 @@
 import 'package:Messager/chatpage.dart';
+import 'package:Messager/chatscreen.dart';
 import 'package:Messager/user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class CustomCard extends StatefulWidget {
   final ChatUser user;
 
-  const CustomCard({super.key, required this.user});
+  const CustomCard({Key? key, required this.user});
+
   @override
   State<CustomCard> createState() => _CustomCardState();
 }
@@ -16,7 +19,7 @@ class _CustomCardState extends State<CustomCard> {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Padding( 
+      child: Padding(
         padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
         child: Container(
           decoration: BoxDecoration(
@@ -34,14 +37,17 @@ class _CustomCardState extends State<CustomCard> {
           child: CupertinoListTile.notched(
             backgroundColor: Colors.white,
             backgroundColorActivated: Colors.grey[300],
-            leading: CachedNetworkImage(
-              height: 50,
-              width: 50,
-              imageUrl: widget.user.image,
-              //placeholder: (context, url) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
-              errorWidget: (context, url, error) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
+            leading: ClipOval(
+              child: CachedNetworkImage(
+                height: 50,
+                width: 50,
+                imageUrl: widget.user.image,
+                errorWidget: (context, url, error) =>
+                const CircleAvatar(child: Icon(CupertinoIcons.person)),
+              ),
             ),
-            title: Text(widget.user.name,
+            title: Text(
+              widget.user.name,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -54,28 +60,11 @@ class _CustomCardState extends State<CustomCard> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            // trailing: Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   children: [
-            //     Icon(
-            //       CupertinoIcons.person,
-            //       color: Colors.lightBlue,
-            //       size: 24,
-            //     ),
-            //     SizedBox(height: 4),
-            //     Text(
-            //       "time",
-            //       style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-            //         fontSize: 12,
-            //         color: CupertinoColors.systemGrey,
-            //       ),
-            //     ),
-            //   ],
-            // ),
             onTap: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (BuildContext context)=> ChatPage1()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ChatScreen(user: widget.user)),
+              );
             },
           ),
         ),
