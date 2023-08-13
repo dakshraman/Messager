@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:Messager/HomePage.dart';
 import 'package:Messager/apis.dart';
-import 'package:Messager/card.dart';
 import 'package:Messager/chatpage.dart';
+import 'package:Messager/dialogs.dart';
 import 'package:Messager/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool loading = false; // Variable to track loading state
 
   Future<void> signin() async {
     try {
@@ -53,23 +52,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _handlegsignin() {
-    setState(() {
-      loading = true; // Set loading to true when the sign-in process starts
-    });
+    Dialogs.showProgressbar(context);
 
     _signInWithGoogle().then((user) async{
+      Navigator.pop(context);
       if (user !=null) {
         log('\nUser: ${user.user}');
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
         if((await APIs.userExists())){
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => ChatPage1()),);
+              context, MaterialPageRoute(builder: (_) => ChatPage()),);
         }
         else{
           await APIs.createUser().then((value) {
             Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => ChatPage1()),);
+              context, MaterialPageRoute(builder: (context) => ChatPage()),);
             }
           );
         }
@@ -77,11 +75,9 @@ class _LoginPageState extends State<LoginPage> {
       }
     }).catchError((error) {
       print(error);
-    }).whenComplete(() {
-      setState(() {
-        loading = false; // Set loading to false when the sign-in process completes
-      });
-    });
+      Dialogs.showSnackbar(context, "Something Went Wrong");
+      }
+    );
   }
 
   _signOut() async {
@@ -110,50 +106,6 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w900,
                       fontSize: 40,
                     ),
-                  ),
-                  // const SizedBox(height: 30,),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-                  //   child: CupertinoTextField(
-                  //     controller: emailController,
-                  //     placeholder: "Email",
-                  //     obscureText: false,
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-                  //   child: CupertinoTextField(
-                  //     controller: passwordController,
-                  //     placeholder: "Password",
-                  //     obscureText: true,
-                  //   ),
-                  // ),
-                  // const Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       Text(
-                  //         "Forgot Password?",
-                  //         style: TextStyle(
-                  //           color: Colors.blue,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 25),
-                  // // Wrap the Google sign-in button with a Stack to show the loading indicator
-                  Stack(
-                    children: [
-                       if (loading)
-                        Positioned.fill(
-                          child: Center(
-                            child: Container(color: Colors.white,
-                                child: CupertinoActivityIndicator(radius: 20.0, color: CupertinoColors.white,)),
-                          ),
-                        ),
-                    ],
                   ),
                   const SizedBox(height: 30),
                   Padding(

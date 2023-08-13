@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:Messager/apis.dart';
 import 'package:Messager/chatpage.dart';
+import 'package:Messager/login_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Messager/user.dart';
@@ -42,21 +44,31 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Stack(
+                  Column(
                       children: [
                         _image != null ?
                         Image.file(File(_image!),
                             )
                             :
+                        ClipOval(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            height: 200,
+                            width: 200,
+                            imageUrl: widget.user.image,
+                            errorWidget: (context, url, error) =>
+                            const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                          ),
+                        ),
+                        SizedBox(height: 20,),
                         CupertinoButton.filled(
-                          
                             onPressed: (){_showImagePickerBottomSheet();}, child: Text("Change Profile Pic"),
                         )
                       ]
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Text(widget.user.email, style: const TextStyle(color: Colors.blue, fontSize: 20),),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   TextFormField(
                     onSaved: (val) => APIs.me.name = val ?? '',
                     validator:  (val) => val != null && val.isNotEmpty ? null: 'Required Field',
@@ -80,7 +92,7 @@ class _ProfileState extends State<Profile> {
                       label: const Text("About"),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 40),
                   CupertinoButton.filled(
                     child: const Text("Update"),
                     onPressed: () {
@@ -109,7 +121,16 @@ class _ProfileState extends State<Profile> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  LogoutButton(),
+                  CupertinoButton(
+                    color: Colors.red,
+                    child: Text("Logout"),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()), // Navigate to the login page
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

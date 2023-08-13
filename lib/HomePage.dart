@@ -1,5 +1,3 @@
-import 'package:Messager/MyCustomWidget.dart';
-import 'package:Messager/card.dart';
 import 'package:Messager/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

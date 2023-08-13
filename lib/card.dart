@@ -19,7 +19,7 @@ class _CustomCardState extends State<CustomCard> {
     return Material(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+        padding: const EdgeInsets.only(right: 0, left: 0, bottom: 0),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -27,19 +27,20 @@ class _CustomCardState extends State<CustomCard> {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 5,
-                blurRadius: 5,
+                spreadRadius: 2,
+                blurRadius: 2,
                 offset: const Offset(0, 3), // changes the position of the shadow
               ),
             ],
           ),
           child: CupertinoListTile.notched(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.grey[200],
             backgroundColorActivated: Colors.grey[300],
             leading: ClipOval(
               child: CachedNetworkImage(
-                height: 50,
-                width: 50,
+                fit: BoxFit.cover,
+                height: 100,
+                width: 100,
                 imageUrl: widget.user.image,
                 errorWidget: (context, url, error) =>
                 const CircleAvatar(child: Icon(CupertinoIcons.person)),
