@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:Messager/apis.dart';
-import 'package:Messager/chatpage.dart';
 import 'package:Messager/login_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,9 +59,9 @@ class _ProfileState extends State<Profile> {
                             const CircleAvatar(child: Icon(CupertinoIcons.person)),
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        const SizedBox(height: 20,),
                         CupertinoButton.filled(
-                            onPressed: (){_showImagePickerBottomSheet();}, child: Text("Change Profile Pic"),
+                            onPressed: (){_showImagePickerBottomSheet();}, child: const Text("Change Profile Pic"),
                         )
                       ]
                   ),
@@ -103,8 +102,8 @@ class _ProfileState extends State<Profile> {
                             context: context,
                             builder: (context) {
                               return CupertinoAlertDialog(
-                                title: Text('Update Successful'),
-                                content: Text('Your profile has been updated.'),
+                                title: const Text('Update Successful'),
+                                content: const Text('Your profile has been updated.'),
                                 actions: [
                                   CupertinoDialogAction(
                                     onPressed: () {
@@ -123,7 +122,7 @@ class _ProfileState extends State<Profile> {
                   const SizedBox(height: 20),
                   CupertinoButton(
                     color: Colors.red,
-                    child: Text("Logout"),
+                    child: const Text("Logout"),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -144,28 +143,29 @@ class _ProfileState extends State<Profile> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-          title: Text('Choose an option'),
+          title: const Text('Choose an option'),
           actions: <Widget>[
             CupertinoActionSheetAction(
               onPressed: () async {
                 Navigator.pop(context);
                 await _pickImage(ImageSource.gallery);
               },
-              child: Text('Choose from Gallery'),
+              child: const Text('Choose from Gallery'),
             ),
             CupertinoActionSheetAction(
               onPressed: () async {
                 Navigator.pop(context);
                 await _pickImage(ImageSource.camera);
               },
-              child: Text('Take a Photo'),
+              child: const Text('Take a Photo'),
             ),
           ],
-          cancelButton: CupertinoActionSheetAction(
+          cancelButton:
+          CupertinoActionSheetAction(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Cancel'),
+            child: const Text('Cancel'),
           ),
         );
       },

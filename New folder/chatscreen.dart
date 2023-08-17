@@ -39,7 +39,7 @@ import 'package:flutter/services.dart';
                       switch (snapshot.connectionState){
                         case ConnectionState.waiting:
                         case ConnectionState.none:
-                          return Center(child: CupertinoActivityIndicator(radius: 25 ,color: Colors.blue,));
+                          return const Center(child: CupertinoActivityIndicator(radius: 25 ,color: Colors.blue,));
                         case ConnectionState.active:
                         case ConnectionState.done:
                            final data = snapshot.data?.docs;
@@ -59,7 +59,7 @@ import 'package:flutter/services.dart';
                               ),
                             );
                           }
-                          else {return Center(
+                          else {return const Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -120,7 +120,7 @@ import 'package:flutter/services.dart';
               ),
             ],
           ),
-          Spacer(), // Adds flexible space to push the following widget to the right
+          const Spacer(), // Adds flexible space to push the following widget to the right
           IconButton(
             onPressed: () {
               // Handle search button press
@@ -142,17 +142,17 @@ import 'package:flutter/services.dart';
               color: Colors.blueAccent,
               child: Row(
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.smiley,color: Colors.white,)),
-                  Expanded(
+                  IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.smiley,color: Colors.white,)),
+                  const Expanded(
                     child: CupertinoTextField(
                       // keyboardType: TextInputType.multiline,
                       // maxLines: null,
                       placeholder: "Message",
                     ),
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.photo,color: Colors.white,)),
-                  IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.camera,color: Colors.white,)),
-                  SizedBox(width: 5,),
+                  IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.photo,color: Colors.white,)),
+                  IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.camera,color: Colors.white,)),
+                  const SizedBox(width: 5,),
                 ],
               ),
             ),
@@ -161,10 +161,10 @@ import 'package:flutter/services.dart';
             padding: const EdgeInsets.only(right: 5),
             child: MaterialButton(onPressed: (){},
               minWidth: 30,
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               color: Colors.blue,
-              padding: EdgeInsets.only(left: 10,right: 5,top: 10,bottom: 10),
-              child: Icon(Icons.send_sharp, size: 30,),),
+              padding: const EdgeInsets.only(left: 10,right: 5,top: 10,bottom: 10),
+              child: const Icon(Icons.send_sharp, size: 30,),),
           )
         ],
       );
