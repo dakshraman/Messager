@@ -10,7 +10,7 @@ class Dialogs {
           title: Text(msg),
           actions: [
             CupertinoDialogAction(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -24,6 +24,10 @@ class Dialogs {
   static void showProgressBar(BuildContext context) {
     showDialog(
         context: context,
-        builder: (_) => const Center(child: CupertinoActivityIndicator(color: Colors.white, radius: 20,)));
+        builder: (_) => const Center(
+                child: CupertinoActivityIndicator(
+              color: Colors.white,
+              radius: 20,
+            )));
   }
 }

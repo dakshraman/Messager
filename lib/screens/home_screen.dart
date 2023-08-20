@@ -107,9 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       _isSearching = !_isSearching;
                     });
                   },
-                  icon: Icon(_isSearching
-                      ? CupertinoIcons.clear_circled_solid
-                      : Icons.search, size: 30,)),
+                  icon: Icon(
+                    _isSearching
+                        ? CupertinoIcons.clear_circled_solid
+                        : Icons.search,
+                    size: 30,
+                  )),
 
               //more features button
               IconButton(
@@ -119,7 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         MaterialPageRoute(
                             builder: (_) => ProfileScreen(user: APIs.me)));
                   },
-                  icon: const Icon(CupertinoIcons.person_alt_circle, size: 30,))
+                  icon: const Icon(
+                    CupertinoIcons.person_alt_circle,
+                    size: 30,
+                  ))
             ],
           ),
 
@@ -131,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 _addChatUserDialog();
               },
-              icon: Icon(CupertinoIcons.person_add_solid),
+              icon: const Icon(CupertinoIcons.person_add_solid),
             ),
           ),
 
@@ -145,7 +151,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 //if data is loading
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return const Center(child: CupertinoActivityIndicator(radius: 25, color: Colors.blue,));
+                  return const Center(
+                      child: CupertinoActivityIndicator(
+                    radius: 25,
+                    color: Colors.blue,
+                  ));
 
                 //if some or all data is loaded then show it
                 case ConnectionState.active:
@@ -178,7 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ? _searchList.length
                                     : _list.length,
                                 padding: EdgeInsets.only(top: mq.height * .01),
-                                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                                physics: const BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics()),
                                 itemBuilder: (context, index) {
                                   return ChatUserCard(
                                       user: _isSearching
@@ -210,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => CupertinoAlertDialog(
         // No direct equivalent for contentPadding, use padding for content spacing
-        title: Row(
+        title: const Row(
           children: [
             Icon(
               CupertinoIcons.person_add_solid,
@@ -221,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         content: Padding(
-          padding: EdgeInsets.fromLTRB(5, 10, 10, 5),
+          padding: const EdgeInsets.fromLTRB(5, 10, 10, 5),
           child: CupertinoTextField(
             maxLines: null,
             onChanged: (value) => email = value,
@@ -230,9 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
               border: Border.all(color: CupertinoColors.systemGrey),
             ),
             placeholder: 'Email Id',
-            prefix: Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: const Icon(CupertinoIcons.mail_solid, color: Colors.blue),
+            prefix: const Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: Icon(CupertinoIcons.mail_solid, color: Colors.blue),
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -76,8 +78,9 @@ class _MessageCardState extends State<MessageCard> {
                         padding: EdgeInsets.all(8.0),
                         child: CupertinoActivityIndicator(radius: 20),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(CupertinoIcons.photo_fill_on_rectangle_fill, size: 70),
+                      errorWidget: (context, url, error) => const Icon(
+                          CupertinoIcons.photo_fill_on_rectangle_fill,
+                          size: 70),
                     ),
                   ),
           ),
@@ -109,7 +112,8 @@ class _MessageCardState extends State<MessageCard> {
 
             //double tick blue icon for message read
             if (widget.message.read.isNotEmpty)
-              const Icon(CupertinoIcons.checkmark_seal, color: Colors.blue, size: 20),
+              const Icon(CupertinoIcons.checkmark_seal,
+                  color: Colors.blue, size: 20),
 
             //for adding some space
             const SizedBox(width: 2),
@@ -156,8 +160,9 @@ class _MessageCardState extends State<MessageCard> {
                         padding: EdgeInsets.all(8.0),
                         child: CupertinoActivityIndicator(radius: 2),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(CupertinoIcons.photo_fill_on_rectangle_fill, size: 70),
+                      errorWidget: (context, url, error) => const Icon(
+                          CupertinoIcons.photo_fill_on_rectangle_fill,
+                          size: 70),
                     ),
                   ),
           ),
@@ -167,115 +172,116 @@ class _MessageCardState extends State<MessageCard> {
   }
 
   // bottom sheet for modifying message details
-    void _showBottomSheet(bool isMe) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (_) {
-          return CupertinoActionSheet(
-            actions: [
-              if (widget.message.type == Type.text)
-                CupertinoActionSheetAction(
-                  onPressed: () async {
-                    await Clipboard.setData(
-                      ClipboardData(text: widget.message.msg),
+  void _showBottomSheet(bool isMe) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (_) {
+        return CupertinoActionSheet(
+          actions: [
+            if (widget.message.type == Type.text)
+              CupertinoActionSheetAction(
+                onPressed: () async {
+                  await Clipboard.setData(
+                    ClipboardData(text: widget.message.msg),
+                  );
+                  Navigator.pop(context);
+                  Dialogs.showSnackbar(context, 'Text Copied!');
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      CupertinoIcons.square_fill_on_square_fill,
+                      color: Colors.blue,
+                      size: 26,
+                    ),
+                    SizedBox(width: 8),
+                    Text('Copy Text'),
+                  ],
+                ),
+              ),
+            if (widget.message.type != Type.text)
+              CupertinoActionSheetAction(
+                onPressed: () async {
+                  try {
+                    log('Image Url: ${widget.message.msg}');
+                    bool? success = await GallerySaver.saveImage(
+                      widget.message.msg,
+                      albumName: 'We Chat',
                     );
                     Navigator.pop(context);
-                    Dialogs.showSnackbar(context, 'Text Copied!');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.square_fill_on_square_fill,
-                        color: Colors.blue,
-                        size: 26,
-                      ),
-                      SizedBox(width: 8),
-                      Text('Copy Text'),
-                    ],
-                  ),
-                ),
-              if (widget.message.type != Type.text)
-                CupertinoActionSheetAction(
-                  onPressed: () async {
-                    try {
-                      log('Image Url: ${widget.message.msg}');
-                      bool? success = await GallerySaver.saveImage(
-                        widget.message.msg,
-                        albumName: 'We Chat',
-                      );
-                      Navigator.pop(context);
-                      if (success != null && success) {
-                        Dialogs.showSnackbar(context, 'Image Successfully Saved!');
-                      } else {
-                        Dialogs.showSnackbar(context, 'Image Save Failed!');
-                      }
-                    } catch (e) {
-                      log('ErrorWhileSavingImg: $e');
+                    if (success != null && success) {
+                      Dialogs.showSnackbar(
+                          context, 'Image Successfully Saved!');
+                    } else {
+                      Dialogs.showSnackbar(context, 'Image Save Failed!');
                     }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.arrow_down_circle,
-                        color: Colors.blue,
-                        size: 26,
-                      ),
-                      SizedBox(width: 8),
-                      Text('Save Image'),
-                    ],
-                  ),
+                  } catch (e) {
+                    log('ErrorWhileSavingImg: $e');
+                  }
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      CupertinoIcons.arrow_down_circle,
+                      color: Colors.blue,
+                      size: 26,
+                    ),
+                    SizedBox(width: 8),
+                    Text('Save Image'),
+                  ],
                 ),
-              if (isMe)
-                CupertinoActionSheetAction(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _showMessageUpdateDialog();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.pencil,
-                        color: Colors.blue,
-                        size: 26,
-                      ),
-                      SizedBox(width: 8),
-                      Text('Edit Message'),
-                    ],
-                  ),
+              ),
+            if (isMe)
+              CupertinoActionSheetAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _showMessageUpdateDialog();
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      CupertinoIcons.pencil,
+                      color: Colors.blue,
+                      size: 26,
+                    ),
+                    SizedBox(width: 8),
+                    Text('Edit Message'),
+                  ],
                 ),
-              if (isMe)
-                CupertinoActionSheetAction(
-                  onPressed: () async {
-                    await APIs.deleteMessage(widget.message);
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.delete,
-                        color: Colors.red,
-                        size: 26,
-                      ),
-                      SizedBox(width: 8),
-                      Text('Delete Message'),
-                    ],
-                  ),
+              ),
+            if (isMe)
+              CupertinoActionSheetAction(
+                onPressed: () async {
+                  await APIs.deleteMessage(widget.message);
+                  Navigator.pop(context);
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      CupertinoIcons.delete,
+                      color: Colors.red,
+                      size: 26,
+                    ),
+                    SizedBox(width: 8),
+                    Text('Delete Message'),
+                  ],
                 ),
-            ],
-            cancelButton: CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Cancel'),
-            ),
-          );
-        },
-      );
-    }
+              ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+        );
+      },
+    );
+  }
 
   //dialog for updating message content
   void _showMessageUpdateDialog() {
@@ -302,7 +308,7 @@ class _MessageCardState extends State<MessageCard> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text(
+            child: const Text(
               'Cancel',
               style: TextStyle(color: CupertinoColors.systemBlue, fontSize: 16),
             ),
@@ -312,7 +318,7 @@ class _MessageCardState extends State<MessageCard> {
               Navigator.pop(context);
               APIs.updateMessage(widget.message, updatedMsg);
             },
-            child: Text(
+            child: const Text(
               'Update',
               style: TextStyle(color: CupertinoColors.systemBlue, fontSize: 16),
             ),

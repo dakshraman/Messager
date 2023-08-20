@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -35,13 +37,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
           //app bar
-          appBar: AppBar(leading: IconButton(onPressed: (){
-            Navigator.pop(context);
-          },
-            icon: Icon(CupertinoIcons.back, size: 30,),
-          ),
-              title: const Text('Profile Screen',
-          )),
+          appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  CupertinoIcons.back,
+                  size: 30,
+                ),
+              ),
+              title: const Text(
+                'Profile Screen',
+              )),
 
           //floating button to log out
           floatingActionButton: Padding(
@@ -142,8 +150,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     // user email label
                     Text(widget.user.email,
-                        style: const TextStyle(
-                            color: Colors.blue, fontSize: 16)),
+                        style:
+                            const TextStyle(color: Colors.blue, fontSize: 16)),
 
                     // for adding some space
                     SizedBox(height: mq.height * .05),
@@ -197,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           });
                         }
                       },
-                      child: Text('Update'),
+                      child: const Text('Update'),
                     )
                   ],
                 ),
@@ -269,7 +277,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: const Image(
                 height: 50,
                 width: 50,
-                image: AssetImage('images/camera.png',),
+                image: AssetImage(
+                  'images/camera.png',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
