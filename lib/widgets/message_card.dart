@@ -154,7 +154,7 @@ class _MessageCardState extends State<MessageCard> {
                       imageUrl: widget.message.msg,
                       placeholder: (context, url) => const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                        child: CupertinoActivityIndicator(radius: 2),
                       ),
                       errorWidget: (context, url, error) =>
                           const Icon(CupertinoIcons.photo_fill_on_rectangle_fill, size: 70),
@@ -167,186 +167,159 @@ class _MessageCardState extends State<MessageCard> {
   }
 
   // bottom sheet for modifying message details
-  void _showBottomSheet(bool isMe) {
-    showModalBottomSheet(
+    void _showBottomSheet(bool isMe) {
+      showCupertinoModalPopup(
         context: context,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         builder: (_) {
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              //black divider
-              Container(
-                height: 4,
-                margin: EdgeInsets.symmetric(
-                    vertical: mq.height * .015, horizontal: mq.width * .4),
-                decoration: BoxDecoration(
-                    color: Colors.grey, borderRadius: BorderRadius.circular(8)),
-              ),
-
-              widget.message.type == Type.text
-                  ?
-                  //copy option
-                  _OptionItem(
-                      icon: const Icon(CupertinoIcons.square_fill_on_square_fill,
-                          color: Colors.blue, size: 26),
-                      name: 'Copy Text',
-                      onTap: () async {
-                        await Clipboard.setData(
-                                ClipboardData(text: widget.message.msg))
-                            .then((value) {
-                          //for hiding bottom sheet
-                          Navigator.pop(context);
-
-                          Dialogs.showSnackbar(context, 'Text Copied!');
-                        });
-                      })
-                  :
-                  //save option
-                  _OptionItem(
-                      icon: const Icon(CupertinoIcons.arrow_down_circle,
-                          color: Colors.blue, size: 26),
-                      name: 'Save Image',
-                      onTap: () async {
-                        try {
-                          log('Image Url: ${widget.message.msg}');
-                          await GallerySaver.saveImage(widget.message.msg,
-                                  albumName: 'We Chat')
-                              .then((success) {
-                            //for hiding bottom sheet
-                            Navigator.pop(context);
-                            if (success != null && success) {
-                              Dialogs.showSnackbar(
-                                  context, 'Image Successfully Saved!');
-                            }
-                          });
-                        } catch (e) {
-                          log('ErrorWhileSavingImg: $e');
-                        }
-                      }),
-
-              //separator or divider
-              if (isMe)
-                Divider(
-                  color: Colors.black54,
-                  endIndent: mq.width * .04,
-                  indent: mq.width * .04,
+          return CupertinoActionSheet(
+            actions: [
+              if (widget.message.type == Type.text)
+                CupertinoActionSheetAction(
+                  onPressed: () async {
+                    await Clipboard.setData(
+                      ClipboardData(text: widget.message.msg),
+                    );
+                    Navigator.pop(context);
+                    Dialogs.showSnackbar(context, 'Text Copied!');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CupertinoIcons.square_fill_on_square_fill,
+                        color: Colors.blue,
+                        size: 26,
+                      ),
+                      SizedBox(width: 8),
+                      Text('Copy Text'),
+                    ],
+                  ),
                 ),
-
-              //edit option
-              if (widget.message.type == Type.text && isMe)
-                _OptionItem(
-                    icon: const Icon(CupertinoIcons.pencil, color: Colors.blue, size: 26),
-                    name: 'Edit Message',
-                    onTap: () {
-                      //for hiding bottom sheet
+              if (widget.message.type != Type.text)
+                CupertinoActionSheetAction(
+                  onPressed: () async {
+                    try {
+                      log('Image Url: ${widget.message.msg}');
+                      bool? success = await GallerySaver.saveImage(
+                        widget.message.msg,
+                        albumName: 'We Chat',
+                      );
                       Navigator.pop(context);
-
-                      _showMessageUpdateDialog();
-                    }),
-
-              //delete option
+                      if (success != null && success) {
+                        Dialogs.showSnackbar(context, 'Image Successfully Saved!');
+                      } else {
+                        Dialogs.showSnackbar(context, 'Image Save Failed!');
+                      }
+                    } catch (e) {
+                      log('ErrorWhileSavingImg: $e');
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CupertinoIcons.arrow_down_circle,
+                        color: Colors.blue,
+                        size: 26,
+                      ),
+                      SizedBox(width: 8),
+                      Text('Save Image'),
+                    ],
+                  ),
+                ),
               if (isMe)
-                _OptionItem(
-                    icon: const Icon(CupertinoIcons.delete,
-                        color: Colors.red, size: 26),
-                    name: 'Delete Message',
-                    onTap: () async {
-                      await APIs.deleteMessage(widget.message).then((value) {
-                        //for hiding bottom sheet
-                        Navigator.pop(context);
-                      });
-                    }),
-
-              //separator or divider
-              Divider(
-                color: Colors.black54,
-                endIndent: mq.width * .04,
-                indent: mq.width * .04,
-              ),
-
-              //sent time
-              _OptionItem(
-                  icon: const Icon(CupertinoIcons.eye_fill, color: Colors.blue),
-                  name:
-                      'Sent At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.sent)}',
-                  onTap: () {}),
-
-              //read time
-              _OptionItem(
-                  icon: const Icon(CupertinoIcons.eye_fill, color: Colors.green),
-                  name: widget.message.read.isEmpty
-                      ? 'Read At: Not seen yet'
-                      : 'Read At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.read)}',
-                  onTap: () {}),
+                CupertinoActionSheetAction(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _showMessageUpdateDialog();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CupertinoIcons.pencil,
+                        color: Colors.blue,
+                        size: 26,
+                      ),
+                      SizedBox(width: 8),
+                      Text('Edit Message'),
+                    ],
+                  ),
+                ),
+              if (isMe)
+                CupertinoActionSheetAction(
+                  onPressed: () async {
+                    await APIs.deleteMessage(widget.message);
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CupertinoIcons.delete,
+                        color: Colors.red,
+                        size: 26,
+                      ),
+                      SizedBox(width: 8),
+                      Text('Delete Message'),
+                    ],
+                  ),
+                ),
             ],
+            cancelButton: CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
           );
-        });
-  }
+        },
+      );
+    }
 
   //dialog for updating message content
   void _showMessageUpdateDialog() {
     String updatedMsg = widget.message.msg;
 
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              contentPadding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 20, bottom: 10),
-
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-
-              //title
-              title: const Row(
-                children: [
-                  Icon(
-                    CupertinoIcons.chat_bubble_text_fill,
-                    color: Colors.blue,
-                    size: 28,
-                  ),
-                  Text(' Update Message')
-                ],
+    showCupertinoDialog(
+      context: context,
+      builder: (_) => CupertinoAlertDialog(
+        content: Column(
+          children: [
+            CupertinoTextField(
+              controller: TextEditingController(text: updatedMsg),
+              maxLines: null,
+              onChanged: (value) => updatedMsg = value,
+              decoration: BoxDecoration(
+                border: Border.all(color: CupertinoColors.systemGrey),
+                borderRadius: BorderRadius.circular(15),
               ),
-
-              //content
-              content: TextFormField(
-                initialValue: updatedMsg,
-                maxLines: null,
-                onChanged: (value) => updatedMsg = value,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15))),
-              ),
-
-              //actions
-              actions: [
-                //cancel button
-                MaterialButton(
-                    onPressed: () {
-                      //hide alert dialog
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(color: Colors.blue, fontSize: 16),
-                    )),
-
-                //update button
-                MaterialButton(
-                    onPressed: () {
-                      //hide alert dialog
-                      Navigator.pop(context);
-                      APIs.updateMessage(widget.message, updatedMsg);
-                    },
-                    child: const Text(
-                      'Update',
-                      style: TextStyle(color: Colors.blue, fontSize: 16),
-                    ))
-              ],
-            ));
+            ),
+          ],
+        ),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: CupertinoColors.systemBlue, fontSize: 16),
+            ),
+          ),
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+              APIs.updateMessage(widget.message, updatedMsg);
+            },
+            child: Text(
+              'Update',
+              style: TextStyle(color: CupertinoColors.systemBlue, fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

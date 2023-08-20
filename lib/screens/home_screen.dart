@@ -126,11 +126,13 @@ class _HomeScreenState extends State<HomeScreen> {
           //floating button to add new user
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: FloatingActionButton(
-                onPressed: () {
-                  _addChatUserDialog();
-                },
-                child: const Icon(CupertinoIcons.person_add_solid)),
+            child: FloatingActionButton.extended(
+              label: const Text("Add User"),
+              onPressed: () {
+                _addChatUserDialog();
+              },
+              icon: Icon(CupertinoIcons.person_add_solid),
+            ),
           ),
 
           //body
