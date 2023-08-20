@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "937110070628",
+    "project_id": "messager-7a938",
+    "storage_bucket": "messager-7a938.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937110070628:android:828c7ea394ef57da43c671",
+        "android_client_info": {
+          "package_name": "com.mr_daksh.messager.messager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937110070628-9vkupqq3g42tnk589buo4vmaaikjk08f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChrDZ1S3plu2QyJzlLEqWTKsq_UNXlKBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937110070628-1ub16sn49lu6snfjrhf7vm0ve9bnd99v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
