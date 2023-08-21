@@ -1,7 +1,7 @@
 # Messager - A Flutter Chatting Application
 
 <p align="center">
-  <img src="images/icon.png" alt="Messager Logo" width="200" height="200">
+  <img src="images/icon.png" alt="Messager Logo" width="100" height="100">
 </p>
 
 Messager is a sleek and intuitive Flutter application that allows users to chat seamlessly with their friends and loved ones. Inspired by the iOS design principles and powered by the Cupertino package, Messager provides a familiar and elegant user experience.
@@ -26,8 +26,8 @@ Messager is a sleek and intuitive Flutter application that allows users to chat 
 ## Screenshots
 
 <p align="center">
-  <img src="images/screenshot_1.png" alt="Screenshot 1" width="250">
-  <img src="images/screenshot_2.png" alt="Screenshot 2" width="250">
+  <img src="images/Screenshot_1.png" alt="Screenshot 1" width="250">
+  <img src="images/Screenshot_2.png" alt="Screenshot 2" width="250">
 </p>
 
 ## License
