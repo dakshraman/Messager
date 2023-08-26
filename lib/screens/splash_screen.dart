@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+
 import '../api/apis.dart';
 import 'auth/login_screen.dart';
 import 'home_screen.dart';
@@ -34,8 +35,8 @@ class _SplashScreenState extends State<SplashScreen>
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.white,
-          statusBarColor: Colors.white));
+          systemNavigationBarColor: Colors.transparent,
+          statusBarColor: Colors.transparent));
 
       if (APIs.auth.currentUser != null) {
         log('\nUser: ${APIs.auth.currentUser}');
