@@ -46,8 +46,6 @@ You can download the Messager app for your device:
       </div>
     </div>
   </div>
-a>
-
 
 
 For inquiries, contact [ramandaksh6161@gmail.com](mailto:ramandaksh6161@gmail.com).
