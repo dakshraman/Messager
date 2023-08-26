@@ -158,7 +158,7 @@ class _MessageCardState extends State<MessageCard> {
                       imageUrl: widget.message.msg,
                       placeholder: (context, url) => const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: CupertinoActivityIndicator(radius: 2),
+                        child: CupertinoActivityIndicator(radius: 20),
                       ),
                       errorWidget: (context, url, error) => const Icon(
                           CupertinoIcons.photo_fill_on_rectangle_fill,
