@@ -30,10 +30,24 @@ Messager is a sleek and intuitive Flutter application that allows users to chat 
   <img src="images/Screenshot_2.jpg" alt="Screenshot 2" width="250" height="500">
 </p>
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
+## Download
 
-**Note:** Messager is not affiliated with Apple Inc. and is developed solely for the purpose of showcasing Flutter's capabilities and providing a smooth iOS-like experience.
+You can download the Messager app for your device:
+
+<a href="https://github.com/dakshraman/Messager/releases/download/v1.0.0/Messager.apk" download>
+  <div style="display: inline-block; background-color: #1163ff; color: #fff; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center;">
+        <div style="margin-right: 5px;">Download</div>
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;">
+          <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</a>
+
+
 
 For inquiries, contact [ramandaksh6161@gmail.com](mailto:ramandaksh6161@gmail.com).
