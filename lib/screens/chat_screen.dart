@@ -157,7 +157,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon:
-                          const Icon(CupertinoIcons.back, color: Colors.black54)),
+                          const Icon(CupertinoIcons.back, color: Colors.blue)),
 
                   //user profile picture
                   ClipRRect(
@@ -208,20 +208,23 @@ class _ChatScreenState extends State<ChatScreen> {
                   )
                 ],
               );
-            }));
+            }
+          )
+    );
   }
 
   // bottom chat input field
   Widget _chatInput() {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: mq.height * .01, horizontal: mq.width * .025),
+          vertical: mq.height * .01, horizontal: mq.width * .025,
+      ),
       child: Row(
         children: [
           //input field & buttons
           Expanded(
             child: Card(
-              color: Colors.grey[100],
+              color: Colors.blueAccent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: Row(
@@ -233,10 +236,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         setState(() => _showEmoji = !_showEmoji);
                       },
                       icon: const Icon(Icons.emoji_emotions,
-                          color: Colors.blueAccent, size: 25)),
+                          color: Colors.white, size: 25)),
 
                   Expanded(
-                      child: CupertinoTextField(cursorColor: Colors.blue,
+                      child: CupertinoTextField(cursorColor: Colors.white,
                         placeholder: "Message",
                     controller: _textController,
                     keyboardType: TextInputType.multiline,
@@ -265,7 +268,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         }
                       },
                       icon: const Icon(CupertinoIcons.photo_fill_on_rectangle_fill,
-                          color: Colors.blueAccent, size: 26)),
+                          color: Colors.white, size: 26)),
 
                   //take image from camera button
                   IconButton(
@@ -285,7 +288,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         }
                       },
                       icon: const Icon(CupertinoIcons.camera_fill,
-                          color: Colors.blueAccent, size: 26)),
+                          color: Colors.white, size: 26)),
 
                   //adding some space
                   SizedBox(width: mq.width * .02),
@@ -314,7 +317,7 @@ class _ChatScreenState extends State<ChatScreen> {
             padding:
                 const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
             shape: const CircleBorder(),
-            color: Colors.deepPurple,
+            color: Colors.blueAccent,
             child: const Icon(Icons.send, color: Colors.white, size: 28),
           )
         ],
