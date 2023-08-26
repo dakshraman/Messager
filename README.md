@@ -26,8 +26,8 @@ Messager is a sleek and intuitive Flutter application that allows users to chat 
 ## Screenshots
 
 <p align="center">
-  <img src="images/Screenshot_1.png" alt="Screenshot 1" width="250">
-  <img src="images/Screenshot_2.png" alt="Screenshot 2" width="250">
+  <img src="images/Screenshot_1.png" alt="Screenshot 1" width="250" height="250">
+  <img src="images/Screenshot_2.png" alt="Screenshot 2" width="250" height="250">
 </p>
 
 ## License
