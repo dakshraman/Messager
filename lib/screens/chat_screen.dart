@@ -163,7 +163,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon:
-                          const Icon(CupertinoIcons.back, color: Colors.blue)),
+                          const Icon(CupertinoIcons.back, color: Colors.white)),
 
                   //user profile picture
                   ClipRRect(
@@ -222,7 +222,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: mq.height * .01,
-        horizontal: mq.width * .025,
+        horizontal: mq.width * .010,
       ),
       child: Row(
         children: [

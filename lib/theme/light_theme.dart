@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 const primaryColor = Colors.blueAccent;
 const backgroundColor = Colors.white;
 const secondaryColor = Color.fromARGB(255, 163, 207, 243);
-const lightGrey = Colors.grey;
+const lightGrey = Color.fromARGB(255, 167, 167, 167);
 const black = Colors.black;
 const white = Colors.white;
 
@@ -22,7 +22,8 @@ ThemeData lightTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     titleMedium: TextStyle(
-      color: black,
+      color: white,
+      fontWeight: FontWeight.bold,
     ),
     titleSmall: TextStyle(
       color: lightGrey,

@@ -1,4 +1,5 @@
 import 'package:Messager/main.dart';
+import 'package:Messager/theme/light_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: primaryColor,
       margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -91,8 +93,8 @@ class _ChatUserCardState extends State<ChatUserCard> {
                             context: context,
                             time: _message!.sent,
                           ),
-                          style: TextStyle(
-                            color: Colors.black54,
+                          style: const TextStyle(
+                            color: white,
                           ),
                         ),
             );
