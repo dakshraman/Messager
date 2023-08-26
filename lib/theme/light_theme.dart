@@ -1,21 +1,37 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+// Define custom colors if needed
+const primaryColor = Colors.blueAccent;
+const backgroundColor = Colors.white;
+const secondaryColor = Color.fromARGB(255, 163, 207, 243);
+const lightGrey = Colors.grey;
+const black = Colors.black;
+const white = Colors.white;
 
 ThemeData lightTheme = ThemeData(
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      centerTitle: true,
-      iconTheme: IconThemeData(color: Colors.blue),
-      titleTextStyle: TextStyle(
-          color: Colors.black, fontWeight: FontWeight.normal, fontSize: 19),
-      backgroundColor: Colors.white,
+  appBarTheme: const AppBarTheme(
+    elevation: 0,
+    centerTitle: true,
+    iconTheme: IconThemeData(color: backgroundColor),
+    titleTextStyle: TextStyle(
+      color: backgroundColor,
+      fontWeight: FontWeight.bold,
+      fontSize: 20,
     ),
-    textTheme: const TextTheme(),
-    brightness: Brightness.light,
-    colorScheme: ColorScheme.light(
-      background: Colors.white,
-      primary: Colors.grey[200]!,
-      secondary: Colors.blueAccent,
-    ));
+    backgroundColor: primaryColor,
+  ),
+  textTheme: const TextTheme(
+    titleMedium: TextStyle(
+      color: black,
+    ),
+    titleSmall: TextStyle(
+      color: lightGrey,
+    ),
+  ),
+  brightness: Brightness.light,
+  colorScheme: const ColorScheme.light(
+    background: backgroundColor,
+    primary: lightGrey,
+    secondary: secondaryColor,
+  ),
+);

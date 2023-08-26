@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -5,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../api/apis.dart';
@@ -37,6 +40,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    });
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: SafeArea(
@@ -208,16 +214,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   )
                 ],
               );
-            }
-          )
-    );
+            }));
   }
 
   // bottom chat input field
   Widget _chatInput() {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: mq.height * .01, horizontal: mq.width * .025,
+        vertical: mq.height * .01,
+        horizontal: mq.width * .025,
       ),
       child: Row(
         children: [
@@ -239,16 +244,16 @@ class _ChatScreenState extends State<ChatScreen> {
                           color: Colors.white, size: 25)),
 
                   Expanded(
-                      child: CupertinoTextField(cursorColor: Colors.white,
-                        placeholder: "Message",
-                    controller: _textController,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    onTap: () {
-                      if (_showEmoji) setState(() => _showEmoji = !_showEmoji);
-                      }
-                    )
-                  ),
+                      child: CupertinoTextField(
+                          cursorColor: Colors.white,
+                          placeholder: "Message",
+                          controller: _textController,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          onTap: () {
+                            if (_showEmoji)
+                              setState(() => _showEmoji = !_showEmoji);
+                          })),
 
                   //pick image from gallery button
                   IconButton(
@@ -267,8 +272,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           setState(() => _isUploading = false);
                         }
                       },
-                      icon: const Icon(CupertinoIcons.photo_fill_on_rectangle_fill,
-                          color: Colors.white, size: 26)),
+                      icon: const Icon(
+                          CupertinoIcons.photo_fill_on_rectangle_fill,
+                          color: Colors.white,
+                          size: 26)),
 
                   //take image from camera button
                   IconButton(

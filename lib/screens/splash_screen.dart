@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:Messager/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -35,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen>
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.transparent,
-          statusBarColor: Colors.transparent));
+          systemNavigationBarColor: primaryColor,
+          statusBarColor: primaryColor));
 
       if (APIs.auth.currentUser != null) {
         log('\nUser: ${APIs.auth.currentUser}');
@@ -77,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
       });
     });
 
-    Timer(const Duration(seconds: 4), () {
+    Timer(const Duration(seconds: 3), () {
       setState(() {
         Navigator.pushReplacement(context, PageTransition(const LoginScreen()));
       });
@@ -98,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
     double _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: primaryColor,
       body: Stack(
         children: [
           Column(
@@ -209,11 +210,6 @@ class SlideAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Go Back"),
-        centerTitle: true,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
       body: AnimationLimiter(
         child: ListView.builder(
           padding: EdgeInsets.all(_w / 30),

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:Messager/theme/light_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         child: Scaffold(
-          backgroundColor: Colors.blue[100],
+          backgroundColor: secondaryColor,
           //app bar
           appBar: AppBar(
             leading: const Icon(Icons.arrow_back_ios_new_outlined),
@@ -138,6 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: FloatingActionButton.extended(
+              backgroundColor: primaryColor,
+              foregroundColor: backgroundColor,
               label: const Text("Add User"),
               onPressed: () {
                 _addChatUserDialog();
@@ -159,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Center(
                       child: CupertinoActivityIndicator(
                     radius: 25,
-                    color: Colors.blue,
+                    color: primaryColor,
                   ));
 
                 //if some or all data is loaded then show it
@@ -190,10 +193,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (_list.isNotEmpty) {
                             return LiquidPullToRefresh(
                               onRefresh: _handleRefresh,
-                              color: Colors.blue,
+                              color: primaryColor,
+                              backgroundColor: backgroundColor,
                               height: 100,
                               animSpeedFactor: 10,
                               showChildOpacityTransition: false,
+                              springAnimationDurationInMilliseconds: 300,
                               child: ListView.builder(
                                   itemCount: _isSearching
                                       ? _searchList.length
@@ -238,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               CupertinoIcons.person_add_solid,
-              color: Colors.blue,
+              color: primaryColor,
               size: 28,
             ),
             Text('  Add User')
@@ -256,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
             placeholder: 'Email Id',
             prefix: const Padding(
               padding: EdgeInsets.only(left: 5),
-              child: Icon(CupertinoIcons.mail_solid, color: Colors.blue),
+              child: Icon(CupertinoIcons.mail_solid, color: primaryColor),
             ),
           ),
         ),
@@ -266,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Hide alert dialog
               Navigator.pop(context);
             },
-            child: const Text('Cancel', style: TextStyle(color: Colors.blue)),
+            child: const Text('Cancel', style: TextStyle(color: primaryColor)),
           ),
           CupertinoDialogAction(
             onPressed: () async {
@@ -280,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               }
             },
-            child: const Text('Add', style: TextStyle(color: Colors.blue)),
+            child: const Text('Add', style: TextStyle(color: primaryColor)),
           ),
         ],
       ),

@@ -1,3 +1,6 @@
 {
-    "editor.fontFamily": "Arial"
+    "editor.fontFamily": "Arial",
+    "cSpell.words": [
+        "Messager"
+    ]
 }

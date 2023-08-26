@@ -1,12 +1,14 @@
 import 'dart:developer';
 
+import 'package:Messager/screens/splash_screen.dart';
+import 'package:Messager/theme/dark_theme.dart';
+import 'package:Messager/theme/light_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_notification_channel/flutter_notification_channel.dart';
 import 'package:flutter_notification_channel/notification_importance.dart';
-import 'package:Messager/screens/splash_screen.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 //global object for accessing device screen size
@@ -16,7 +18,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   //enter full-screen
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   //for setting orientation to portrait only
   SystemChrome.setPreferredOrientations(
@@ -35,15 +37,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Messager',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          elevation: 1,
-          iconTheme: IconThemeData(color: Colors.blue),
-          titleTextStyle: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.normal, fontSize: 19),
-          backgroundColor: Colors.white,
-        )),
+        theme: lightTheme,
+        darkTheme: darkTheme,
         home: const SplashScreen());
   }
 }
