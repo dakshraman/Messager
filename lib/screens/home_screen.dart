@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../api/apis.dart';
 import '../helper/dialogs.dart';
@@ -27,6 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<ChatUser> _searchList = [];
   // for storing search status
   bool _isSearching = false;
+
+  Future<void> _handleRefresh() async {
+    return await Future.delayed(const Duration(seconds: 2));
+  }
 
   @override
   void initState() {
@@ -183,19 +188,27 @@ class _HomeScreenState extends State<HomeScreen> {
                               [];
 
                           if (_list.isNotEmpty) {
-                            return ListView.builder(
-                                itemCount: _isSearching
-                                    ? _searchList.length
-                                    : _list.length,
-                                padding: EdgeInsets.only(top: mq.height * .01),
-                                physics: const BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics()),
-                                itemBuilder: (context, index) {
-                                  return ChatUserCard(
-                                      user: _isSearching
-                                          ? _searchList[index]
-                                          : _list[index]);
-                                });
+                            return LiquidPullToRefresh(
+                              onRefresh: _handleRefresh,
+                              color: Colors.blue,
+                              height: 100,
+                              animSpeedFactor: 10,
+                              showChildOpacityTransition: false,
+                              child: ListView.builder(
+                                  itemCount: _isSearching
+                                      ? _searchList.length
+                                      : _list.length,
+                                  padding:
+                                      EdgeInsets.only(top: mq.height * .01),
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  itemBuilder: (context, index) {
+                                    return ChatUserCard(
+                                        user: _isSearching
+                                            ? _searchList[index]
+                                            : _list[index]);
+                                  }),
+                            );
                           } else {
                             return const Center(
                               child: Text('No Connections Found!',
