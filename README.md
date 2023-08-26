@@ -46,7 +46,7 @@ You can download the Messager app for your device:
       </div>
     </div>
   </div>
-</a>
+a>
 
 
 
