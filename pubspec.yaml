@@ -54,6 +54,7 @@ dependencies:
   flutter_notification_channel: ^2.0.0
   gallery_saver: ^2.3.2
   liquid_pull_to_refresh: ^3.0.1
+  curved_navigation_bar: ^1.0.3
 
 # flutter_launcher_icons:
 #   android: "ic_launcher"

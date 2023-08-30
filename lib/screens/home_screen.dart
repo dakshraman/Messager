@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:Messager/theme/light_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,16 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         child: Scaffold(
-          backgroundColor: secondaryColor,
           //app bar
           appBar: AppBar(
             leading: const Icon(Icons.arrow_back_ios_new_outlined),
             title: _isSearching
-                ? TextField(
-                    decoration: const InputDecoration(
-                        border: InputBorder.none, hintText: 'Search...'),
+                ? CupertinoTextField.borderless(
+                    placeholder: "Search..",
+                    // decoration: const InputDecoration(
+                    //     border: InputBorder.none, hintText: 'Search...'),
                     autofocus: true,
-                    style: const TextStyle(fontSize: 17, letterSpacing: 0.5),
+                    style: Theme.of(context).textTheme.titleMedium,
                     //when search text changes then updated search list
                     onChanged: (val) {
                       //search logic
@@ -134,20 +133,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   ))
             ],
           ),
+          // ignore: sized_box_for_whitespace
+          bottomNavigationBar: Container(
+              color: Theme.of(context).colorScheme.primary,
+              height: 70,
+              child: ElevatedButton(
+                onPressed: () {
+                  _addChatUserDialog();
+                },
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(CupertinoIcons.person_add_solid, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text(
+                      "Add User",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              )),
 
           //floating button to add new user
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: FloatingActionButton.extended(
-              backgroundColor: primaryColor,
-              foregroundColor: backgroundColor,
-              label: const Text("Add User"),
-              onPressed: () {
-                _addChatUserDialog();
-              },
-              icon: const Icon(CupertinoIcons.person_add_solid),
-            ),
-          ),
+          // floatingActionButton: Padding(
+          //   padding: const EdgeInsets.only(bottom: 10),
+          //   child: FloatingActionButton.extended(
+          //     label: const Text("Add User"),
+          //     onPressed: () {
+          //       _addChatUserDialog();
+          //     },
+          //     icon: const Icon(CupertinoIcons.person_add_solid),
+          //   ),
+          // ),
 
           //body
           body: StreamBuilder(
@@ -162,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const Center(
                       child: CupertinoActivityIndicator(
                     radius: 25,
-                    color: primaryColor,
+                    color: Colors.grey,
                   ));
 
                 //if some or all data is loaded then show it
@@ -193,8 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (_list.isNotEmpty) {
                             return LiquidPullToRefresh(
                               onRefresh: _handleRefresh,
-                              color: primaryColor,
-                              backgroundColor: backgroundColor,
+                              color: Theme.of(context).colorScheme.primary,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.tertiary,
                               height: 100,
                               animSpeedFactor: 10,
                               showChildOpacityTransition: false,
@@ -243,7 +261,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               CupertinoIcons.person_add_solid,
-              color: primaryColor,
               size: 28,
             ),
             Text('  Add User')
@@ -261,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
             placeholder: 'Email Id',
             prefix: const Padding(
               padding: EdgeInsets.only(left: 5),
-              child: Icon(CupertinoIcons.mail_solid, color: primaryColor),
+              child: Icon(CupertinoIcons.mail_solid),
             ),
           ),
         ),
@@ -271,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Hide alert dialog
               Navigator.pop(context);
             },
-            child: const Text('Cancel', style: TextStyle(color: primaryColor)),
+            child: const Text('Cancel', style: TextStyle(color: Colors.red)),
           ),
           CupertinoDialogAction(
             onPressed: () async {
@@ -285,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               }
             },
-            child: const Text('Add', style: TextStyle(color: primaryColor)),
+            child: const Text('Add'),
           ),
         ],
       ),

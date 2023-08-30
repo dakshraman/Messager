@@ -337,6 +337,28 @@ class APIs {
     }
   }
 
+  static Future<void> deleteChatsForUser(ChatUser user) async {
+    final conversationId = getConversationID(user.id);
+
+    // Delete all messages in the conversation
+    await firestore
+        .collection('chats/$conversationId/messages')
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        final message = Message.fromJson(doc.data() as Map<String, dynamic>);
+        if (message.type == Type.image) {
+          // Delete image from storage
+          storage.refFromURL(message.msg).delete();
+        }
+        doc.reference.delete();
+      }
+    });
+
+    // Delete the conversation itself
+    await firestore.collection('chats').doc(conversationId).delete();
+  }
+
   //update message
   static Future<void> updateMessage(Message message, String updatedMsg) async {
     await firestore

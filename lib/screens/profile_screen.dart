@@ -36,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       // for hiding keyboard
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
           //app bar
           appBar: AppBar(
               leading: IconButton(
@@ -53,8 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           //floating button to log out
           floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 20, right: 25),
             child: FloatingActionButton.extended(
+                elevation: 2,
                 backgroundColor: Colors.redAccent,
                 onPressed: () async {
                   //for showing progress dialog
@@ -81,133 +83,183 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     });
                   });
                 },
-                icon: const Icon(CupertinoIcons.square_arrow_left),
-                label: const Text('Logout')),
+                icon: Icon(
+                  CupertinoIcons.square_arrow_left,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                label: Text(
+                  'Logout',
+                  style: Theme.of(context).textTheme.titleMedium,
+                )),
           ),
 
           //body
-          body: Form(
-            key: _formKey,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: mq.width * .05),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // for adding some space
-                    SizedBox(width: mq.width, height: mq.height * .03),
-
-                    //user profile picture
-                    Stack(
+          body: Container(
+            color: Theme.of(context)
+                .colorScheme
+                .background, //Theme.of(context).colorScheme.primary,
+            padding:
+                const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+            child: Form(
+              key: _formKey,
+              child: Card(
+                elevation: 5,
+                color: Theme.of(context).colorScheme.primary,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: mq.width * .05, vertical: mq.height * .13),
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: [
-                        //profile picture
-                        _image != null
-                            ?
+                        //user profile picture
+                        Stack(
+                          children: [
+                            //profile picture
+                            _image != null
+                                ?
 
-                            //local image
-                            ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(mq.height * .1),
-                                child: Image.file(File(_image!),
-                                    width: mq.height * .2,
-                                    height: mq.height * .2,
-                                    fit: BoxFit.cover))
-                            :
+                                //local image
+                                ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.circular(mq.height * .1),
+                                    child: Image.file(File(_image!),
+                                        width: mq.height * .2,
+                                        height: mq.height * .2,
+                                        fit: BoxFit.cover))
+                                :
 
-                            //image from server
-                            ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(mq.height * .1),
-                                child: CachedNetworkImage(
-                                  width: mq.height * .2,
-                                  height: mq.height * .2,
-                                  fit: BoxFit.cover,
-                                  imageUrl: widget.user.image,
-                                  errorWidget: (context, url, error) =>
-                                      const CircleAvatar(
-                                          child: Icon(CupertinoIcons.person)),
-                                ),
+                                //image from server
+                                Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(mq.height * .2),
+                                      border: Border.all(
+                                        color: Colors
+                                            .white, // Choose your desired border color
+                                        width:
+                                            5.0, // Choose your desired border width
+                                      ),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.circular(mq.height * .1),
+                                      child: CachedNetworkImage(
+                                        width: mq.height * .2,
+                                        height: mq.height * .2,
+                                        fit: BoxFit.cover,
+                                        imageUrl: widget.user.image,
+                                        errorWidget: (context, url, error) =>
+                                            const CircleAvatar(
+                                                child: Icon(
+                                                    CupertinoIcons.person)),
+                                      ),
+                                    ),
+                                  ),
+
+                            //edit image button
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: MaterialButton(
+                                elevation: 1,
+                                onPressed: () {
+                                  _showBottomSheet();
+                                },
+                                shape: const CircleBorder(),
+                                color: Colors.white,
+                                child:
+                                    const Icon(Icons.edit, color: Colors.blue),
                               ),
+                            )
+                          ],
+                        ),
 
-                        //edit image button
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: MaterialButton(
-                            elevation: 1,
-                            onPressed: () {
-                              _showBottomSheet();
-                            },
-                            shape: const CircleBorder(),
-                            color: Colors.white,
-                            child: const Icon(Icons.edit, color: Colors.blue),
+                        // for adding some space
+                        SizedBox(height: mq.height * .03),
+
+                        // user email label
+                        Text(widget.user.email,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 20)),
+
+                        // for adding some space
+                        SizedBox(height: mq.height * .05),
+
+                        // name input field
+                        TextFormField(
+                          initialValue: widget.user.name,
+                          onSaved: (val) => APIs.me.name = val ?? '',
+                          validator: (val) => val != null && val.isNotEmpty
+                              ? null
+                              : 'Required Field',
+                          decoration: InputDecoration(
+                              fillColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              prefixIcon:
+                                  const Icon(Icons.person, color: Colors.blue),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              hintText: 'Your Name',
+                              label: const Text(
+                                'Name',
+                                style: TextStyle(fontSize: 25),
+                              )),
+                        ),
+
+                        // for adding some space
+                        SizedBox(height: mq.height * .02),
+
+                        // about input field
+                        TextFormField(
+                          initialValue: widget.user.about,
+                          onSaved: (val) => APIs.me.about = val ?? '',
+                          validator: (val) => val != null && val.isNotEmpty
+                              ? null
+                              : 'Required Field',
+                          decoration: InputDecoration(
+                              fillColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              prefixIcon: const Icon(
+                                  CupertinoIcons.at_circle_fill,
+                                  color: Colors.blue),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              hintText: 'eg. Feeling Happy',
+                              label: const Text(
+                                'About',
+                                style: TextStyle(fontSize: 25),
+                              )),
+                        ),
+
+                        // for adding some space
+                        SizedBox(height: mq.height * .05),
+
+                        // update profile button
+                        FloatingActionButton.extended(
+                          backgroundColor: Colors.white,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              APIs.updateUserInfo().then((value) {
+                                Dialogs.showSnackbar(
+                                    context, 'Profile Updated Successfully!');
+                              });
+                            }
+                          },
+                          label: Text(
+                            'UPDATE',
+                            selectionColor:
+                                Theme.of(context).colorScheme.tertiary,
+                            style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
+                          icon: const Icon(CupertinoIcons.pencil_circle_fill),
                         )
                       ],
                     ),
-
-                    // for adding some space
-                    SizedBox(height: mq.height * .03),
-
-                    // user email label
-                    Text(widget.user.email,
-                        style:
-                            const TextStyle(color: Colors.blue, fontSize: 16)),
-
-                    // for adding some space
-                    SizedBox(height: mq.height * .05),
-
-                    // name input field
-                    TextFormField(
-                      initialValue: widget.user.name,
-                      onSaved: (val) => APIs.me.name = val ?? '',
-                      validator: (val) => val != null && val.isNotEmpty
-                          ? null
-                          : 'Required Field',
-                      decoration: InputDecoration(
-                          prefixIcon:
-                              const Icon(Icons.person, color: Colors.blue),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          hintText: 'eg. Happy Singh',
-                          label: const Text('Name')),
-                    ),
-
-                    // for adding some space
-                    SizedBox(height: mq.height * .02),
-
-                    // about input field
-                    TextFormField(
-                      initialValue: widget.user.about,
-                      onSaved: (val) => APIs.me.about = val ?? '',
-                      validator: (val) => val != null && val.isNotEmpty
-                          ? null
-                          : 'Required Field',
-                      decoration: InputDecoration(
-                          prefixIcon: const Icon(CupertinoIcons.at_circle_fill,
-                              color: Colors.blue),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          hintText: 'eg. Feeling Happy',
-                          label: const Text('About')),
-                    ),
-
-                    // for adding some space
-                    SizedBox(height: mq.height * .05),
-
-                    // update profile button
-                    CupertinoButton.filled(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          APIs.updateUserInfo().then((value) {
-                            Dialogs.showSnackbar(
-                                context, 'Profile Updated Successfully!');
-                          });
-                        }
-                      },
-                      child: const Text('Update'),
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),

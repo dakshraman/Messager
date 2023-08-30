@@ -3,7 +3,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:Messager/theme/light_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -109,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text(
                   "Welcome",
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.grey,
                     fontWeight: FontWeight.w900,
                     fontSize: 40,
                   ),
@@ -122,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                         child: Divider(
                           thickness: 5,
-                          color: Colors.black,
+                          color: Colors.grey,
                         ),
                       ),
                       Padding(
@@ -131,14 +130,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           "continue with",
                           style: TextStyle(
                               fontSize: 15,
-                              color: Colors.black,
+                              color: Colors.grey,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       Expanded(
                         child: Divider(
                           thickness: 5,
-                          color: Colors.black,
+                          color: Colors.grey,
                         ),
                       ),
                     ],
@@ -209,7 +208,7 @@ class background extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: CircularParticle(
         width: w,
         height: h,

@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:Messager/main.dart';
-import 'package:Messager/theme/light_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../api/apis.dart';
@@ -25,11 +27,13 @@ class _ChatUserCardState extends State<ChatUserCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: primaryColor,
-      margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      margin: EdgeInsets.symmetric(horizontal: mq.width * .01, vertical: 2),
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
+        onLongPress: () {
+          _showDeleteUserModal(context, widget.user);
+        },
         onTap: () {
           Navigator.push(
             context,
@@ -93,9 +97,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                             context: context,
                             time: _message!.sent,
                           ),
-                          style: const TextStyle(
-                            color: white,
-                          ),
+                          style: const TextStyle(),
                         ),
             );
           },
@@ -103,4 +105,59 @@ class _ChatUserCardState extends State<ChatUserCard> {
       ),
     );
   }
+}
+
+void _showDeleteUserModal(BuildContext context, ChatUser user) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (BuildContext context) {
+      return Stack(
+        children: [
+          BackdropFilter(
+            filter: ImageFilter.blur(
+                sigmaX: 10, sigmaY: 10), // Adjust the blur intensity
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              color: Colors.black.withOpacity(0.5), // Adjust the opacity
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: CupertinoPopupSurface(
+              child: Column(
+                children: [
+                  CupertinoActionSheet(
+                    title: const Text('Delete Chat'),
+                    actions: [
+                      CupertinoActionSheetAction(
+                        onPressed: () {
+                          // Close the modal
+                          Navigator.pop(context);
+                          // Perform the delete logic for yourself
+                          APIs.deleteChatsForUser(
+                              user); // Pass the ChatUser argument here
+                        },
+                        child: const Text(
+                          'Delete Chats',
+                          style: TextStyle(color: Colors.redAccent),
+                        ),
+                      ),
+                    ],
+                    cancelButton: CupertinoActionSheetAction(
+                      isDefaultAction: true,
+                      onPressed: () {
+                        // Close the modal
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }

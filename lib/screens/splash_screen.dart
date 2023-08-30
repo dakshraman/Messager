@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:Messager/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -36,8 +35,9 @@ class _SplashScreenState extends State<SplashScreen>
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          systemNavigationBarColor: primaryColor,
-          statusBarColor: primaryColor));
+        systemNavigationBarColor: Colors.transparent,
+        statusBarColor: Colors.transparent,
+      ));
 
       if (APIs.auth.currentUser != null) {
         log('\nUser: ${APIs.auth.currentUser}');
@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
     double _height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Stack(
         children: [
           Column(

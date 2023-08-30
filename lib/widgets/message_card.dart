@@ -112,7 +112,7 @@ class _MessageCardState extends State<MessageCard> {
 
             //double tick blue icon for message read
             if (widget.message.read.isNotEmpty)
-              const Icon(CupertinoIcons.checkmark_seal,
+              const Icon(CupertinoIcons.checkmark_seal_fill,
                   color: Colors.blue, size: 20),
 
             //for adding some space
