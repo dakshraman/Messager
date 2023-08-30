@@ -56,8 +56,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                 SizedBox(height: mq.height * .03),
                 Text(
                   widget.user.email,
-                  style:
-                      const TextStyle(color: Colors.blueAccent, fontSize: 16),
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 SizedBox(height: mq.height * .02),
                 Row(
