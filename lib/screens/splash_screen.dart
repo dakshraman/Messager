@@ -77,12 +77,6 @@ class _SplashScreenState extends State<SplashScreen>
         _containerOpacity = 1;
       });
     });
-
-    Timer(const Duration(seconds: 3), () {
-      setState(() {
-        Navigator.pushReplacement(context, PageTransition(const LoginScreen()));
-      });
-    });
   }
 
   @override
@@ -97,7 +91,6 @@ class _SplashScreenState extends State<SplashScreen>
     // mq = MediaQuery.of(context).size;
     double _width = MediaQuery.of(context).size.width;
     double _height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Stack(

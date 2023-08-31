@@ -34,25 +34,27 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // handles google login button click
-  _handleGoogleBtnClick() {
-    //for showing progress bar
+  void _handleGoogleBtnClick() {
     Dialogs.showProgressBar(context);
 
-    _signInWithGoogle().then((user) async {
-      //for hiding progress bar
+    _signInWithGoogle().then((userCredential) async {
       Navigator.pop(context);
 
-      if (user != null) {
-        log('\nUser: ${user.user}');
-        log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
+      if (userCredential != null) {
+        log('\nUser: ${userCredential.user}');
+        log('\nUserAdditionalInfo: ${userCredential.additionalUserInfo}');
 
-        if ((await APIs.userExists())) {
+        if (await APIs.userExists()) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            context,
+            MaterialPageRoute(builder: (_) => const HomeScreen()),
+          );
         } else {
           await APIs.createUser().then((value) {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+              context,
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
+            );
           });
         }
       }
@@ -77,8 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Once signed in, return the UserCredential
       return await APIs.auth.signInWithCredential(credential);
-    } catch (e) {
-      log('\n_signInWithGoogle: $e');
+    } catch (error) {
+      log('\n_signInWithGoogle: $error');
       Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
       return null;
     }

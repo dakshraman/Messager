@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:Messager/screens/splash_screen.dart';
 import 'package:Messager/theme/dark_theme.dart';
 import 'package:Messager/theme/light_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,6 @@ void main() {
 
   //enter full-screen
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
   //for setting orientation to portrait only
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
@@ -52,4 +52,5 @@ _initializeFirebase() async {
       importance: NotificationImportance.IMPORTANCE_HIGH,
       name: 'Chats');
   log('\nNotification Channel Result: $result');
+  FirebaseAuth.instance.setPersistence(Persistence.SESSION);
 }
