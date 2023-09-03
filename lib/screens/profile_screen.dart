@@ -52,54 +52,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 'Profile Screen',
               )),
 
-          //floating button to log out
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 20, right: 25),
-            child: FloatingActionButton.extended(
-                elevation: 2,
-                backgroundColor: Colors.redAccent,
-                onPressed: () async {
-                  //for showing progress dialog
-                  Dialogs.showProgressBar(context);
-
-                  await APIs.updateActiveStatus(false);
-
-                  //sign out from app
-                  await APIs.auth.signOut().then((value) async {
-                    await GoogleSignIn().signOut().then((value) {
-                      //for hiding progress dialog
-                      Navigator.pop(context);
-
-                      //for moving to home screen
-                      Navigator.pop(context);
-
-                      APIs.auth = FirebaseAuth.instance;
-
-                      //replacing home screen with login screen
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const LoginScreen()));
-                    });
-                  });
-                },
-                icon: Icon(
-                  CupertinoIcons.square_arrow_left,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                label: Text(
-                  'Logout',
-                  style: Theme.of(context).textTheme.titleMedium,
-                )),
-          ),
-
           //body
           body: Container(
             color: Theme.of(context)
                 .colorScheme
                 .background, //Theme.of(context).colorScheme.primary,
             padding:
-                const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
+                const EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
             child: Form(
               key: _formKey,
               child: Card(
@@ -107,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: Theme.of(context).colorScheme.primary,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: mq.width * .05, vertical: mq.height * .13),
+                      horizontal: mq.width * .05, vertical: mq.height * .09),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -256,7 +215,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           icon: const Icon(CupertinoIcons.pencil_circle_fill),
-                        )
+                        ),
+
+                        SizedBox(height: mq.height * .05),
+
+                        // update profile button
+                        FloatingActionButton.extended(
+                          backgroundColor: Colors.red,
+                          onPressed: () async {
+                            //for showing progress dialog
+                            Dialogs.showProgressBar(context);
+
+                            await APIs.updateActiveStatus(false);
+
+                            //sign out from app
+                            await APIs.auth.signOut().then((value) async {
+                              await GoogleSignIn().signOut().then((value) {
+                                //for hiding progress dialog
+                                Navigator.pop(context);
+
+                                //for moving to home screen
+                                Navigator.pop(context);
+
+                                APIs.auth = FirebaseAuth.instance;
+
+                                //replacing home screen with login screen
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const LoginScreen()));
+                              });
+                            });
+                          },
+                          label: Text(
+                            'Logout',
+                            selectionColor:
+                                Theme.of(context).colorScheme.tertiary,
+                            style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                            ),
+                          ),
+                          icon: const Icon(
+                            Icons.logout_sharp,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ),
