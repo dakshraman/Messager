@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.w900,
-                    fontSize: 40,
+                    fontSize: 50,
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "continue with",
                           style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 20,
                               color: Colors.grey,
                               fontWeight: FontWeight.bold),
                         ),
@@ -191,13 +191,23 @@ class SquareTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
+          border: Border.all(color: Colors.blueAccent),
           borderRadius: BorderRadius.circular(16),
           color: Colors.white,
         ),
-        child: Image.asset(
-          imagePath,
-          height: 60,
+        child: Column(
+          children: [
+            Image.asset(
+              imagePath,
+              height: 90,
+            ),
+            const SizedBox(height: 10), // Adjust the spacing as needed
+            Text(
+              'Login With Google',
+              style: TextStyle(
+                  color: Colors.grey.shade900, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
