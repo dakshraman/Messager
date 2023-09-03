@@ -58,8 +58,8 @@ ThemeData lightTheme = ThemeData(
     textTheme: CupertinoTextThemeData(primaryColor: Colors.blueAccent),
     applyThemeToAll: true,
   ),
-  inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Colors.grey,
+  inputDecorationTheme: InputDecorationTheme(
+    fillColor: Colors.blueAccent[200],
     filled: true,
   ),
   buttonTheme: const ButtonThemeData(

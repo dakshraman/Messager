@@ -152,10 +152,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ? null
                               : 'Required Field',
                           decoration: InputDecoration(
-                              fillColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              prefixIcon:
-                                  const Icon(Icons.person, color: Colors.blue),
+                              fillColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .fillColor,
+                              prefixIcon: Icon(
+                                CupertinoIcons.person_fill,
+                                color: Theme.of(context).colorScheme.tertiary,
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               hintText: 'Your Name',
@@ -176,11 +179,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ? null
                               : 'Required Field',
                           decoration: InputDecoration(
-                              fillColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              prefixIcon: const Icon(
-                                  CupertinoIcons.at_circle_fill,
-                                  color: Colors.blue),
+                              fillColor: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .fillColor,
+                              prefixIcon: Icon(
+                                CupertinoIcons.at_circle_fill,
+                                color: Theme.of(context).colorScheme.tertiary,
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               hintText: 'eg. Feeling Happy',

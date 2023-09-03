@@ -234,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           } else {
                             return const Center(
-                              child: Text('No Connections Found!',
+                              child: Text('Loading..',
                                   style: TextStyle(fontSize: 20)),
                             );
                           }
@@ -261,9 +261,13 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Icon(
               CupertinoIcons.person_add_solid,
+              color: Colors.blueAccent,
               size: 28,
             ),
-            Text('  Add User')
+            Text(
+              '  Add User',
+              style: TextStyle(color: Colors.blueAccent),
+            )
           ],
         ),
         content: Padding(
@@ -278,7 +282,10 @@ class _HomeScreenState extends State<HomeScreen> {
             placeholder: 'Email Id',
             prefix: const Padding(
               padding: EdgeInsets.only(left: 5),
-              child: Icon(CupertinoIcons.mail_solid),
+              child: Icon(
+                CupertinoIcons.mail_solid,
+                color: Colors.blueAccent,
+              ),
             ),
           ),
         ),
@@ -302,7 +309,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               }
             },
-            child: const Text('Add'),
+            child: const Text(
+              'Add',
+              style: TextStyle(color: Colors.blueAccent),
+            ),
           ),
         ],
       ),

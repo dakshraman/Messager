@@ -22,7 +22,10 @@ class Dialogs {
               title: Text(msg),
               actions: [
                 CupertinoDialogAction(
-                  child: const Text('OK'),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.blueAccent),
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },

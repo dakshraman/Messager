@@ -30,6 +30,7 @@ ThemeData darkTheme = ThemeData(
       color: lightGrey,
     ),
   ),
+
   brightness: Brightness.dark, // Set brightness to dark
 
   colorScheme: ColorScheme.dark(
@@ -49,11 +50,17 @@ ThemeData darkTheme = ThemeData(
   ),
   cupertinoOverrideTheme: const CupertinoThemeData(
     brightness: Brightness.dark,
-    //primaryColor: Colors.black,
+    primaryColor: Colors.black,
+    textTheme: CupertinoTextThemeData(
+      primaryColor: CupertinoColors.activeBlue,
+    ),
     applyThemeToAll: true,
   ),
-  inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Colors.grey,
+
+  inputDecorationTheme: InputDecorationTheme(
+    fillColor: Colors.grey[800],
     filled: true,
   ),
+
+  iconTheme: const IconThemeData(color: Colors.blueAccent),
 );
