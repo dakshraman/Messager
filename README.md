@@ -35,7 +35,7 @@ Messager is a sleek and intuitive Flutter application that allows users to chat 
 
 You can download the Messager app for your device:
 
-<a href="https://github.com/dakshraman/Messager/releases/download/v1.0.0/app-debug.apk" download>
+<a href="https://github.com/dakshraman/Messager/releases/download/v1.0.0/app-release.apk" download>
   <div style="display: inline-block; background-color: #1163ff; color: #fff; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
     <div style="display: flex; justify-content: space-between; align-items: center;">
       <div style="display: flex; align-items: center;">
