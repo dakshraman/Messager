@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           //app bar
           appBar: AppBar(
-            leading: const Icon(Icons.arrow_back_ios_new_outlined),
+            //leading: const Icon(Icons.arrow_back_ios_new_outlined),
             title: _isSearching
                 ? CupertinoTextField.borderless(
                     placeholder: "Search..",
@@ -121,21 +121,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
               //more features button
               IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => ProfileScreen(user: APIs.me)));
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.person_alt_circle,
-                    size: 30,
-                  ))
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ProfileScreen(user: APIs.me)));
+                },
+                icon: const Icon(
+                  CupertinoIcons.person_alt_circle,
+                  size: 30,
+                ),
+              )
             ],
           ),
           // ignore: sized_box_for_whitespace
           bottomNavigationBar: Container(
-              color: Theme.of(context).colorScheme.primary,
+              color:
+                  Colors.transparent, //Theme.of(context).colorScheme.primary,
               height: 70,
               child: ElevatedButton(
                 onPressed: () {
@@ -153,18 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               )),
-
-          //floating button to add new user
-          // floatingActionButton: Padding(
-          //   padding: const EdgeInsets.only(bottom: 10),
-          //   child: FloatingActionButton.extended(
-          //     label: const Text("Add User"),
-          //     onPressed: () {
-          //       _addChatUserDialog();
-          //     },
-          //     icon: const Icon(CupertinoIcons.person_add_solid),
-          //   ),
-          // ),
 
           //body
           body: StreamBuilder(
@@ -197,8 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         case ConnectionState.none:
                         // return const Center(
                         //     child: CircularProgressIndicator());
-
-                        //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;

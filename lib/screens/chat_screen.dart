@@ -141,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: EmojiPicker(
                       textEditingController: _textController,
                       config: Config(
-                        bgColor: const Color.fromARGB(255, 234, 248, 255),
+                        bgColor: Theme.of(context).colorScheme.primary,
                         columns: 8,
                         emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
                       ),

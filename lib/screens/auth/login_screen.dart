@@ -107,39 +107,39 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50),
-                const Text(
+                Text(
                   "Welcome",
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.background,
                     fontWeight: FontWeight.w900,
                     fontSize: 50,
                   ),
                 ),
                 const SizedBox(height: 30),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
                     children: [
                       Expanded(
                         child: Divider(
                           thickness: 5,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.background,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           "continue with",
                           style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
+                              fontSize: 15,
+                              color: Theme.of(context).colorScheme.background,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       Expanded(
                         child: Divider(
                           thickness: 5,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.background,
                         ),
                       ),
                     ],
@@ -189,19 +189,26 @@ class SquareTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        height: 50,
+        //width: 145,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueAccent),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.background,
+          ),
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.background,
         ),
-        child: Column(
+        child: Row(
           children: [
             Image.asset(
               imagePath,
-              height: 90,
+              height: 30,
+              width: 30,
             ),
-            const SizedBox(height: 10), // Adjust the spacing as needed
+            const SizedBox(
+              width: 10,
+            ), // Adjust the spacing as needed
             Text(
               'Login With Google',
               style: TextStyle(
