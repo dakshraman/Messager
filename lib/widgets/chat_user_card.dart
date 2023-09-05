@@ -127,7 +127,6 @@ void _showDeleteUserModal(BuildContext context, ChatUser user) {
               child: Column(
                 children: [
                   CupertinoActionSheet(
-                    title: const Text('Delete Chat'),
                     actions: [
                       CupertinoActionSheetAction(
                         onPressed: () {
@@ -149,7 +148,10 @@ void _showDeleteUserModal(BuildContext context, ChatUser user) {
                         // Close the modal
                         Navigator.pop(context);
                       },
-                      child: const Text('Cancel'),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.blueAccent),
+                      ),
                     ),
                   ),
                 ],

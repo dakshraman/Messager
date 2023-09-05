@@ -196,7 +196,10 @@ class _MessageCardState extends State<MessageCard> {
                       size: 26,
                     ),
                     SizedBox(width: 8),
-                    Text('Copy Text'),
+                    Text(
+                      'Copy Text',
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
                   ],
                 ),
               ),
@@ -207,7 +210,7 @@ class _MessageCardState extends State<MessageCard> {
                     log('Image Url: ${widget.message.msg}');
                     bool? success = await GallerySaver.saveImage(
                       widget.message.msg,
-                      albumName: 'We Chat',
+                      albumName: 'Messager',
                     );
                     Navigator.pop(context);
                     if (success != null && success) {
@@ -229,7 +232,10 @@ class _MessageCardState extends State<MessageCard> {
                       size: 26,
                     ),
                     SizedBox(width: 8),
-                    Text('Save Image'),
+                    Text(
+                      'Save Image',
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
                   ],
                 ),
               ),
@@ -248,7 +254,10 @@ class _MessageCardState extends State<MessageCard> {
                       size: 26,
                     ),
                     SizedBox(width: 8),
-                    Text('Edit Message'),
+                    Text(
+                      'Edit Message',
+                      style: TextStyle(color: Colors.blueAccent),
+                    ),
                   ],
                 ),
               ),
@@ -267,7 +276,10 @@ class _MessageCardState extends State<MessageCard> {
                       size: 26,
                     ),
                     SizedBox(width: 8),
-                    Text('Delete Message'),
+                    Text(
+                      'Delete Message',
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ],
                 ),
               ),
@@ -276,7 +288,7 @@ class _MessageCardState extends State<MessageCard> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Cancel'),
+            child: const Text('Cancel', style: TextStyle(color: Colors.red)),
           ),
         );
       },
@@ -310,7 +322,7 @@ class _MessageCardState extends State<MessageCard> {
             },
             child: const Text(
               'Cancel',
-              style: TextStyle(color: CupertinoColors.systemBlue, fontSize: 16),
+              style: TextStyle(color: CupertinoColors.systemRed, fontSize: 16),
             ),
           ),
           CupertinoDialogAction(

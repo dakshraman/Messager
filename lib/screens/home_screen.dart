@@ -79,7 +79,18 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           //app bar
           appBar: AppBar(
-            //leading: const Icon(Icons.arrow_back_ios_new_outlined),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ProfileScreen(user: APIs.me)));
+              },
+              icon: const Icon(
+                CupertinoIcons.person_alt_circle,
+                size: 30,
+              ),
+            ),
             title: _isSearching
                 ? CupertinoTextField.borderless(
                     placeholder: "Search..",
@@ -120,18 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
 
               //more features button
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => ProfileScreen(user: APIs.me)));
-                },
-                icon: const Icon(
-                  CupertinoIcons.person_alt_circle,
-                  size: 30,
-                ),
-              )
             ],
           ),
           // ignore: sized_box_for_whitespace
