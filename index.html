@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Messager - A Flutter Chatting Application</title>
+        <title>Messager - A Chatting Application </title>
+        <link rel="icon" type="images/icon" href="images/icon.ico">
         <style>
             body {
                 font-family: "Arial", sans-serif;
@@ -19,7 +20,7 @@
                 margin: 10px auto;
                 max-width: 90%;
                 text-align: center;
-                padding: 10px 0;
+                padding: 1px;
                 background-color: #5179ff;
                 color: #fff;
                 display: flex;
@@ -30,18 +31,15 @@
             }
 
             header img {
-                width: 35px;
-                height: 35px;
-                padding: 10px;
+                width: 20px;
+                height: 20px;
+                padding: 1px;
             }
 
             .container {
                 max-width: 87%;
-                margin: 20px auto;
-                padding: 20px;
-                background-color: #fff;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
+                margin: 1% auto;
+                padding: 1px;
                 text-align: center;
             }
 
@@ -52,19 +50,19 @@
 
             h2 {
                 font-size: 24px;
-                color: #333;
+                color: #ffffff;
             }
 
             p {
                 font-size: 16px;
-                color: #555;
+                color: #ffffff;
             }
 
             ul {
                 list-style-type: disc;
                 margin-left: 20px;
                 font-size: 16px;
-                color: #555;
+                color: #ffffff;
             }
 
             .download-btn {
@@ -139,39 +137,95 @@
                 }
                 }
 
+                .card {
+                    width: 90%;
+                    margin: 0 auto;
+                    background-color: #333333;
+                    border-radius: 8px;
+                    z-index: 1;
+                    }
+
+                    .tools {
+                    display: flex;
+                    align-items: center;
+                    padding: 9px;
+                    }
+
+                    .circle {
+                    padding: 0 4px;
+                    }
+
+                    .box {
+                    display: inline-block;
+                    align-items: center;
+                    width: 10px;
+                    height: 10px;
+                    padding: 1px;
+                    border-radius: 50%;
+                    }
+
+                    .red {
+                    background-color: #ff605c;
+                    }
+
+                    .yellow {
+                    background-color: #ffbd44;
+                    }
+
+                    .green {
+                    background-color: #00ca4e;
+                    }
+
 
         </style>
     </head>
     <body>
         <header>
-            <h1>Messager - A Flutter Chatting Application </h1>
+            <h1>Messager - A Chatting Application </h1>
         </header>
-        <div class="container">
-            <div style="text-align: left;">
-            <p>Messager is a sleek and intuitive Flutter application that allows users to chat seamlessly with their friends and loved ones. Inspired by the iOS design principles and powered by the Cupertino package, Messager provides a familiar and elegant user experience.</p>
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Sleek Design:</strong> Messager's design is influenced by the clean and modern aesthetics of iOS, using the Cupertino package to create a native iOS-like feel.</li>
-                <li><strong>User Authentication:</strong> Users can create accounts and log in securely using their Google Account.</li>
-                <li><strong>Real-time Messaging:</strong> Enjoy real-time chat with your contacts. Messages are delivered instantly, creating a seamless conversation experience.</li>
-                <li><strong>Media Sharing:</strong> Share photos within your chats.</li>
-                <li><strong>Emoji and Stickers:</strong> Express yourself with a wide range of emojis and stickers that enhance your conversations.</li>
-                <li><strong>Read Receipts:</strong> Know when your messages are read with read receipts that show when your contacts have seen your messages.</li>
-                <li><strong>Push Notifications:</strong> Stay connected even when the app is not open, thanks to push notifications that alert you of new messages.</li>
-            </ul>
-        </div>
-            <h2>Screenshots</h2>
-            <div class="screenshots">
-                <img class="screenshot" src="images/Screenshot_1.jpg" alt="Splash Screen">
-                <img class="screenshot" src="images/Screenshot_3.jpg" alt="Screenshot 2">
+
+        <div class="card">
+            <div class="tools">
+              <div class="circle">
+                <span class="red box"></span>
+              </div>
+              <div class="circle">
+                <span class="yellow box"></span>
+              </div>
+              <div class="circle">
+                <span class="green box"></span>
+              </div>
             </div>
-            <h2>Download</h2>
-            <button>
-                <a href="https://github.com/dakshraman/Messager/releases/download/v1.0.0/Messager.apk" download style="color: white; text-decoration: none;">
-                    Download APK
-                </a>
-            </button>            
-            <p>For inquiries, contact <a href="mailto:ramandaksh6161@gmail.com">ramandaksh6161@gmail.com</a>.</p>
-        </div>
+            <div class="card__content"> 
+                <div class="container">
+                <div style="text-align: left;">
+                <p>Messager is a sleek and intuitive Flutter application that allows users to chat seamlessly with their friends and loved ones. Inspired by the iOS design principles and powered by the Cupertino package, Messager provides a familiar and elegant user experience.</p>
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>Sleek Design:</strong> Messager's design is influenced by the clean and modern aesthetics of iOS, using the Cupertino package to create a native iOS-like feel.</li>
+                    <li><strong>User Authentication:</strong> Users can create accounts and log in securely using their Google Account.</li>
+                    <li><strong>Real-time Messaging:</strong> Enjoy real-time chat with your contacts. Messages are delivered instantly, creating a seamless conversation experience.</li>
+                    <li><strong>Media Sharing:</strong> Share photos within your chats.</li>
+                    <li><strong>Emoji and Stickers:</strong> Express yourself with a wide range of emojis and stickers that enhance your conversations.</li>
+                    <li><strong>Read Receipts:</strong> Know when your messages are read with read receipts that show when your contacts have seen your messages.</li>
+                    <li><strong>Push Notifications:</strong> Stay connected even when the app is not open, thanks to push notifications that alert you of new messages.</li>
+                </ul>
+            </div>
+                <h2>Screenshots</h2>
+                <div class="screenshots">
+                    <img class="screenshot" src="images/Screenshot_1.jpg" alt="Splash Screen">
+                    <img class="screenshot" src="images/Screenshot_2.jpg" alt="Screenshot 2">
+                    <img class="screenshot" src="images/Screenshot_3.jpg" alt="Screenshot 3">
+                </div>
+                <h2>Download</h2>
+                <button>
+                    <a href="https://github.com/dakshraman/Messager/releases/download/v1.0.0/Messager.apk" download style="color: white; text-decoration: none;">
+                        Download APK
+                    </a>
+                </button>
+                <p>For inquiries, contact <a href="mailto:ramandaksh6161@gmail.com">ramandaksh6161@gmail.com</a>.</p>
+                </div>
+            </div>
+          </div>
     </body>
     </html>
