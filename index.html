@@ -6,35 +6,35 @@
         <title>Messager - A Chatting Application </title>
         <link rel="icon" type="images/icon" href="images/icon.ico">
         <script>
-    document.addEventListener("contextmenu", function(e) {
-        e.preventDefault(); // Prevent the context menu (right-click menu) from appearing
-
-        // You can customize the message below
-        var message = "Right-clicking is disabled on this page.";
-
-        // Create a div element to display the message
-        var messageDiv = document.createElement("div");
-        messageDiv.textContent = message;
-        messageDiv.style.position = "fixed";
-        messageDiv.style.top = "50%";
-        messageDiv.style.left = "50%";
-        messageDiv.style.transform = "translate(-50%, -50%)";
-        messageDiv.style.backgroundColor = "#000";
-        messageDiv.style.color = "#fff";
-        messageDiv.style.padding = "10px 20px";
-        messageDiv.style.borderRadius = "5px";
-        messageDiv.style.zIndex = "9999";
-
-        // Append the message div to the body
-        document.body.appendChild(messageDiv);
-
-        // Remove the message div after a short delay (you can adjust the delay as needed)
-        setTimeout(function() {
-            document.body.removeChild(messageDiv);
-        }, 2000); // 2000 milliseconds (2 seconds)
-    });
-</script>
-
+            document.addEventListener("contextmenu", function(e) {
+                e.preventDefault(); // Prevent the context menu (right-click menu) from appearing
+        
+                // You can customize the message below
+                var message = "Right-clicking is disabled on this page.";
+        
+                // Create a div element to display the message
+                var messageDiv = document.createElement("div");
+                messageDiv.textContent = message;
+                messageDiv.style.position = "fixed";
+                messageDiv.style.top = "50%";
+                messageDiv.style.left = "50%";
+                messageDiv.style.transform = "translate(-50%, -50%)";
+                messageDiv.style.backgroundColor = "#000";
+                messageDiv.style.color = "#fff";
+                messageDiv.style.padding = "10px 20px";
+                messageDiv.style.borderRadius = "5px";
+                messageDiv.style.zIndex = "9999";
+        
+                // Append the message div to the body
+                document.body.appendChild(messageDiv);
+        
+                // Remove the message div after a short delay (you can adjust the delay as needed)
+                setTimeout(function() {
+                    document.body.removeChild(messageDiv);
+                }, 2000); // 2000 milliseconds (2 seconds)
+            });
+        </script>
+        
         <style>
             body {
                 font-family: "Arial", sans-serif;
@@ -124,7 +124,7 @@
 
             .screenshot {
                 margin: 0 10px;
-                max-width: 150px;
+                max-width: 30%;
                 height: auto;
                 box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
                 border-radius: 10px;
@@ -170,7 +170,7 @@
                 .card {
                     width: 90%;
                     margin: 0 auto;
-                    background-color: #023252;
+                    background-color: #333333;
                     border-radius: 8px;
                     z-index: 1;
                     }
@@ -205,6 +205,7 @@
                     .green {
                     background-color: #00ca4e;
                     }
+                    
 
 
         </style>
