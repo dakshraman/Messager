@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, use_build_context_synchronously, camel_case_types, use_key_in_widget_constructors
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -8,7 +10,6 @@ import 'package:particles_flutter/particles_flutter.dart';
 
 import '../../api/apis.dart';
 import '../../helper/dialogs.dart';
-import '../../main.dart';
 import '../home_screen.dart';
 
 //login screen -- implements google sign in or sign up feature for app
@@ -33,25 +34,27 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // handles google login button click
-  _handleGoogleBtnClick() {
-    //for showing progress bar
+  void _handleGoogleBtnClick() {
     Dialogs.showProgressBar(context);
 
-    _signInWithGoogle().then((user) async {
-      //for hiding progress bar
+    _signInWithGoogle().then((userCredential) async {
       Navigator.pop(context);
 
-      if (user != null) {
-        log('\nUser: ${user.user}');
-        log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
+      if (userCredential != null) {
+        log('\nUser: ${userCredential.user}');
+        log('\nUserAdditionalInfo: ${userCredential.additionalUserInfo}');
 
-        if ((await APIs.userExists())) {
+        if (await APIs.userExists()) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            context,
+            MaterialPageRoute(builder: (_) => const HomeScreen()),
+          );
         } else {
           await APIs.createUser().then((value) {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+              context,
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
+            );
           });
         }
       }
@@ -76,8 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Once signed in, return the UserCredential
       return await APIs.auth.signInWithCredential(credential);
-    } catch (e) {
-      log('\n_signInWithGoogle: $e');
+    } catch (error) {
+      log('\n_signInWithGoogle: $error');
       Dialogs.showSnackbar(context, 'Something Went Wrong (Check Internet!)');
       return null;
     }
@@ -94,86 +97,85 @@ class _LoginScreenState extends State<LoginScreen> {
     //initializing media query (for getting device screen size)
     // mq = MediaQuery.of(context).size;
 
-    return Stack(
-        children: [
-          background(),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: SafeArea(
-              child: Center(
-                child: Column(
+    return Stack(children: [
+      background(),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 50),
+                Text(
+                  "Welcome",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.background,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 50,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          thickness: 5,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          "continue with",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).colorScheme.background,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          thickness: 5,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 50),
-                    const Text(
-                      "Welcome",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 40,
-                      ),
+                    SquareTile(
+                      imagePath: "images/google.png",
+                      onTap: () {
+                        _handleGoogleBtnClick();
+                      },
                     ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              thickness: 5,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              "continue with",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 5,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SquareTile(
-                          imagePath: "images/google.png",
-                          onTap: () {
-                            _handleGoogleBtnClick();
-                          },
-                        ),
-                        // const SizedBox(width: 25,),
-                        // SquareTile(
-                        //   imagePath: "images/facebook.png",
-                        //   onTap: () {
-                        //     _handleGoogleBtnClick();
-                        //   },
-                        // ),
-                      ],
-                    ),
+                    // const SizedBox(width: 25,),
+                    // SquareTile(
+                    //   imagePath: "images/facebook.png",
+                    //   onTap: () {
+                    //     _handleGoogleBtnClick();
+                    //   },
+                    // ),
                   ],
                 ),
-              ),
+              ],
             ),
           ),
-        ]
-    );
+        ),
+      ),
+    ]);
   }
 }
 
-class SquareTile extends StatelessWidget{
+class SquareTile extends StatelessWidget {
   final String imagePath;
   final Function()? onTap;
   const SquareTile({
@@ -183,17 +185,37 @@ class SquareTile extends StatelessWidget{
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(10),
+        height: 50,
+        //width: 145,
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.background,
+          ),
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.background,
         ),
-        child: Image.asset(imagePath, height: 60,),
+        child: Row(
+          children: [
+            Image.asset(
+              imagePath,
+              height: 30,
+              width: 30,
+            ),
+            const SizedBox(
+              width: 10,
+            ), // Adjust the spacing as needed
+            Text(
+              'Login With Google',
+              style: TextStyle(
+                  color: Colors.grey.shade900, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -205,7 +227,7 @@ class background extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: CircularParticle(
         width: w,
         height: h,
@@ -214,7 +236,7 @@ class background extends StatelessWidget {
         speedOfParticles: 5,
         maxParticleSize: 5,
         particleColor: Colors.white.withOpacity(.7),
-        awayAnimationDuration: Duration(milliseconds: 600),
+        awayAnimationDuration: const Duration(milliseconds: 600),
         awayAnimationCurve: Curves.easeInOutCubic,
         onTapAnimation: true,
         isRandSize: true,
