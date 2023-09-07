@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../api/apis.dart';
 import '../helper/dialogs.dart';
@@ -27,6 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<ChatUser> _searchList = [];
   // for storing search status
   bool _isSearching = false;
+
+  Future<void> _handleRefresh() async {
+    return await Future.delayed(const Duration(seconds: 2));
+  }
 
   @override
   void initState() {
@@ -72,16 +77,27 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         child: Scaffold(
-          backgroundColor: Colors.blue[100],
           //app bar
           appBar: AppBar(
-            leading: const Icon(Icons.arrow_back_ios_new_outlined),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ProfileScreen(user: APIs.me)));
+              },
+              icon: const Icon(
+                CupertinoIcons.person_alt_circle,
+                size: 30,
+              ),
+            ),
             title: _isSearching
-                ? TextField(
-                    decoration: const InputDecoration(
-                        border: InputBorder.none, hintText: 'Search...'),
+                ? CupertinoTextField.borderless(
+                    placeholder: "Search..",
+                    // decoration: const InputDecoration(
+                    //     border: InputBorder.none, hintText: 'Search...'),
                     autofocus: true,
-                    style: const TextStyle(fontSize: 17, letterSpacing: 0.5),
+                    style: Theme.of(context).textTheme.titleMedium,
                     //when search text changes then updated search list
                     onChanged: (val) {
                       //search logic
@@ -107,31 +123,37 @@ class _HomeScreenState extends State<HomeScreen> {
                       _isSearching = !_isSearching;
                     });
                   },
-                  icon: Icon(_isSearching
-                      ? CupertinoIcons.clear_circled_solid
-                      : Icons.search, size: 30,)),
+                  icon: Icon(
+                    _isSearching
+                        ? CupertinoIcons.clear_circled_solid
+                        : Icons.search,
+                    size: 30,
+                  )),
 
               //more features button
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => ProfileScreen(user: APIs.me)));
-                  },
-                  icon: const Icon(CupertinoIcons.person_alt_circle, size: 30,))
             ],
           ),
-
-          //floating button to add new user
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: FloatingActionButton(
+          // ignore: sized_box_for_whitespace
+          bottomNavigationBar: Container(
+              color:
+                  Colors.transparent, //Theme.of(context).colorScheme.primary,
+              height: 70,
+              child: ElevatedButton(
                 onPressed: () {
                   _addChatUserDialog();
                 },
-                child: const Icon(CupertinoIcons.person_add_solid)),
-          ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(CupertinoIcons.person_add_solid, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text(
+                      "Add User",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              )),
 
           //body
           body: StreamBuilder(
@@ -143,7 +165,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 //if data is loading
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return const Center(child: CupertinoActivityIndicator(radius: 25, color: Colors.blue,));
+                  return const Center(
+                      child: CupertinoActivityIndicator(
+                    radius: 25,
+                    color: Colors.grey,
+                  ));
 
                 //if some or all data is loaded then show it
                 case ConnectionState.active:
@@ -160,8 +186,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         case ConnectionState.none:
                         // return const Center(
                         //     child: CircularProgressIndicator());
-
-                        //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;
@@ -171,21 +195,33 @@ class _HomeScreenState extends State<HomeScreen> {
                               [];
 
                           if (_list.isNotEmpty) {
-                            return ListView.builder(
-                                itemCount: _isSearching
-                                    ? _searchList.length
-                                    : _list.length,
-                                padding: EdgeInsets.only(top: mq.height * .01),
-                                physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                                itemBuilder: (context, index) {
-                                  return ChatUserCard(
-                                      user: _isSearching
-                                          ? _searchList[index]
-                                          : _list[index]);
-                                });
+                            return LiquidPullToRefresh(
+                              onRefresh: _handleRefresh,
+                              color: Theme.of(context).colorScheme.primary,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.tertiary,
+                              height: 100,
+                              animSpeedFactor: 10,
+                              showChildOpacityTransition: false,
+                              springAnimationDurationInMilliseconds: 300,
+                              child: ListView.builder(
+                                  itemCount: _isSearching
+                                      ? _searchList.length
+                                      : _list.length,
+                                  padding:
+                                      EdgeInsets.only(top: mq.height * .01),
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  itemBuilder: (context, index) {
+                                    return ChatUserCard(
+                                        user: _isSearching
+                                            ? _searchList[index]
+                                            : _list[index]);
+                                  }),
+                            );
                           } else {
                             return const Center(
-                              child: Text('No Connections Found!',
+                              child: Text('Loading..',
                                   style: TextStyle(fontSize: 20)),
                             );
                           }
@@ -208,18 +244,21 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => CupertinoAlertDialog(
         // No direct equivalent for contentPadding, use padding for content spacing
-        title: Row(
+        title: const Row(
           children: [
             Icon(
               CupertinoIcons.person_add_solid,
-              color: Colors.blue,
+              color: Colors.blueAccent,
               size: 28,
             ),
-            Text('  Add User')
+            Text(
+              '  Add User',
+              style: TextStyle(color: Colors.blueAccent),
+            )
           ],
         ),
         content: Padding(
-          padding: EdgeInsets.fromLTRB(5, 10, 10, 5),
+          padding: const EdgeInsets.fromLTRB(5, 10, 10, 5),
           child: CupertinoTextField(
             maxLines: null,
             onChanged: (value) => email = value,
@@ -228,9 +267,12 @@ class _HomeScreenState extends State<HomeScreen> {
               border: Border.all(color: CupertinoColors.systemGrey),
             ),
             placeholder: 'Email Id',
-            prefix: Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: const Icon(CupertinoIcons.mail_solid, color: Colors.blue),
+            prefix: const Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: Icon(
+                CupertinoIcons.mail_solid,
+                color: Colors.blueAccent,
+              ),
             ),
           ),
         ),
@@ -240,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Hide alert dialog
               Navigator.pop(context);
             },
-            child: const Text('Cancel', style: TextStyle(color: Colors.blue)),
+            child: const Text('Cancel', style: TextStyle(color: Colors.red)),
           ),
           CupertinoDialogAction(
             onPressed: () async {
@@ -254,7 +296,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               }
             },
-            child: const Text('Add', style: TextStyle(color: Colors.blue)),
+            child: const Text(
+              'Add',
+              style: TextStyle(color: Colors.blueAccent),
+            ),
           ),
         ],
       ),
