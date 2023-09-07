@@ -81,7 +81,7 @@ class APIs {
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
             HttpHeaders.authorizationHeader:
-                'key=AAAAzlr1OS4:APA91bEUps6lnPlrg_6vh98yEEiwKYdi5jLtitwF93p1l6LWROd-mvCw8hNKoUBHYvPGEHuAY3HNkHUjRMyHT2i6pR1kc2jBoHVcQKe8o91JQZRHLrKatBL3aWgJX8ZsDGqcxWkms0tt'
+                'key=AAAA2jAc5WQ:APA91bEi2gk4lqVplgIVwoJdaWbUF5bWv4OYCT0gy-ABqcPTP-NtuWj4u4CTPCEK42Ad8qyfIhWqG-IxdkXTW9jNlrHrUNEp5M86OTKL_4aq11pVUY6Vmk5NeIOzT9lcvjsUj9mgve4f'
           },
           body: jsonEncode(body));
       log('Response status: ${res.statusCode}');
@@ -335,6 +335,28 @@ class APIs {
     if (message.type == Type.image) {
       await storage.refFromURL(message.msg).delete();
     }
+  }
+
+  static Future<void> deleteChatsForUser(ChatUser user) async {
+    final conversationId = getConversationID(user.id);
+
+    // Delete all messages in the conversation
+    await firestore
+        .collection('chats/$conversationId/messages')
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        final message = Message.fromJson(doc.data() as Map<String, dynamic>);
+        if (message.type == Type.image) {
+          // Delete image from storage
+          storage.refFromURL(message.msg).delete();
+        }
+        doc.reference.delete();
+      }
+    });
+
+    // Delete the conversation itself
+    await firestore.collection('chats').doc(conversationId).delete();
   }
 
   //update message
