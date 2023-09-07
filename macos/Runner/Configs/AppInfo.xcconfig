@@ -8,7 +8,7 @@
 PRODUCT_NAME = messager
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.messager.messager
+PRODUCT_BUNDLE_IDENTIFIER = com.mrdaksh.messager.messager
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.messager. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.mr_daksh.messager. All rights reserved.

@@ -1,34 +1,50 @@
 {
   "project_info": {
-    "project_number": "886289283374",
-    "project_id": "messager-dc804",
-    "storage_bucket": "messager-dc804.appspot.com"
+    "project_number": "937110070628",
+    "firebase_url": "https://messager-7a938-default-rtdb.firebaseio.com",
+    "project_id": "messager-7a938",
+    "storage_bucket": "messager-7a938.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:886289283374:android:42e21ae08a31a3ded562bf",
+        "mobilesdk_app_id": "1:937110070628:android:828c7ea394ef57da43c671",
         "android_client_info": {
-          "package_name": "com.messager.messager"
+          "package_name": "com.mr_daksh.messager.messager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "886289283374-b4rh93147uv0q770i6vb45h0t460m4br.apps.googleusercontent.com",
+          "client_id": "937110070628-b9the9rag3p5c714pt3jbt8f1an3qtu9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mr_daksh.messager.messager",
+            "certificate_hash": "6bd6afbf4656bbbc7c080d2f1f49f5f5d835c146"
+          }
+        },
+        {
+          "client_id": "937110070628-9vkupqq3g42tnk589buo4vmaaikjk08f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDiX8prbzGxUs9loRa-EVnKPnjywhp3dg4"
+          "current_key": "AIzaSyChrDZ1S3plu2QyJzlLEqWTKsq_UNXlKBM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "886289283374-b4rh93147uv0q770i6vb45h0t460m4br.apps.googleusercontent.com",
+              "client_id": "937110070628-1ub16sn49lu6snfjrhf7vm0ve9bnd99v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "937110070628-86898tjtouqakicc65qjg5lfpt5qhhft.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mrdaksh.messager.messager"
+              }
             }
           ]
         }

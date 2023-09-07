@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>886289283374-5314bbsevmnqtm7cq24nqre3d4bv1v7g.apps.googleusercontent.com</string>
+	<string>937110070628-86898tjtouqakicc65qjg5lfpt5qhhft.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.886289283374-5314bbsevmnqtm7cq24nqre3d4bv1v7g</string>
+	<string>com.googleusercontent.apps.937110070628-86898tjtouqakicc65qjg5lfpt5qhhft</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBXyLYRExRVyVJB-Nb788Ve3orq-TOBUjI</string>
+	<string>AIzaSyAHCcm1UXPtUwZkuQqdEDPkxnmCac-O7Gw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>886289283374</string>
+	<string>937110070628</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.messager.messager</string>
+	<string>com.mrdaksh.messager.messager</string>
 	<key>PROJECT_ID</key>
-	<string>messager-dc804</string>
+	<string>messager-7a938</string>
 	<key>STORAGE_BUCKET</key>
-	<string>messager-dc804.appspot.com</string>
+	<string>messager-7a938.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:886289283374:ios:f95ea00ae1c89d1dd562bf</string>
+	<string>1:937110070628:ios:9f3174ca2a7e77fc43c671</string>
 </dict>
 </plist>

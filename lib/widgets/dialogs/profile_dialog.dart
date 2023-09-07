@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 import '../../models/chat_user.dart';
 import '../../screens/view_profile_screen.dart';
 
@@ -26,7 +25,7 @@ class ProfileDialog extends StatelessWidget {
               fit: BoxFit.cover,
               imageUrl: user.image,
               errorWidget: (context, url, error) =>
-              const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                  const CircleAvatar(child: Icon(CupertinoIcons.person)),
             ),
           ),
           const SizedBox(height: 12),
@@ -51,7 +50,10 @@ class ProfileDialog extends StatelessWidget {
               ),
             );
           },
-          child: const Text('View Profile'),
+          child: const Text(
+            'View Profile',
+            style: TextStyle(color: Colors.blueAccent),
+          ),
         ),
         CupertinoDialogAction(
           onPressed: () {
