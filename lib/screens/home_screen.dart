@@ -221,8 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           } else {
                             return const Center(
-                              child: Text('Loading..',
-                                  style: TextStyle(fontSize: 20)),
+                              child: Text('  ', style: TextStyle(fontSize: 20)),
                             );
                           }
                       }
