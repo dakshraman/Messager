@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messager - A Chatting Application </title>
+    <link rel="icon" type="images/icon" href="images/icon.ico">
+    <script>
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault(); // Prevent the context menu (right-click menu) from appearing
+    
+            // You can customize the message below
+            var message = "Right-clicking is disabled on this page.";
+    
+            // Create a div element to display the message
+            var messageDiv = document.createElement("div");
+            messageDiv.textContent = message;
+            messageDiv.style.position = "fixed";
+            messageDiv.style.top = "50%";
+            messageDiv.style.left = "50%";
+            messageDiv.style.transform = "translate(-50%, -50%)";
+            messageDiv.style.backgroundColor = "#000";
+            messageDiv.style.color = "#fff";
+            messageDiv.style.padding = "10px 20px";
+            messageDiv.style.borderRadius = "5px";
+            messageDiv.style.zIndex = "9999";
+    
+            // Append the message div to the body
+            document.body.appendChild(messageDiv);
+    
+            // Remove the message div after a short delay (you can adjust the delay as needed)
+            setTimeout(function() {
+                document.body.removeChild(messageDiv);
+            }, 2000); // 2000 milliseconds (2 seconds)
+        });
+    </script>
+    
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+            
+        }
+
+        header {
+            margin: 10px auto;
+            max-width: 90%;
+            text-align: center;
+            padding: 1px;
+            background-color: #5179ff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        .container {
+            max-width: 87%;
+            margin: 1% auto;
+            padding: 1px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 25px;
+            color: #fffafa;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        p {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: #0073e6;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .download-btn svg {
+            margin-left: 5px;
+            fill: #fff;
+        }
+
+        .screenshots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .screenshot {
+            margin: 0 10px;
+            max-width: 30%;
+            height: auto;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        
+            button
+            {
+                --width: 150px;
+                --timing: 2s;
+                border: 0;
+                width: var(--width);
+                padding-block: 1em;
+                color: #fff;
+                font-weight: bold;
+                font-size: 1em;
+                background: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+                transition: all 0.2s;
+                border-radius: 3px;
+                display: inline-block;
+            }
+
+            button:hover {
+                background-image: linear-gradient(to right, rgb(250, 82, 82), rgb(250, 82, 82) 16.65%, rgb(190, 75, 219) 16.65%, rgb(190, 75, 219) 33.3%, rgb(76, 110, 245) 33.3%, rgb(76, 110, 245) 49.95%, rgb(64, 192, 87) 49.95%, rgb(64, 192, 87) 66.6%, rgb(250, 176, 5) 66.6%, rgb(250, 176, 5) 83.25%, rgb(253, 126, 20) 83.25%, rgb(253, 126, 20) 100%, rgb(250, 82, 82) 100%);
+                animation: var(--timing) linear dance6123 infinite;
+                transform: scale(1.1) translateY(-1px);
+            }
+
+            @keyframes dance6123 {
+            to {
+                background-position: var(--width);
+            }
+            }
+
+            .card {
+                width: 90%;
+                margin: 0 auto;
+                background-color: #023252;
+                border-radius: 10px;
+                z-index: 1;
+                margin-bottom: 20px;
+                }
+
+                .tools {
+                display: flex;
+                align-items: center;
+                padding: 9px;
+                }
+
+                .circle {
+                padding: 0 4px;
+                }
+
+                .box {
+                display: inline-block;
+                align-items: center;
+                width: 10px;
+                height: 10px;
+                padding: 1px;
+                border-radius: 50%;
+                }
+
+                .red {
+                background-color: #ff605c;
+                }
+
+                .yellow {
+                background-color: #ffbd44;
+                }
+
+                .green {
+                background-color: #00ca4e;
+                }
+                
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div style="padding-right: 10px; padding-left: 10px;">
+        <img src="images/icon.png" alt="Messager Logo" width="30" height="30">
+    </div>
+        <h1>Messager - Privacy Policy </h1>
+    </header>
+
+    <div class="card">
+        <div class="tools">
+          <div class="circle">
+            <span class="red box"></span>
+          </div>
+          <div class="circle">
+            <span class="yellow box"></span>
+          </div>
+          <div class="circle">
+            <span class="green box"></span>
+          </div>
+        </div>
+        <div class="card__content"> 
+            <div class="container">
+            <div style="text-align: left;">
+            <p>Privacy Policy</p>
+            <h2>Effective Date: 01-September-2023</h2>
+            <h2>Introduction</h2>
+    <p>Welcome to [Your App Name]! We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data.</p>
+
+    <h2>Information We Collect</h2>
+    <p>We may collect the following types of information:</p>
+    <ul>
+        <li><strong>Personal Information:</strong> We may collect personal information such as your name, email address, and profile picture when you create an account or update your profile.</li>
+        <li><strong>Chat Data:</strong> We collect chat messages, images, and multimedia files sent through our platform. This data is used for the purpose of delivering our messaging services.</li>
+        <!-- Add more sections for different types of data collected. -->
+    </ul>
+
+    <h2>How We Use Your Information</h2>
+    <p>We use your information for the following purposes:</p>
+    <ul>
+        <li><strong>Providing Services:</strong> We use your data to provide you with our chat and messaging services, including sending messages and facilitating communication with other users.</li>
+        <li><strong>Improving Our Services:</strong> We may use your information to analyze user behavior and improve the quality and features of our application.</li>
+        <!-- Add more sections for different purposes. -->
+    </ul>
+
+    <!-- Include a section about data sharing and security measures. -->
+
+    <h2>Contact Us</h2>
+            <p>For inquiries, contact <a href="mailto:ramandaksh6161@gmail.com">ramandaksh6161@gmail.com</a>.</p>
+            </div>
+        </div>
+      </div>
+</body>
+</html>

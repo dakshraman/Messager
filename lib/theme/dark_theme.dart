@@ -29,6 +29,7 @@ ThemeData darkTheme = ThemeData(
     titleSmall: TextStyle(
       color: lightGrey,
     ),
+    labelSmall: TextStyle(color: Colors.grey),
   ),
 
   brightness: Brightness.dark, // Set brightness to dark

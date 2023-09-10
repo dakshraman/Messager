@@ -77,20 +77,24 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         child: Scaffold(
+          drawer: Drawer(
+            //backgroundColor: Colors.transparent,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 50),
+              children: const <Widget>[
+                SizedBox(height: 100),
+                Divider(
+                  height: 2,
+                ),
+                CupertinoListTile.notched(
+                  title: Text("Logout"),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                )
+              ],
+            ),
+          ),
           //app bar
           appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => ProfileScreen(user: APIs.me)));
-              },
-              icon: const Icon(
-                CupertinoIcons.person_alt_circle,
-                size: 30,
-              ),
-            ),
             title: _isSearching
                 ? CupertinoTextField.borderless(
                     placeholder: "Search..",
@@ -131,6 +135,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
 
               //more features button
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => ProfileScreen(user: APIs.me)));
+                },
+                icon: const Icon(
+                  CupertinoIcons.person_alt_circle,
+                  size: 30,
+                ),
+              ),
             ],
           ),
           // ignore: sized_box_for_whitespace
