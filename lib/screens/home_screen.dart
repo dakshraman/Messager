@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../api/apis.dart';
@@ -10,11 +12,14 @@ import '../helper/dialogs.dart';
 import '../main.dart';
 import '../models/chat_user.dart';
 import '../widgets/chat_user_card.dart';
+import 'auth/login_screen.dart';
 import 'profile_screen.dart';
 
 //home screen -- where all available contacts are shown
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final ChatUser user; // Add this line to accept a ChatUser object
+
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -60,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
+    final ChatUser user;
     return GestureDetector(
       //for hiding keyboard when a tap is detected on screen
       onTap: () => FocusScope.of(context).unfocus(),
@@ -78,21 +84,104 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Scaffold(
           drawer: Drawer(
-            //backgroundColor: Colors.transparent,
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 50),
-              children: const <Widget>[
-                SizedBox(height: 100),
-                Divider(
-                  height: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: Text(
+                    widget.user
+                        .name, // Access the user's name from your ChatUser object
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  accountEmail: Text(
+                    widget.user
+                        .email, // Access the user's email from your ChatUser object
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  currentAccountPicture: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(widget.user.image), // Profile image URL
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary, // Background color
+                  ),
                 ),
-                CupertinoListTile.notched(
-                  title: Text("Logout"),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                )
+                // Rest of your drawer items
+                Card(
+                  child: CupertinoListTile.notched(
+                    leading: const Icon(
+                      CupertinoIcons.group_solid,
+                      color: CupertinoColors.systemBlue,
+                    ),
+                    title: Text('Groups', style: Theme.of(context).textTheme.bodyMedium,),
+                    onTap: () {
+                      // Navigate to the chats screen or perform any desired action
+                    },
+                  ),
+                ),
+                // Add more ListTile items for other options
+                const Divider(),
+                 Card(
+                   child: CupertinoListTile.notched(
+                    leading: const Icon(
+                      CupertinoIcons.settings,
+                      color: CupertinoColors.systemBlue,
+                    ),
+                    title: Text('Settings', style: Theme.of(context).textTheme.bodyMedium,),
+                    onTap: () {
+                      // Navigate to the settings screen or perform any desired action
+                    },
+                ),
+                 ),
+                const Divider(),
+                Card(
+                  child: CupertinoListTile.notched(
+                    leading: const Icon(
+                      CupertinoIcons.square_arrow_left,
+                      color: CupertinoColors.systemRed,
+                    ),
+                    title: const Text(
+                      'Logout',
+                      style: TextStyle(
+                        color: CupertinoColors.systemRed,
+                      ),
+                    ),
+                    onTap: () async {
+                      //for showing progress dialog
+                      Dialogs.showProgressBar(context);
+
+                      await APIs.updateActiveStatus(false);
+
+                      //sign out from app
+                      await APIs.auth.signOut().then((value) async {
+                        await GoogleSignIn().signOut().then((value) {
+                          //for hiding progress dialog
+                          Navigator.pop(context);
+
+                          //for moving to home screen
+                          Navigator.pop(context);
+
+                          APIs.auth = FirebaseAuth.instance;
+
+                          //replacing home screen with login screen
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const LoginScreen()));
+                        });
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           ),
+
           //app bar
           appBar: AppBar(
             title: _isSearching

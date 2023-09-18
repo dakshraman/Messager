@@ -43,7 +43,11 @@ class _SplashScreenState extends State<SplashScreen>
         log('\nUser: ${APIs.auth.currentUser}');
         //navigate to home screen
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+            context,
+            MaterialPageRoute(
+                builder: (_) => HomeScreen(
+                      user: APIs.me,
+                    )));
       } else {
         //navigate to login screen
         Navigator.pushReplacement(

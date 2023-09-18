@@ -47,13 +47,19 @@ class _LoginScreenState extends State<LoginScreen> {
         if (await APIs.userExists()) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => const HomeScreen()),
+            MaterialPageRoute(
+                builder: (_) => HomeScreen(
+                      user: APIs.me,
+                    )),
           );
         } else {
           await APIs.createUser().then((value) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const HomeScreen()),
+              MaterialPageRoute(
+                  builder: (_) => HomeScreen(
+                        user: APIs.me,
+                      )),
             );
           });
         }
