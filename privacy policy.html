@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messager - A Chatting Application </title>
+    <title>Messager - Privacy Policy </title>
     <link rel="icon" type="images/icon" href="images/icon.ico">
     <script>
         document.addEventListener("contextmenu", function(e) {
@@ -36,16 +36,31 @@
     </script>
     
     <style>
-        body {
-            font-family: "Arial", sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center
-            
+            body {
+                font-family: "Arial", sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-size: 400% 400%;
+            animation: gradientAnimation 10s infinite;
+                
+            }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
+
 
         header {
             margin: 10px auto;
@@ -238,7 +253,7 @@
             <p>Privacy Policy</p>
             <h2>Effective Date: 01-September-2023</h2>
             <h2>Introduction</h2>
-    <p>Welcome to [Your App Name]! We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data.</p>
+    <p>Welcome to Messager! We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data.</p>
 
     <h2>Information We Collect</h2>
     <p>We may collect the following types of information:</p>
