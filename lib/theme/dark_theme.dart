@@ -30,6 +30,8 @@ ThemeData darkTheme = ThemeData(
       color: lightGrey,
     ),
     labelSmall: TextStyle(color: Colors.grey),
+    bodySmall: TextStyle(fontSize: 5),
+    bodyMedium: TextStyle(color: Colors.blueAccent),
   ),
 
   brightness: Brightness.dark, // Set brightness to dark

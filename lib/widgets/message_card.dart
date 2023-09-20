@@ -92,7 +92,7 @@ class _MessageCardState extends State<MessageCard> {
           child: Text(
             MyDateUtil.getFormattedTime(
                 context: context, time: widget.message.sent),
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
       ],
@@ -113,7 +113,7 @@ class _MessageCardState extends State<MessageCard> {
             //double tick blue icon for message read
             if (widget.message.read.isNotEmpty)
               const Icon(CupertinoIcons.checkmark_seal_fill,
-                  color: Colors.blue, size: 20),
+                  color: Colors.blue, size: 15),
 
             //for adding some space
             const SizedBox(width: 2),
@@ -122,7 +122,7 @@ class _MessageCardState extends State<MessageCard> {
             Text(
               MyDateUtil.getFormattedTime(
                   context: context, time: widget.message.sent),
-              style: Theme.of(context).textTheme.labelSmall,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),
@@ -136,8 +136,8 @@ class _MessageCardState extends State<MessageCard> {
             margin: EdgeInsets.symmetric(
                 horizontal: mq.width * .04, vertical: mq.height * .01),
             decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 218, 255, 176),
-                border: Border.all(color: Colors.lightGreen),
+                color: Colors.blue[200],
+                border: Border.all(color: Colors.lightBlueAccent),
                 //making borders curved
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),

@@ -65,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    final ChatUser user;
     return GestureDetector(
       //for hiding keyboard when a tap is detected on screen
       onTap: () => FocusScope.of(context).unfocus(),
@@ -84,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Scaffold(
           drawer: Drawer(
+            elevation: 10,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.group_solid,
-                      color: CupertinoColors.systemBlue,
+                      color: CupertinoColors.white,
                     ),
                     title: Text('Groups', style: Theme.of(context).textTheme.bodyMedium,),
                     onTap: () {
@@ -130,11 +130,15 @@ class _HomeScreenState extends State<HomeScreen> {
                    child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.settings,
-                      color: CupertinoColors.systemBlue,
+                      color: CupertinoColors.white,
                     ),
                     title: Text('Settings', style: Theme.of(context).textTheme.bodyMedium,),
                     onTap: () {
-                      // Navigate to the settings screen or perform any desired action
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => ProfileScreen(user: APIs.me)));
+
                     },
                 ),
                  ),
@@ -222,20 +226,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         : Icons.search,
                     size: 30,
                   )),
-
-              //more features button
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => ProfileScreen(user: APIs.me)));
-                },
-                icon: const Icon(
-                  CupertinoIcons.person_alt_circle,
-                  size: 30,
-                ),
-              ),
             ],
           ),
           // ignore: sized_box_for_whitespace
@@ -310,6 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               showChildOpacityTransition: false,
                               springAnimationDurationInMilliseconds: 300,
                               child: ListView.builder(
+
                                   itemCount: _isSearching
                                       ? _searchList.length
                                       : _list.length,
@@ -318,6 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   physics: const BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics()),
                                   itemBuilder: (context, index) {
+
                                     return ChatUserCard(
                                         user: _isSearching
                                             ? _searchList[index]

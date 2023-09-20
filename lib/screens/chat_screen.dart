@@ -206,7 +206,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               context: context, lastActive: list[0].lastActive)
                       : MyDateUtil.getLastActiveTime(
                           context: context, lastActive: widget.user.lastActive),
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
             ),
@@ -335,7 +335,8 @@ class _ChatScreenState extends State<ChatScreen> {
               shape: const CircleBorder(),
               color: Colors.deepPurple,
               child: const Icon(Icons.send, color: Colors.white, size: 28),
-            )
+            ),
+            SizedBox(width: 10,)
           ],
         ),
       ),

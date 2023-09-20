@@ -61,6 +61,7 @@ dependencies:
   liquid_pull_to_refresh: ^3.0.1
   curved_navigation_bar: ^1.0.3
   flutter_localization: ^0.1.13
+  file_picker: ^5.5.0
 
 # flutter_launcher_icons:
 #   android: "ic_launcher"

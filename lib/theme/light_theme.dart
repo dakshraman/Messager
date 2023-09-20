@@ -36,6 +36,7 @@ ThemeData lightTheme = ThemeData(
       color: Colors.white,
     ),
     labelSmall: TextStyle(color: Colors.black),
+    bodySmall: TextStyle(fontSize: 5),
   ),
   brightness: Brightness.light, // Set brightness to light
 
