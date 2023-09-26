@@ -89,26 +89,17 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 UserAccountsDrawerHeader(
                   accountName: Text(
-                    widget.user
-                        .name, // Access the user's name from your ChatUser object
+                    widget.user.name, 
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  accountEmail: Text(
-                    widget.user
-                        .email, // Access the user's email from your ChatUser object
+                  accountEmail: Text(widget.user.email,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(widget.user.image), // Profile image URL
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary, // Background color
                   ),
                 ),
                 // Rest of your drawer items
