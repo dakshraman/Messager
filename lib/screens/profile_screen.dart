@@ -88,8 +88,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   //image from server
                                   Container(
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(mq.height * .2),
+                                        borderRadius: BorderRadius.circular(
+                                            mq.height * .2),
                                         border: Border.all(
                                           color: Colors
                                               .blue, // Choose your desired border color
@@ -98,8 +98,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ),
                                       child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(mq.height * .1),
+                                        borderRadius: BorderRadius.circular(
+                                            mq.height * .1),
                                         child: CachedNetworkImage(
                                           width: mq.height * .2,
                                           height: mq.height * .2,
@@ -124,8 +124,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   },
                                   shape: const CircleBorder(),
                                   color: Colors.blue,
-                                  child:
-                                      const Icon(Icons.edit, color: Colors.white),
+                                  child: const Icon(Icons.edit,
+                                      color: Colors.white),
                                 ),
                               )
                             ],
@@ -135,13 +135,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                       // for adding some space
                       SizedBox(height: mq.height * .03),
-
+                      const Divider(
+                        height: 20,
+                        thickness: 5,
+                        color: Colors.grey,
+                      ),
                       // user email label
                       Text(widget.user.email,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 15)),
-
-                      // for adding some space
+                      const Divider(
+                        height: 20,
+                        thickness: 5,
+                        color: Colors.grey,
+                      ),
                       SizedBox(height: mq.height * .05),
 
                       // name input field
@@ -304,7 +311,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text('Cancel', style: TextStyle(color: Colors.red),),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.red),
+            ),
           ),
         );
       },

@@ -21,6 +21,12 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
           title: Text(widget.user.name),
         ),
         body: Container(
@@ -28,11 +34,11 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
           padding:
               const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           child: Card(
+            elevation: 10,
             margin: const EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: mq.width, height: mq.height * .03),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(mq.height * .2),

@@ -15,7 +15,6 @@ import '../widgets/chat_user_card.dart';
 import 'auth/login_screen.dart';
 import 'profile_screen.dart';
 
-//home screen -- where all available contacts are shown
 class HomeScreen extends StatefulWidget {
   final ChatUser user; // Add this line to accept a ChatUser object
 
@@ -66,11 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     return GestureDetector(
-      //for hiding keyboard when a tap is detected on screen
       onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(
-        //if search is on & back button is pressed then close search
-        //or else simple close current screen on back button click
         onWillPop: () {
           if (_isSearching) {
             setState(() {
@@ -87,29 +83,47 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                UserAccountsDrawerHeader(
-                  accountName: Text(
-                    widget.user.name, 
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  accountEmail: Text(widget.user.email,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                const SizedBox(
+                  height: 50,
                 ),
-                // Rest of your drawer items
+                Center(
+                    child: Text(
+                  "Messager",
+                  style: Theme.of(context).textTheme.titleLarge,
+                )),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(15),
+                //     border: Border.all(
+                //       color: Colors.blue, // Choose your desired border color
+                //       width: 5.0, // Choose your desired border width
+                //     ),
+                //   ),
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(15),
+                //     child: CachedNetworkImage(
+                //       width: mq.height * .2,
+                //       height: mq.height * .2,
+                //       fit: BoxFit.cover,
+                //       imageUrl: widget.user.image,
+                //       errorWidget: (context, url, error) => const CircleAvatar(
+                //           child: Icon(CupertinoIcons.person)),
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 50,
+                ),
                 Card(
                   child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.group_solid,
                       color: CupertinoColors.white,
                     ),
-                    title: Text('Groups', style: Theme.of(context).textTheme.bodyMedium,),
+                    title: Text(
+                      'Groups',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     onTap: () {
                       // Navigate to the chats screen or perform any desired action
                     },
@@ -117,22 +131,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 // Add more ListTile items for other options
                 const Divider(),
-                 Card(
-                   child: CupertinoListTile.notched(
+                Card(
+                  child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.settings,
                       color: CupertinoColors.white,
                     ),
-                    title: Text('Settings', style: Theme.of(context).textTheme.bodyMedium,),
+                    title: Text(
+                      'Settings',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (_) => ProfileScreen(user: APIs.me)));
-
                     },
+                  ),
                 ),
-                 ),
                 const Divider(),
                 Card(
                   child: CupertinoListTile.notched(
@@ -291,7 +307,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               showChildOpacityTransition: false,
                               springAnimationDurationInMilliseconds: 300,
                               child: ListView.builder(
-
                                   itemCount: _isSearching
                                       ? _searchList.length
                                       : _list.length,
@@ -300,7 +315,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   physics: const BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics()),
                                   itemBuilder: (context, index) {
-
                                     return ChatUserCard(
                                         user: _isSearching
                                             ? _searchList[index]

@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element, use_build_context_synchronously
 
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -176,120 +177,137 @@ class _MessageCardState extends State<MessageCard> {
     showCupertinoModalPopup(
       context: context,
       builder: (_) {
-        return CupertinoActionSheet(
-          actions: [
-            if (widget.message.type == Type.text)
-              CupertinoActionSheetAction(
-                onPressed: () async {
-                  await Clipboard.setData(
-                    ClipboardData(text: widget.message.msg),
-                  );
-                  Navigator.pop(context);
-                  Dialogs.showSnackbar(context, 'Text Copied!');
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      CupertinoIcons.square_fill_on_square_fill,
-                      color: Colors.blue,
-                      size: 26,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Copy Text',
-                      style: TextStyle(color: Colors.blueAccent),
-                    ),
-                  ],
+        return Stack(
+          children: [
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 10,
+                  sigmaY: 10,
+                ), // Adjust the blur intensity as needed
+                child: Container(
+                  color: Colors
+                      .transparent, // You can set a background color here if needed
                 ),
               ),
-            if (widget.message.type != Type.text)
-              CupertinoActionSheetAction(
-                onPressed: () async {
-                  try {
-                    log('Image Url: ${widget.message.msg}');
-                    bool? success = await GallerySaver.saveImage(
-                      widget.message.msg,
-                      albumName: 'Messager',
-                    );
-                    Navigator.pop(context);
-                    if (success != null && success) {
-                      Dialogs.showSnackbar(
-                          context, 'Image Successfully Saved!');
-                    } else {
-                      Dialogs.showSnackbar(context, 'Image Save Failed!');
-                    }
-                  } catch (e) {
-                    log('ErrorWhileSavingImg: $e');
-                  }
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      CupertinoIcons.arrow_down_circle,
-                      color: Colors.blue,
-                      size: 26,
+            ),
+            CupertinoActionSheet(
+              actions: [
+                if (widget.message.type == Type.text)
+                  CupertinoActionSheetAction(
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        ClipboardData(text: widget.message.msg),
+                      );
+                      Navigator.pop(context);
+                      Dialogs.showSnackbar(context, 'Text Copied!');
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.square_fill_on_square_fill,
+                          color: Colors.blue,
+                          size: 26,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Copy Text',
+                          style: TextStyle(color: Colors.blueAccent),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Save Image',
-                      style: TextStyle(color: Colors.blueAccent),
+                  ),
+                if (widget.message.type != Type.text)
+                  CupertinoActionSheetAction(
+                    onPressed: () async {
+                      try {
+                        log('Image Url: ${widget.message.msg}');
+                        bool? success = await GallerySaver.saveImage(
+                          widget.message.msg,
+                          albumName: 'Messager',
+                        );
+                        Navigator.pop(context);
+                        if (success != null && success) {
+                          Dialogs.showSnackbar(
+                              context, 'Image Successfully Saved!');
+                        } else {
+                          Dialogs.showSnackbar(context, 'Image Save Failed!');
+                        }
+                      } catch (e) {
+                        log('ErrorWhileSavingImg: $e');
+                      }
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.arrow_down_circle,
+                          color: Colors.blue,
+                          size: 26,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Save Image',
+                          style: TextStyle(color: Colors.blueAccent),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            if (isMe)
-              CupertinoActionSheetAction(
+                  ),
+                if (isMe)
+                  CupertinoActionSheetAction(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _showMessageUpdateDialog();
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.pencil,
+                          color: Colors.blue,
+                          size: 26,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Edit Message',
+                          style: TextStyle(color: Colors.blueAccent),
+                        ),
+                      ],
+                    ),
+                  ),
+                if (isMe)
+                  CupertinoActionSheetAction(
+                    onPressed: () async {
+                      await APIs.deleteMessage(widget.message);
+                      Navigator.pop(context);
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.delete,
+                          color: Colors.red,
+                          size: 26,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Delete Message',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+              cancelButton: CupertinoActionSheetAction(
                 onPressed: () {
                   Navigator.pop(context);
-                  _showMessageUpdateDialog();
                 },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      CupertinoIcons.pencil,
-                      color: Colors.blue,
-                      size: 26,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Edit Message',
-                      style: TextStyle(color: Colors.blueAccent),
-                    ),
-                  ],
-                ),
+                child:
+                    const Text('Cancel', style: TextStyle(color: Colors.red)),
               ),
-            if (isMe)
-              CupertinoActionSheetAction(
-                onPressed: () async {
-                  await APIs.deleteMessage(widget.message);
-                  Navigator.pop(context);
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      CupertinoIcons.delete,
-                      color: Colors.red,
-                      size: 26,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Delete Message',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
-                ),
-              ),
+            ),
           ],
-          cancelButton: CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel', style: TextStyle(color: Colors.red)),
-          ),
         );
       },
     );
