@@ -57,15 +57,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Theme.of(context).colorScheme.primary,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: mq.width * .05, vertical: mq.height * .09),
+                    horizontal: mq.width * .05, vertical: mq.height * .05),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       //user profile picture
                       Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -76,13 +76,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ?
 
                                   //local image
-                                  ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(mq.height * .1),
-                                      child: Image.file(File(_image!),
-                                          width: mq.height * .2,
-                                          height: mq.height * .2,
-                                          fit: BoxFit.cover))
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            mq.height * .2),
+                                        border: Border.all(
+                                          color: Colors
+                                              .blue, // Choose your desired border color
+                                          width:
+                                              5.0, // Choose your desired border width
+                                        ),
+                                      ),
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              mq.height * .1),
+                                          child: Image.file(File(_image!),
+                                              width: mq.height * .2,
+                                              height: mq.height * .2,
+                                              fit: BoxFit.cover)),
+                                    )
                                   :
 
                                   //image from server
