@@ -336,7 +336,9 @@ class _ChatScreenState extends State<ChatScreen> {
               color: Colors.deepPurple,
               child: const Icon(Icons.send, color: Colors.white, size: 28),
             ),
-            SizedBox(width: 10,)
+            const SizedBox(
+              width: 10,
+            )
           ],
         ),
       ),
