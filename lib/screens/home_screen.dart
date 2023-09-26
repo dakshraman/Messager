@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:Messager/screens/groups.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -91,26 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   "Messager",
                   style: Theme.of(context).textTheme.titleLarge,
                 )),
-                // Container(
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(15),
-                //     border: Border.all(
-                //       color: Colors.blue, // Choose your desired border color
-                //       width: 5.0, // Choose your desired border width
-                //     ),
-                //   ),
-                //   child: ClipRRect(
-                //     borderRadius: BorderRadius.circular(15),
-                //     child: CachedNetworkImage(
-                //       width: mq.height * .2,
-                //       height: mq.height * .2,
-                //       fit: BoxFit.cover,
-                //       imageUrl: widget.user.image,
-                //       errorWidget: (context, url, error) => const CircleAvatar(
-                //           child: Icon(CupertinoIcons.person)),
-                //     ),
-                //   ),
-                // ),
+
                 const SizedBox(
                   height: 50,
                 ),
@@ -125,7 +107,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     onTap: () {
-                      // Navigate to the chats screen or perform any desired action
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => groupsPage(user: APIs.me)));
                     },
                   ),
                 ),
