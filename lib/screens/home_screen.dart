@@ -29,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // for storing all users
   List<ChatUser> _list = [];
+  int _currentIndex = 0;
 
   // for storing searched items
   final List<ChatUser> _searchList = [];
@@ -239,18 +240,56 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          bottomNavigationBar: CupertinoTabBar(
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.grey,
+            currentIndex:
+                _currentIndex, // You need to maintain a currentIndex variable
+            onTap: (int index) {
+              // Handle navigation based on the tapped index
+              setState(() {
+                _currentIndex = index; // Update the currentIndex
+              });
+              switch (index) {
+                case 0:
+                  // Navigate to the Groups page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => groupsPage(user: APIs.me),
+                    ),
+                  );
+                  break;
+                case 1:
+                  // Navigate to the Settings page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileScreen(user: APIs.me),
+                    ),
+                  );
+                  break;
+                case 2:
+                  // Handle logout here
+                  // You can implement your logout logic here
+                  break;
+              }
+            },
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.group_solid),
+                icon: Icon(
+                  Icons.group,
+                  color: Colors.white,
+                ),
                 label: 'Groups',
               ),
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.settings),
+                icon: Icon(Icons.settings),
                 label: 'Settings',
               ),
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.square_arrow_left),
+                icon: Icon(Icons.logout),
                 label: 'Logout',
               ),
             ],
