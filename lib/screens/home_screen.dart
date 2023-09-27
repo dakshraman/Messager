@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:Messager/screens/groups.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -221,26 +222,39 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           // ignore: sized_box_for_whitespace
-          bottomNavigationBar: Container(
-              color:
-                  Colors.transparent, //Theme.of(context).colorScheme.primary,
-              height: 70,
-              child: ElevatedButton(
-                onPressed: () {
-                  _addChatUserDialog();
-                },
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(CupertinoIcons.person_add_solid, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text(
-                      "Add User",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+          floatingActionButton: ElevatedButton(
+            onPressed: () {
+              _addChatUserDialog();
+            },
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(CupertinoIcons.person_add_solid, color: Colors.white),
+                SizedBox(width: 8),
+                Text(
+                  "Add User",
+                  style: TextStyle(color: Colors.white),
                 ),
-              )),
+              ],
+            ),
+          ),
+
+          bottomNavigationBar: CupertinoTabBar(
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.group_solid),
+                label: 'Groups',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.settings),
+                label: 'Settings',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.square_arrow_left),
+                label: 'Logout',
+              ),
+            ],
+          ),
 
           //body
           body: StreamBuilder(
@@ -328,64 +342,79 @@ class _HomeScreenState extends State<HomeScreen> {
 
     showCupertinoDialog(
       context: context,
-      builder: (context) => CupertinoAlertDialog(
-        // No direct equivalent for contentPadding, use padding for content spacing
-        title: const Row(
-          children: [
-            Icon(
-              CupertinoIcons.person_add_solid,
-              color: Colors.blueAccent,
-              size: 28,
-            ),
-            Text(
-              '  Add User',
-              style: TextStyle(color: Colors.blueAccent),
-            )
-          ],
-        ),
-        content: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 10, 10, 5),
-          child: CupertinoTextField(
-            maxLines: null,
-            onChanged: (value) => email = value,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: CupertinoColors.systemGrey),
-            ),
-            placeholder: 'Email Id',
-            prefix: const Padding(
-              padding: EdgeInsets.only(left: 5),
-              child: Icon(
-                CupertinoIcons.mail_solid,
-                color: Colors.blueAccent,
+      builder: (context) => Stack(
+        children: [
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                  sigmaX: 5, sigmaY: 5), // Adjust the blur intensity as needed
+              child: Container(
+                color: Colors
+                    .transparent, // You can set a background color here if needed
               ),
             ),
           ),
-        ),
-        actions: [
-          CupertinoDialogAction(
-            onPressed: () {
-              // Hide alert dialog
-              Navigator.pop(context);
-            },
-            child: const Text('Cancel', style: TextStyle(color: Colors.red)),
-          ),
-          CupertinoDialogAction(
-            onPressed: () async {
-              // Hide alert dialog
-              Navigator.pop(context);
-              if (email.isNotEmpty) {
-                await APIs.addChatUser(email).then((value) {
-                  if (!value) {
-                    Dialogs.showSnackbar(context, 'User does not exist!');
-                  }
-                });
-              }
-            },
-            child: const Text(
-              'Add',
-              style: TextStyle(color: Colors.blueAccent),
+          CupertinoAlertDialog(
+            // No direct equivalent for contentPadding, use padding for content spacing
+            title: const Row(
+              children: [
+                Icon(
+                  CupertinoIcons.person_add_solid,
+                  color: Colors.blueAccent,
+                  size: 28,
+                ),
+                Text(
+                  '  Add User',
+                  style: TextStyle(color: Colors.blueAccent),
+                )
+              ],
             ),
+            content: Padding(
+              padding: const EdgeInsets.fromLTRB(5, 10, 10, 5),
+              child: CupertinoTextField(
+                maxLines: null,
+                onChanged: (value) => email = value,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: CupertinoColors.systemGrey),
+                ),
+                placeholder: 'Email Id',
+                prefix: const Padding(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Icon(
+                    CupertinoIcons.mail_solid,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  // Hide alert dialog
+                  Navigator.pop(context);
+                },
+                child:
+                    const Text('Cancel', style: TextStyle(color: Colors.red)),
+              ),
+              CupertinoDialogAction(
+                onPressed: () async {
+                  // Hide alert dialog
+                  Navigator.pop(context);
+                  if (email.isNotEmpty) {
+                    await APIs.addChatUser(email).then((value) {
+                      if (!value) {
+                        Dialogs.showSnackbar(context, 'User does not exist!');
+                      }
+                    });
+                  }
+                },
+                child: const Text(
+                  'Add',
+                  style: TextStyle(color: Colors.blueAccent),
+                ),
+              ),
+            ],
           ),
         ],
       ),
