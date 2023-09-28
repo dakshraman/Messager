@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
-            selectedItemColor: Colors.white,
+            selectedItemColor: Colors.deepPurple,
             unselectedItemColor: Colors.grey,
             currentIndex:
                 _currentIndex, // You need to maintain a currentIndex variable
@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.group,
-                  color: Colors.white,
+                  //color: Colors.white,
                 ),
                 label: 'Groups',
               ),
