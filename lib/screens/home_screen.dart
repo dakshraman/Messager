@@ -94,7 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   "Messager",
                   style: Theme.of(context).textTheme.titleLarge,
                 )),
-
                 const SizedBox(
                   height: 50,
                 ),
@@ -112,11 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => groupsPage(user: APIs.me)));
+                              builder: (_) => GroupsPage(user: APIs.me)));
                     },
                   ),
                 ),
-                // Add more ListTile items for other options
                 const Divider(),
                 Card(
                   child: CupertinoListTile.notched(
@@ -223,21 +221,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           // ignore: sized_box_for_whitespace
-          floatingActionButton: CupertinoButton.filled(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blueAccent,
             onPressed: () {
               _addChatUserDialog();
             },
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(CupertinoIcons.person_add_solid, color: Colors.white),
-                SizedBox(width: 8),
-                Text(
-                  "Add User",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
+            child: const Icon(CupertinoIcons.person_add_solid,
+                color: Colors.white),
           ),
 
           bottomNavigationBar: BottomNavigationBar(
@@ -257,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => groupsPage(user: APIs.me),
+                      builder: (_) => HomeScreen(user: APIs.me),
                     ),
                   );
                   break;
@@ -266,31 +256,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => ProfileScreen(user: APIs.me),
+                      builder: (_) => GroupsPage(user: APIs.me),
                     ),
                   );
                   break;
                 case 2:
-                  // Handle logout here
-                  // You can implement your logout logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileScreen(user: APIs.me),
+                    ),
+                  );
                   break;
               }
             },
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.group,
-                  //color: Colors.white,
+                  CupertinoIcons.chat_bubble_fill,
+                ),
+                label: 'Chats',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  CupertinoIcons.person_2_fill,
                 ),
                 label: 'Groups',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(CupertinoIcons.gear_alt_fill),
                 label: 'Settings',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.logout),
-                label: 'Logout',
               ),
             ],
           ),

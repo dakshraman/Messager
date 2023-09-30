@@ -1,43 +1,23 @@
-// ignore_for_file: camel_case_types
-
+import 'package:Messager/models/chat_user.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
-import '../models/chat_user.dart';
-
-class groupsPage extends StatefulWidget {
-  final ChatUser user;
-
-  const groupsPage({super.key, required this.user});
+class GroupsPage extends StatefulWidget {
+  const GroupsPage({super.key, required ChatUser user});
 
   @override
-  State<groupsPage> createState() => _groupsPageState();
+  // ignore: library_private_types_in_public_api
+  _GroupsPageState createState() => _GroupsPageState();
 }
 
-class _groupsPageState extends State<groupsPage> {
+class _GroupsPageState extends State<GroupsPage> {
+  List<String> tasks = [];
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: const Text("Groups"),
-        ),
-        body: Center(
-          child: CupertinoButton.filled(
-            onPressed: () {},
-            child: const Text(
-              "Comming Soon",
-              style: TextStyle(fontSize: 30),
-            ),
-          ),
-        ),
+    return CupertinoPageScaffold(
+      child: Center(
+        child: CupertinoButton.filled(
+            child: Text("Comming Soon"), onPressed: () {}),
       ),
     );
   }
