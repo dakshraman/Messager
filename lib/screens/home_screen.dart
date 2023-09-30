@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:Messager/screens/groups.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 const SizedBox(
-                  height: 50,
+                  height: 70,
                 ),
                 Center(
                     child: Text(
@@ -95,8 +96,53 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: Theme.of(context).textTheme.titleLarge,
                 )),
                 const SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color:  Colors.grey//Theme.of(context).colorScheme.primary,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(mq.height * .2),
+                          border: Border.all(
+                            color: Colors.deepPurpleAccent, // Choose your desired border color
+                            width: 5.0, // Choose your desired border width
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(mq.height * .1),
+                          child: CachedNetworkImage(
+                            width: mq.height * .1,
+                            height: mq.height * .1,
+                            fit: BoxFit.cover,
+                            imageUrl: widget.user.image,
+                            errorWidget: (context, url, error) => const CircleAvatar(
+                                child: Icon(CupertinoIcons.person)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30,),
+                Container(
+                  height: 50,
+                  width: 50,
+                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  //color: Theme.of(context).primaryColor,
+                  child: Center(
+                    child: Text(
+                      widget.user.name,
+                      style: const TextStyle(color: Colors.deepPurpleAccent, fontSize: 25),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20,),
                 Card(
                   child: CupertinoListTile.notched(
                     leading: const Icon(
@@ -111,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => GroupsPage(user: APIs.me)));
+                              builder: (_) => const GroupsPage()));
                     },
                   ),
                 ),
@@ -256,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => GroupsPage(user: APIs.me),
+                      builder: (_) => const GroupsPage(),
                     ),
                   );
                   break;

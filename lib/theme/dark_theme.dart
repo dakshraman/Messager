@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Define custom colors if needed
 const primaryDark = Colors.black;
-const backgroundDark = Colors.grey;
+final backgroundDark = Colors.grey.shade700;
 const secondaryDark = Color.fromARGB(255, 52, 52, 52);
 const lightGrey = Color.fromARGB(255, 167, 167, 167);
 const black = Colors.black;

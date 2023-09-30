@@ -29,13 +29,13 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
           ),
           title: Text(widget.user.name),
         ),
-        body: Container(
-          color: Theme.of(context).colorScheme.background,
-          padding:
-              const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
-          child: Card(
-            elevation: 10,
-            margin: const EdgeInsets.only(top: 10, bottom: 10),
+        body: Center(
+          child: Container(
+            margin: const EdgeInsets.only(top: 250, bottom: 250, left: 50, right: 50),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color:  Colors.grey//Theme.of(context).colorScheme.primary,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -43,15 +43,15 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(mq.height * .2),
                     border: Border.all(
-                      color: Colors.white, // Choose your desired border color
+                      color: Colors.deepPurpleAccent, // Choose your desired border color
                       width: 5.0, // Choose your desired border width
                     ),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .1),
                     child: CachedNetworkImage(
-                      width: mq.height * .2,
-                      height: mq.height * .2,
+                      width: mq.height * .1,
+                      height: mq.height * .1,
                       fit: BoxFit.cover,
                       imageUrl: widget.user.image,
                       errorWidget: (context, url, error) => const CircleAvatar(
@@ -62,20 +62,46 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                 SizedBox(height: mq.height * .03),
                 Text(
                   widget.user.email,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  style: const TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
                 ),
                 SizedBox(height: mq.height * .02),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-                    Text(
-                      'About: ',
-                      style: Theme.of(context).textTheme.titleSmall,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Name: ',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          widget.user.name,
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      widget.user.about,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
+                    SizedBox(height: mq.height*0.02,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'About: ',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          widget.user.about,
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ],

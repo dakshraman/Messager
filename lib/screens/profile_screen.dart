@@ -13,6 +13,8 @@ import '../api/apis.dart';
 import '../helper/dialogs.dart';
 import '../main.dart';
 import '../models/chat_user.dart';
+import 'groups.dart';
+import 'home_screen.dart';
 
 //profile screen -- to show signed in user info
 class ProfileScreen extends StatefulWidget {
@@ -28,6 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _image;
   final bool _isBottomSheetVisible = false;
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           Scaffold(
-              backgroundColor: Theme.of(context).colorScheme.background,
+             // backgroundColor: Theme.of(context).colorScheme.background,
               //app bar
               appBar: AppBar(
                   leading: IconButton(
@@ -64,13 +67,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: const Text(
                     'Profile Screen',
                   )),
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                selectedItemColor: Colors.deepPurple,
+                unselectedItemColor: Colors.grey,
+                currentIndex:
+                _currentIndex, // You need to maintain a currentIndex variable
+                onTap: (int index) {
+                  // Handle navigation based on the tapped index
+                  setState(() {
+                    _currentIndex = index; // Update the currentIndex
+                  });
+                  switch (index) {
+                    case 0:
+                    // Navigate to the Groups page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => HomeScreen(user: APIs.me),
+                        ),
+                      );
+                      break;
+                    case 1:
+                    // Navigate to the Settings page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const GroupsPage(),
+                        ),
+                      );
+                      break;
+                    case 2:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ProfileScreen(user: APIs.me),
+                        ),
+                      );
+                      break;
+                  }
+                },
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      CupertinoIcons.chat_bubble_fill,
+                    ),
+                    label: 'Chats',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      CupertinoIcons.person_2_fill,
+                    ),
+                    label: 'Groups',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.gear_alt_fill),
+                    label: 'Settings',
+                  ),
+                ],
+              ),
 
               //body
-              body: Form(
-                key: _formKey,
-                child: Card(
-                  elevation: 5,
-                  color: Theme.of(context).colorScheme.primary,
+              body: Container(
+                color: Theme.of(context).colorScheme.background,
+                child: Form(
+                  key: _formKey,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: mq.width * .05, vertical: mq.height * .05),
@@ -81,10 +142,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.grey,
+                              color:  Colors.grey//Theme.of(context).colorScheme.primary,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(20.0),
                               child: Stack(
                                 children: [
                                   //profile picture
@@ -98,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 mq.height * .2),
                                             border: Border.all(
                                               color: Colors
-                                                  .blue, // Choose your desired border color
+                                                  .deepPurpleAccent, // Choose your desired border color
                                               width:
                                                   5.0, // Choose your desired border width
                                             ),
@@ -121,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 mq.height * .2),
                                             border: Border.all(
                                               color: Colors
-                                                  .blue, // Choose your desired border color
+                                                  .deepPurple, // Choose your desired border color
                                               width:
                                                   5.0, // Choose your desired border width
                                             ),
@@ -153,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         _showBottomSheet();
                                       },
                                       shape: const CircleBorder(),
-                                      color: Colors.blue,
+                                      color: Colors.deepPurpleAccent,
                                       child: const Icon(Icons.edit,
                                           color: Colors.white),
                                     ),
@@ -168,20 +229,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Divider(
                             height: 20,
                             thickness: 5,
-                            color: Colors.grey,
+                            color: Colors.deepPurpleAccent,
                           ),
                           // user email label
                           Text(widget.user.email,
                               style: const TextStyle(
-                                  color: Colors.white, fontSize: 15)),
+                                  color: Colors.deepPurple, fontSize: 20, fontWeight: FontWeight.w900)),
                           const Divider(
                             height: 20,
                             thickness: 5,
-                            color: Colors.grey,
+                            color: Colors.deepPurpleAccent,
                           ),
                           SizedBox(height: mq.height * .05),
 
                           // name input field
+                          const Text("Name", style: TextStyle(fontSize: 25),),
+                          SizedBox(height: mq.height * .01),
                           TextFormField(
                             initialValue: widget.user.name,
                             onSaved: (val) => APIs.me.name = val ?? '',
@@ -199,16 +262,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12)),
                                 hintText: 'Your Name',
-                                label: const Text(
-                                  'Name',
-                                  style: TextStyle(fontSize: 25),
-                                )),
+                            ),
                           ),
 
                           // for adding some space
                           SizedBox(height: mq.height * .02),
 
                           // about input field
+                          const Text("About", style: TextStyle(fontSize: 25),),
+                          SizedBox(height: mq.height * .01),
                           TextFormField(
                             initialValue: widget.user.about,
                             onSaved: (val) => APIs.me.about = val ?? '',
@@ -226,10 +288,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12)),
                                 hintText: 'eg. Feeling Happy',
-                                label: const Text(
-                                  'About',
-                                  style: TextStyle(fontSize: 25),
-                                )),
+                                ),
                           ),
 
                           // for adding some space
