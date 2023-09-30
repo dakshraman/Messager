@@ -19,6 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+  <meta name="google-signin-client_id" content="937110070628-9vkupqq3g42tnk589buo4vmaaikjk08f.apps.googleusercontent.com">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,6 +39,9 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
+
+
 </head>
 <body>
   <script>
@@ -55,5 +59,31 @@
       });
     });
   </script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js"></script>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD1YDrkgIB1CIUQz7P9Q-Mb_q4clVNzq6E",
+    authDomain: "messager-7a938.firebaseapp.com",
+    databaseURL: "https://messager-7a938-default-rtdb.firebaseio.com",
+    projectId: "messager-7a938",
+    storageBucket: "messager-7a938.appspot.com",
+    messagingSenderId: "937110070628",
+    appId: "1:937110070628:web:5c489902be9a786843c671",
+    measurementId: "G-TBDGNGEFQQ"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>

@@ -223,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           // ignore: sized_box_for_whitespace
-          floatingActionButton: ElevatedButton(
+          floatingActionButton: CupertinoButton.filled(
             onPressed: () {
               _addChatUserDialog();
             },

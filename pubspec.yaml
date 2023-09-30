@@ -41,13 +41,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_launcher_icons: ^0.13.1
-  flutter_signin_button: ^2.0.0
   firebase_core: ^2.14.0
   firebase_storage: ^11.2.5
   firebase_auth: ^4.6.3
   google_sign_in: ^6.1.4
   cloud_firestore: ^4.8.2
-  flutter_snake_navigationbar: ^0.6.1
   animations: ^2.0.7
   particles_flutter: ^0.1.4
   flutter_staggered_animations: ^1.1.1
@@ -59,28 +57,28 @@ dependencies:
   flutter_notification_channel: ^2.0.0
   gallery_saver: ^2.3.2
   liquid_pull_to_refresh: ^3.0.1
-  curved_navigation_bar: ^1.0.3
   flutter_localization: ^0.1.13
   file_picker: ^5.5.0
+  google_sign_in_web: ^0.12.0+5
 
 # flutter_launcher_icons:
 #   android: "ic_launcher"
 #   ios: true
 #   remove_alpha_ios: true
-#   image_path: "images/messager.png"
+#   image_path: "images/Logo.jpg"
 #   min_sdk_android: 21 # android min sdk min:16, default 21
 #   web:
 #     generate: true
-#     image_path: "images/messager.png"
+#     image_path: "images/Logo.jpg"
 #     background_color: "#hexcode"
 #     theme_color: "#hexcode"
 #   windows:
 #     generate: true
-#     image_path: "images/messager.png"
+#     image_path: "images/Logo.jpg"
 #     icon_size: 48 # min:48, max:256, default: 48
 #   macos:
 #     generate: true
-#     image_path: "images/messager.png"
+#     image_path: "images/Logo.jpg"
 
 dev_dependencies:
   flutter_test:

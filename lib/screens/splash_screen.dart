@@ -136,7 +136,7 @@ class _SplashScreenState extends State<SplashScreen>
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Image.asset(
-                    'images/messager.png',
+                    'images/Logo.png',
                     height: 150,
                     width: 150,
                   )),
