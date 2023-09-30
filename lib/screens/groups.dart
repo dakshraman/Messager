@@ -17,7 +17,7 @@ class _GroupsPageState extends State<GroupsPage> {
     return CupertinoPageScaffold(
       child: Center(
         child: CupertinoButton.filled(
-            child: Text("Comming Soon"), onPressed: () {}),
+            child: const Text("Comming Soon"), onPressed: () {}),
       ),
     );
   }
