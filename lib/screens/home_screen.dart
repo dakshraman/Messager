@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:Messager/screens/groups.dart';
@@ -31,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // for storing all users
   List<ChatUser> _list = [];
   int _currentIndex = 0;
+  final _formKey = GlobalKey<FormState>();
+  String? _image;
 
   // for storing searched items
   final List<ChatUser> _searchList = [];
@@ -70,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
     mq = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
+
       child: WillPopScope(
         onWillPop: () {
           if (_isSearching) {
@@ -82,8 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
           drawer: Drawer(
-            elevation: 10,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            elevation: 50,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -91,39 +97,88 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 70,
                 ),
                 Center(
-                    child: Text(
-                  "Messager",
-                  style: Theme.of(context).textTheme.titleLarge,
-                )),
+                    child: Container(
+                      height: 40,
+                      margin: const EdgeInsets.only(left: 10,right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Theme.of(context).colorScheme.background,
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Messager",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                    )),
                 const SizedBox(
-                  height: 40,
+                  height: 50,
                 ),
                 Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color:  Colors.grey//Theme.of(context).colorScheme.primary,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(mq.height * .2),
-                          border: Border.all(
-                            color: Colors.deepPurpleAccent, // Choose your desired border color
-                            width: 5.0, // Choose your desired border width
-                          ),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(mq.height * .1),
-                          child: CachedNetworkImage(
-                            width: mq.height * .1,
-                            height: mq.height * .1,
-                            fit: BoxFit.cover,
-                            imageUrl: widget.user.image,
-                            errorWidget: (context, url, error) => const CircleAvatar(
-                                child: Icon(CupertinoIcons.person)),
-                          ),
+                  child: Form(
+                    key: _formKey,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).colorScheme.background,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Stack(
+                          children: [
+                            //profile picture
+                            _image != null
+                                ?
+                            //local image
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    mq.height * .2),
+                                border: Border.all(
+                                  color: Colors
+                                      .white, // Choose your desired border color
+                                  width:
+                                  5.0, // Choose your desired border width
+                                ),
+                              ),
+                              child: ClipRRect(
+                                  borderRadius:
+                                  BorderRadius.circular(
+                                      mq.height * .1),
+                                  child: Image.file(File(_image!),
+                                      width: mq.height * .1,
+                                      height: mq.height * .1,
+                                      fit: BoxFit.cover)),
+                            )
+                                :
+                            //image from server
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    mq.height * .2),
+                                border: Border.all(
+                                  color: Colors
+                                      .blueAccent, // Choose your desired border color
+                                  width:
+                                  5.0, // Choose your desired border width
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    mq.height * .1),
+                                child: CachedNetworkImage(
+                                  width: mq.height * .1,
+                                  height: mq.height * .1,
+                                  fit: BoxFit.cover,
+                                  imageUrl: widget.user.image,
+                                  errorWidget: (context, url,
+                                      error) =>
+                                  const CircleAvatar(
+                                      child: Icon(CupertinoIcons.person_alt_circle)),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -131,27 +186,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 30,),
                 Container(
-                  height: 50,
-                  width: 50,
+                  height: 40,
                   margin: const EdgeInsets.only(left: 10,right: 10),
-                  //color: Theme.of(context).primaryColor,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Theme.of(context).cardColor,
+                  ),
                   child: Center(
                     child: Text(
                       widget.user.name,
-                      style: const TextStyle(color: Colors.deepPurpleAccent, fontSize: 25),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20,),
-                Card(
+                const SizedBox(height: 50,),
+                const Divider(thickness: 2,),
+                Container(
+                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Theme.of(context).cardColor,
+                  ),
                   child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.group_solid,
                       color: CupertinoColors.white,
+                      size: 30,
                     ),
                     title: Text(
                       'Groups',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     onTap: () {
                       Navigator.push(
@@ -161,8 +225,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                const Divider(),
-                Card(
+                const Divider(thickness: 2,),
+                Container(
+                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Theme.of(context).cardColor,
+                  ),
                   child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.settings,
@@ -170,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     title: Text(
                       'Settings',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     onTap: () {
                       Navigator.push(
@@ -180,8 +249,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                const Divider(),
-                Card(
+                const Divider(thickness: 2,),
+                Container(
+                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Theme.of(context).cardColor,
+                  ),
                   child: CupertinoListTile.notched(
                     leading: const Icon(
                       CupertinoIcons.square_arrow_left,
@@ -220,6 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
+                const Divider(thickness: 2,),
               ],
             ),
           ),
@@ -276,10 +351,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white),
           ),
 
-          bottomNavigationBar: BottomNavigationBar(
+          bottomNavigationBar: CupertinoTabBar(
             backgroundColor: Theme.of(context).colorScheme.primary,
-            selectedItemColor: Colors.deepPurple,
-            unselectedItemColor: Colors.grey,
+            activeColor: Colors.white,
+            inactiveColor: Colors.grey.shade500,
             currentIndex:
                 _currentIndex, // You need to maintain a currentIndex variable
             onTap: (int index) {
@@ -325,12 +400,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  CupertinoIcons.person_2_fill,
+                  CupertinoIcons.group_solid,
+                  size: 40,
                 ),
                 label: 'Groups',
               ),
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.gear_alt_fill),
+                icon: Icon(CupertinoIcons.settings_solid),
                 label: 'Settings',
               ),
             ],

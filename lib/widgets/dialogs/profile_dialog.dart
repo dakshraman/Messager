@@ -38,7 +38,7 @@ class ProfileDialog extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(mq.height * .2),
                     border: Border.all(
-                      color: Colors.blue, // Choose your desired border color
+                      color: Colors.deepPurpleAccent, // Choose your desired border color
                       width: 5.0, // Choose your desired border width
                     ),
                   ),

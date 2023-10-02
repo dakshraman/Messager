@@ -20,6 +20,7 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
@@ -31,38 +32,49 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
         ),
         body: Center(
           child: Container(
-            margin: const EdgeInsets.only(top: 250, bottom: 250, left: 50, right: 50),
+            height: mq.height* .5,
+            width: mq.width* .8,
+            //margin: const EdgeInsets.only(top: 100, bottom: 100, left: 50, right: 50),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color:  Colors.grey//Theme.of(context).colorScheme.primary,
+                color:  Theme.of(context).cardColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(mq.height * .2),
-                    border: Border.all(
-                      color: Colors.deepPurpleAccent, // Choose your desired border color
-                      width: 5.0, // Choose your desired border width
-                    ),
+                    decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color:  Theme.of(context).colorScheme.background,
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(mq.height * .1),
-                    child: CachedNetworkImage(
-                      width: mq.height * .1,
-                      height: mq.height * .1,
-                      fit: BoxFit.cover,
-                      imageUrl: widget.user.image,
-                      errorWidget: (context, url, error) => const CircleAvatar(
-                          child: Icon(CupertinoIcons.person)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(mq.height * .2),
+                        border: Border.all(
+                          color: Colors.deepPurpleAccent, // Choose your desired border color
+                          width: 5.0, // Choose your desired border width
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(mq.height * .1),
+                        child: CachedNetworkImage(
+                          width: mq.height * .1,
+                          height: mq.height * .1,
+                          fit: BoxFit.cover,
+                          imageUrl: widget.user.image,
+                          errorWidget: (context, url, error) => const CircleAvatar(
+                              child: Icon(CupertinoIcons.person)),
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: mq.height * .03),
                 Text(
                   widget.user.email,
-                  style: const TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: mq.height * .02),
                 Column(
@@ -70,17 +82,13 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'Name: ',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Text(
                           widget.user.name,
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     ),
@@ -88,17 +96,13 @@ class _ViewProfileScreenState extends State<ViewProfileScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           'About: ',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Text(
                           widget.user.about,
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     )

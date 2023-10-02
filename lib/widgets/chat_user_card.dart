@@ -27,6 +27,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).cardColor,
       margin: EdgeInsets.symmetric(horizontal: mq.width * .01, vertical: 2),
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -48,7 +49,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
                 data?.map((e) => Message.fromJson(e.data())).toList() ?? [];
             if (list.isNotEmpty) _message = list[0];
 
-            return ListTile(
+            return CupertinoListTile.notched(
               leading: InkWell(
                 onTap: () {
                   showDialog(
@@ -60,8 +61,8 @@ class _ChatUserCardState extends State<ChatUserCard> {
                   borderRadius: BorderRadius.circular(mq.height * .03),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    width: mq.height * .055,
-                    height: mq.height * .055,
+                    width: mq.height * .085,
+                    height: mq.height * .085,
                     imageUrl: widget.user.image,
                     errorWidget: (context, url, error) =>
                         const CircleAvatar(child: Icon(Icons.person)),

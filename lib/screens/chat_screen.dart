@@ -54,6 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
             }
           },
           child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.background,
             //app bar
             appBar: AppBar(
               leading: IconButton(
@@ -113,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             return Center(
                               child: Text(
                                 'Say Hii! 👋',
-                                style: Theme.of(context).textTheme.titleSmall,
+                                style: Theme.of(context).textTheme.titleLarge,
                               ),
                             );
                           }
@@ -176,7 +177,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 height: mq.height * .04,
                 imageUrl: list.isNotEmpty ? list[0].image : widget.user.image,
                 errorWidget: (context, url, error) =>
-                    const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                    const CircleAvatar(child: Icon(CupertinoIcons.person_alt_circle)),
               ),
             ),
 
@@ -224,7 +225,7 @@ class _ChatScreenState extends State<ChatScreen> {
         horizontal: mq.width * .00,
       ),
       child: Container(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.background,
         child: Row(
           children: [
             //input field & buttons
@@ -242,8 +243,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           FocusScope.of(context).unfocus();
                           setState(() => _showEmoji = !_showEmoji);
                         },
-                        icon: const Icon(Icons.emoji_emotions,
-                            color: Colors.white, size: 25)),
+                        icon: const Icon(CupertinoIcons.smiley_fill,
+                          //color: Colors.white,
+                          size: 25,
+                        ),
+                    ),
 
                     Expanded(
                       child: CupertinoTextField(
@@ -282,7 +286,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         icon: const Icon(
                             CupertinoIcons.photo_fill_on_rectangle_fill,
-                            color: Colors.white,
+                            //color: Colors.white,
                             size: 26)),
 
                     //take image from camera button
@@ -303,7 +307,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           }
                         },
                         icon: const Icon(CupertinoIcons.camera_fill,
-                            color: Colors.white, size: 26)),
+                            //color: Colors.white,
+                          size: 26,
+                        ),
+                    ),
 
                     //adding some space
                     SizedBox(width: mq.width * .01),
@@ -333,8 +340,11 @@ class _ChatScreenState extends State<ChatScreen> {
               padding: const EdgeInsets.only(
                   top: 10, bottom: 10, right: 5, left: 10),
               shape: const CircleBorder(),
-              color: Colors.deepPurple,
-              child: const Icon(Icons.send, color: Colors.white, size: 28),
+              color: Colors.deepPurpleAccent,
+              child: Image.asset("images/Logo.png", color: Colors.white,
+              height: mq.height*0.07,
+                width: mq.width*0.07,
+              ),
             ),
             const SizedBox(
               width: 10,

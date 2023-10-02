@@ -33,11 +33,11 @@ class _MessageCardState extends State<MessageCard> {
         onLongPress: () {
           _showBottomSheet(isMe);
         },
-        child: isMe ? _greenMessage() : _blueMessage());
+        child: isMe ? _rightMessage() : _leftMessage());
   }
 
   // sender or another user message
-  Widget _blueMessage() {
+  Widget _leftMessage() {
     //update last read message if sender and receiver are different
     if (widget.message.read.isEmpty) {
       APIs.updateMessageReadStatus(widget.message);
@@ -50,24 +50,26 @@ class _MessageCardState extends State<MessageCard> {
         Flexible(
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.image
-                ? mq.width * .03
-                : mq.width * .04),
+                ? mq.width * .02
+                : mq.width * .02),
             margin: EdgeInsets.symmetric(
-                horizontal: mq.width * .04, vertical: mq.height * .01),
+                horizontal: mq.width * .02, vertical: mq.height * .01),
             decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 221, 245, 255),
-                border: Border.all(color: Colors.lightBlue),
+                color: Colors.blueAccent,
+                border: Border.all(color: Colors.blueAccent),
                 //making borders curved
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomRight: Radius.circular(30))),
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                ),
+            ),
             child: widget.message.type == Type.text
                 ?
                 //show text
                 Text(
                     widget.message.msg,
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                  style: Theme.of(context).textTheme.titleMedium,
                   )
                 :
                 //show image
@@ -93,7 +95,7 @@ class _MessageCardState extends State<MessageCard> {
           child: Text(
             MyDateUtil.getFormattedTime(
                 context: context, time: widget.message.sent),
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
       ],
@@ -101,7 +103,7 @@ class _MessageCardState extends State<MessageCard> {
   }
 
   // our or user message
-  Widget _greenMessage() {
+  Widget _rightMessage() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -113,8 +115,8 @@ class _MessageCardState extends State<MessageCard> {
 
             //double tick blue icon for message read
             if (widget.message.read.isNotEmpty)
-              const Icon(CupertinoIcons.checkmark_seal_fill,
-                  color: Colors.blue, size: 15),
+              const Icon(CupertinoIcons.checkmark_alt_circle_fill,
+                  color: Colors.green, size: 15),
 
             //for adding some space
             const SizedBox(width: 2),
@@ -123,7 +125,7 @@ class _MessageCardState extends State<MessageCard> {
             Text(
               MyDateUtil.getFormattedTime(
                   context: context, time: widget.message.sent),
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ],
         ),
@@ -132,24 +134,26 @@ class _MessageCardState extends State<MessageCard> {
         Flexible(
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.image
-                ? mq.width * .03
-                : mq.width * .04),
+                ? mq.width * .02
+                : mq.width * .02),
             margin: EdgeInsets.symmetric(
-                horizontal: mq.width * .04, vertical: mq.height * .01),
+                horizontal: mq.width * .02, vertical: mq.height * .01),
             decoration: BoxDecoration(
-                color: Colors.blue[200],
-                border: Border.all(color: Colors.lightBlueAccent),
+                color: Colors.deepPurpleAccent,
+                border: Border.all(color: Colors.deepPurpleAccent),
                 //making borders curved
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30))),
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                ),
+            ),
             child: widget.message.type == Type.text
                 ?
                 //show text
                 Text(
                     widget.message.msg,
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                    style:  Theme.of(context).textTheme.titleMedium,//const TextStyle(fontSize: 15, color: Colors.black87),
                   )
                 :
                 //show image
@@ -242,7 +246,7 @@ class _MessageCardState extends State<MessageCard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          CupertinoIcons.arrow_down_circle,
+                          CupertinoIcons.arrow_down_circle_fill,
                           color: Colors.blue,
                           size: 26,
                         ),
@@ -264,7 +268,7 @@ class _MessageCardState extends State<MessageCard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          CupertinoIcons.pencil,
+                          CupertinoIcons.pencil_circle_fill,
                           color: Colors.blue,
                           size: 26,
                         ),
@@ -286,7 +290,7 @@ class _MessageCardState extends State<MessageCard> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          CupertinoIcons.delete,
+                          CupertinoIcons.delete_solid,
                           color: Colors.red,
                           size: 26,
                         ),

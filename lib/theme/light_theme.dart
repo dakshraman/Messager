@@ -24,47 +24,59 @@ ThemeData lightTheme = ThemeData(
     ),
     backgroundColor: primaryLight, // Set the background color for app bar
   ),
-  textTheme: const TextTheme(
-    titleMedium: TextStyle(
+  textTheme: TextTheme(
+    titleMedium: const TextStyle(
       color: white,
       fontWeight: FontWeight.bold,
     ),
     titleSmall: TextStyle(
-      color: lightGrey,
+      color: Colors.grey[800],
     ),
-    bodyLarge: TextStyle(
+    bodyLarge: const TextStyle(
       color: Colors.white,
     ),
-    labelSmall: TextStyle(color: Colors.black),
-    bodySmall: TextStyle(fontSize: 5),
+    labelSmall: const TextStyle(color: Colors.black),
+    bodySmall: const TextStyle(fontSize: 10),
   ),
+
+
   brightness: Brightness.light, // Set brightness to light
 
   colorScheme: ColorScheme.light(
-    background: backgroundLight, // Use your background color
-    primary: primaryLight, // Use your primary color
-    secondary: secondaryLight,
+    background: Colors.blue.shade100, // Use your background color
+    primary: Colors.blueAccent, // Use your primary color
+    secondary: Colors.deepPurpleAccent,
     tertiary: Colors.white,
     onPrimary: Colors.blueAccent.shade100,
+    onBackground: Colors.white,
   ),
+
+
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Colors.white,
     foregroundColor: Colors.blueAccent,
   ),
-  cardTheme: const CardTheme(
-    color: Colors.blueAccent,
-  ),
+
+
+
+  cardColor: Colors.blueAccent.shade100,
+
+  dividerColor: Colors.grey,
+
   cupertinoOverrideTheme: const CupertinoThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.blueAccent,
     textTheme: CupertinoTextThemeData(primaryColor: Colors.blueAccent),
     applyThemeToAll: true,
   ),
+
   inputDecorationTheme: InputDecorationTheme(
     fillColor: Colors.blueAccent[200],
     filled: true,
   ),
+
   buttonTheme: const ButtonThemeData(
       colorScheme:
-          ColorScheme.light(primary: primaryLight, secondary: Colors.white)),
+          ColorScheme.light(primary: primaryLight, secondary: Colors.white),
+  ),
 );

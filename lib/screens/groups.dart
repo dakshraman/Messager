@@ -37,17 +37,24 @@ class _GroupsPageState extends State<GroupsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CupertinoNavigationBar(
-        backgroundColor: Colors.black,
-        middle: Text("Groups"),
-      ),
-          body: Center(
-            child: CupertinoButton.filled(child: const Text("Comming Soon"), onPressed: (){}),
-          ),
-      bottomNavigationBar: BottomNavigationBar(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        selectedItemColor: Colors.deepPurple,
-        unselectedItemColor: Colors.grey,
+        title: const Text("Groups"),
+        leading: IconButton(
+            icon: const Icon(CupertinoIcons.back),
+                  onPressed: () {
+            Navigator.pop(context);
+              },
+            ),
+          ),
+          body: Center(
+            child: CupertinoButton.filled(child: Text("Comming Soon", style: Theme.of(context).textTheme.titleMedium,), onPressed: (){}),
+          ),
+      bottomNavigationBar: CupertinoTabBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        activeColor: Colors.white,
+        inactiveColor: Colors.grey.shade500,
         currentIndex:
         _currentIndex, // You need to maintain a currentIndex variable
         onTap: (int index) {
@@ -93,12 +100,13 @@ class _GroupsPageState extends State<GroupsPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              CupertinoIcons.person_2_fill,
+              CupertinoIcons.group_solid,
+              size: 40,
             ),
             label: 'Groups',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.gear_alt_fill),
+            icon: Icon(CupertinoIcons.settings_solid),
             label: 'Settings',
           ),
         ],

@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Welcome",
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.tertiary,
                     fontWeight: FontWeight.w900,
                     fontSize: 50,
                   ),
@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                         child: Divider(
                           thickness: 5,
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
                       Padding(
@@ -138,14 +138,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           "continue with",
                           style: TextStyle(
                               fontSize: 15,
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context).colorScheme.tertiary,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       Expanded(
                         child: Divider(
                           thickness: 5,
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
                     ],
@@ -200,7 +200,7 @@ class SquareTile extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           border: Border.all(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
           borderRadius: BorderRadius.circular(16),
           color: Theme.of(context).colorScheme.background,
@@ -217,8 +217,9 @@ class SquareTile extends StatelessWidget {
             ), // Adjust the spacing as needed
             Text(
               'Login With Google',
-              style: TextStyle(
-                  color: Colors.grey.shade900, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleMedium,
+              // style: TextStyle(
+              //     color: Colors.grey.shade900, fontWeight: FontWeight.bold),
             ),
           ],
         ),

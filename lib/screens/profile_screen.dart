@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           Scaffold(
-             // backgroundColor: Theme.of(context).colorScheme.background,
+             backgroundColor: Theme.of(context).colorScheme.background,
               //app bar
               appBar: AppBar(
                   leading: IconButton(
@@ -67,10 +67,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: const Text(
                     'Profile Screen',
                   )),
-              bottomNavigationBar: BottomNavigationBar(
+              bottomNavigationBar: CupertinoTabBar(
                 backgroundColor: Theme.of(context).colorScheme.primary,
-                selectedItemColor: Colors.deepPurple,
-                unselectedItemColor: Colors.grey,
+                activeColor: Colors.white,
+                inactiveColor: Colors.grey.shade500,
                 currentIndex:
                 _currentIndex, // You need to maintain a currentIndex variable
                 onTap: (int index) {
@@ -116,211 +116,216 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      CupertinoIcons.person_2_fill,
+                      CupertinoIcons.group_solid,
+                      size: 40,
                     ),
                     label: 'Groups',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.gear_alt_fill),
+                    icon: Icon(CupertinoIcons.settings_solid),
                     label: 'Settings',
                   ),
                 ],
               ),
 
               //body
-              body: Container(
-                color: Theme.of(context).colorScheme.background,
-                child: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: mq.width * .05, vertical: mq.height * .05),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          //user profile picture
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color:  Colors.grey//Theme.of(context).colorScheme.primary,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Stack(
-                                children: [
-                                  //profile picture
-                                  _image != null
-                                      ?
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10,),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Theme.of(context).cardColor,
+                      ),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                      child: Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: mq.width * .05, vertical: mq.height * .05),
+                          child: Column(
+                            children: [
+                              //user profile picture
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color:  Theme.of(context).colorScheme.background,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Stack(
+                                    children: [
+                                      //profile picture
+                                      _image != null
+                                          ? //local image
+                                          Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(
+                                                    mq.height * .2),
+                                                border: Border.all(
+                                                  color: Colors
+                                                      .deepPurpleAccent, // Choose your desired border color
+                                                  width:
+                                                      5.0, // Choose your desired border width
+                                                ),
+                                              ),
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          mq.height * .1),
+                                                  child: Image.file(File(_image!),
+                                                      width: mq.height * .2,
+                                                      height: mq.height * .2,
+                                                      fit: BoxFit.cover)),
+                                            )
+                                          :
 
-                                      //local image
-                                      Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                mq.height * .2),
-                                            border: Border.all(
-                                              color: Colors
-                                                  .deepPurpleAccent, // Choose your desired border color
-                                              width:
-                                                  5.0, // Choose your desired border width
-                                            ),
-                                          ),
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      mq.height * .1),
-                                              child: Image.file(File(_image!),
+                                          //image from server
+                                          Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(
+                                                    mq.height * .2),
+                                                border: Border.all(
+                                                  color: Colors
+                                                      .deepPurpleAccent, // Choose your desired border color
+                                                  width:
+                                                      5.0, // Choose your desired border width
+                                                ),
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(
+                                                    mq.height * .1),
+                                                child: CachedNetworkImage(
                                                   width: mq.height * .2,
                                                   height: mq.height * .2,
-                                                  fit: BoxFit.cover)),
-                                        )
-                                      :
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: widget.user.image,
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const CircleAvatar(
+                                                          child: Icon(CupertinoIcons
+                                                              .person)),
+                                                ),
+                                              ),
+                                            ),
 
-                                      //image from server
-                                      Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                mq.height * .2),
-                                            border: Border.all(
-                                              color: Colors
-                                                  .deepPurple, // Choose your desired border color
-                                              width:
-                                                  5.0, // Choose your desired border width
-                                            ),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                mq.height * .1),
-                                            child: CachedNetworkImage(
-                                              width: mq.height * .2,
-                                              height: mq.height * .2,
-                                              fit: BoxFit.cover,
-                                              imageUrl: widget.user.image,
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  const CircleAvatar(
-                                                      child: Icon(CupertinoIcons
-                                                          .person)),
-                                            ),
-                                          ),
+                                      //edit image button
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: MaterialButton(
+                                          elevation: 1,
+                                          onPressed: () {
+                                            _showBottomSheet();
+                                          },
+                                          shape: const CircleBorder(),
+                                          color: Colors.deepPurpleAccent,
+                                          child: const Icon(CupertinoIcons.pen,
+                                              color: Colors.white),
                                         ),
-
-                                  //edit image button
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: MaterialButton(
-                                      elevation: 1,
-                                      onPressed: () {
-                                        _showBottomSheet();
-                                      },
-                                      shape: const CircleBorder(),
-                                      color: Colors.deepPurpleAccent,
-                                      child: const Icon(Icons.edit,
-                                          color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ), // for adding some space
+                              SizedBox(height: mq.height * .02),
+                              // user email label
+                              Container(
+                                height: 30,
+                                margin: const EdgeInsets.only(left: 10,right: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Theme.of(context).colorScheme.background,
+                                ),
+                                child: Center(
+                                  child: Text(widget.user.email,
+                                    style: Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: mq.height * .02),
+                              // name input field
+                              const Text("Name", style: TextStyle(fontSize: 20),),
+                              SizedBox(height: mq.height * .01),
+                              TextFormField(
+                                initialValue: widget.user.name,
+                                onSaved: (val) => APIs.me.name = val ?? '',
+                                validator: (val) => val != null && val.isNotEmpty
+                                    ? null
+                                    : 'Required Field',
+                                decoration: InputDecoration(
+                                    fillColor: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .fillColor,
+                                    prefixIcon: Icon(
+                                      CupertinoIcons.person_crop_circle,
+                                      color: Theme.of(context).colorScheme.tertiary,
                                     ),
-                                  )
-                                ],
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20)),
+                                    hintText: 'Your Name',
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                                ),
                               ),
-                            ),
-                          ),
-
-                          // for adding some space
-                          SizedBox(height: mq.height * .03),
-                          const Divider(
-                            height: 20,
-                            thickness: 5,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          // user email label
-                          Text(widget.user.email,
-                              style: const TextStyle(
-                                  color: Colors.deepPurple, fontSize: 20, fontWeight: FontWeight.w900)),
-                          const Divider(
-                            height: 20,
-                            thickness: 5,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          SizedBox(height: mq.height * .05),
-
-                          // name input field
-                          const Text("Name", style: TextStyle(fontSize: 25),),
-                          SizedBox(height: mq.height * .01),
-                          TextFormField(
-                            initialValue: widget.user.name,
-                            onSaved: (val) => APIs.me.name = val ?? '',
-                            validator: (val) => val != null && val.isNotEmpty
-                                ? null
-                                : 'Required Field',
-                            decoration: InputDecoration(
-                                fillColor: Theme.of(context)
-                                    .inputDecorationTheme
-                                    .fillColor,
-                                prefixIcon: Icon(
-                                  CupertinoIcons.person_fill,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                                hintText: 'Your Name',
-                            ),
-                          ),
-
-                          // for adding some space
-                          SizedBox(height: mq.height * .02),
-
-                          // about input field
-                          const Text("About", style: TextStyle(fontSize: 25),),
-                          SizedBox(height: mq.height * .01),
-                          TextFormField(
-                            initialValue: widget.user.about,
-                            onSaved: (val) => APIs.me.about = val ?? '',
-                            validator: (val) => val != null && val.isNotEmpty
-                                ? null
-                                : 'Required Field',
-                            decoration: InputDecoration(
-                                fillColor: Theme.of(context)
-                                    .inputDecorationTheme
-                                    .fillColor,
-                                prefixIcon: Icon(
-                                  CupertinoIcons.at_circle_fill,
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                                hintText: 'eg. Feeling Happy',
-                                ),
-                          ),
-
-                          // for adding some space
-                          SizedBox(height: mq.height * .05),
-
-                          // update profile button
-                          FloatingActionButton.extended(
-                            backgroundColor: Colors.white,
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                APIs.updateUserInfo().then((value) {
-                                  Dialogs.showSnackbar(
-                                      context, 'Profile Updated Successfully!');
-                                });
-                              }
-                            },
-                            label: Text(
-                              'UPDATE',
-                              selectionColor:
-                                  Theme.of(context).colorScheme.tertiary,
-                              style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w900,
+                              // for adding some space
+                              SizedBox(height: mq.height * .02),
+                              // about input field
+                              const Text("About", style: TextStyle(fontSize: 20),),
+                              SizedBox(height: mq.height * .01),
+                              TextFormField(
+                                initialValue: widget.user.about,
+                                onSaved: (val) => APIs.me.about = val ?? '',
+                                validator: (val) => val != null && val.isNotEmpty
+                                    ? null
+                                    : 'Required Field',
+                                decoration: InputDecoration(
+                                    fillColor: Theme.of(context)
+                                        .inputDecorationTheme
+                                        .fillColor,
+                                    prefixIcon: Icon(
+                                      CupertinoIcons.grid_circle,
+                                      color: Theme.of(context).colorScheme.tertiary,
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20)),
+                                    hintText: 'eg. Feeling Happy',
+                                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
+                                    ),
                               ),
-                            ),
-                            icon: const Icon(CupertinoIcons.pencil_circle_fill),
+
+                              // for adding some space
+                              SizedBox(height: mq.height * .02),
+
+                              // update profile button
+                              FloatingActionButton.extended(
+                                backgroundColor: Colors.white,
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
+                                    APIs.updateUserInfo().then((value) {
+                                      Dialogs.showSnackbar(
+                                          context, 'Profile Updated Successfully!');
+                                    });
+                                  }
+                                },
+                                label: Text(
+                                  'UPDATE',
+                                  selectionColor:
+                                      Theme.of(context).colorScheme.tertiary,
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                icon: const Icon(CupertinoIcons.pencil_circle_fill),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               )),
         ],
