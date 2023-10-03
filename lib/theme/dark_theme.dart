@@ -41,7 +41,7 @@ ThemeData darkTheme = ThemeData(
     primary: primaryDark, // Use your primary color
     secondary: secondaryDark,
     tertiary: Colors.blueAccent,
-    onPrimary: Colors.grey.shade700,
+    onPrimary: Colors.grey.shade900,
   ),
 
   floatingActionButtonTheme: const FloatingActionButtonThemeData(

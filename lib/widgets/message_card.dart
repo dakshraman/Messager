@@ -55,21 +55,21 @@ class _MessageCardState extends State<MessageCard> {
             margin: EdgeInsets.symmetric(
                 horizontal: mq.width * .02, vertical: mq.height * .01),
             decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                border: Border.all(color: Colors.blueAccent),
-                //making borders curved
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                ),
+              color: Colors.blueAccent,
+              border: Border.all(color: Colors.blueAccent),
+              //making borders curved
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
             ),
             child: widget.message.type == Type.text
                 ?
                 //show text
                 Text(
                     widget.message.msg,
-                  style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium,
                   )
                 :
                 //show image
@@ -91,7 +91,7 @@ class _MessageCardState extends State<MessageCard> {
 
         //message time
         Padding(
-          padding: EdgeInsets.only(right: mq.width * .04),
+          padding: EdgeInsets.only(right: mq.width * .02),
           child: Text(
             MyDateUtil.getFormattedTime(
                 context: context, time: widget.message.sent),
@@ -139,21 +139,23 @@ class _MessageCardState extends State<MessageCard> {
             margin: EdgeInsets.symmetric(
                 horizontal: mq.width * .02, vertical: mq.height * .01),
             decoration: BoxDecoration(
-                color: Colors.deepPurpleAccent,
-                border: Border.all(color: Colors.deepPurpleAccent),
-                //making borders curved
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                ),
+              color: Colors.deepPurpleAccent,
+              border: Border.all(color: Colors.deepPurpleAccent),
+              //making borders curved
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+              ),
             ),
             child: widget.message.type == Type.text
                 ?
                 //show text
                 Text(
                     widget.message.msg,
-                    style:  Theme.of(context).textTheme.titleMedium,//const TextStyle(fontSize: 15, color: Colors.black87),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium, //const TextStyle(fontSize: 15, color: Colors.black87),
                   )
                 :
                 //show image

@@ -176,13 +176,13 @@ class _ChatScreenState extends State<ChatScreen> {
                 width: mq.height * .04,
                 height: mq.height * .04,
                 imageUrl: list.isNotEmpty ? list[0].image : widget.user.image,
-                errorWidget: (context, url, error) =>
-                    const CircleAvatar(child: Icon(CupertinoIcons.person_alt_circle)),
+                errorWidget: (context, url, error) => const CircleAvatar(
+                    child: Icon(CupertinoIcons.person_alt_circle)),
               ),
             ),
 
             //for adding some space
-            const SizedBox(width: 20),
+            const SizedBox(width: 10),
 
             //user name & last seen time
             Column(
@@ -239,19 +239,20 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: [
                     //emoji button
                     IconButton(
-                        onPressed: () {
-                          FocusScope.of(context).unfocus();
-                          setState(() => _showEmoji = !_showEmoji);
-                        },
-                        icon: const Icon(CupertinoIcons.smiley_fill,
-                          //color: Colors.white,
-                          size: 25,
-                        ),
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        setState(() => _showEmoji = !_showEmoji);
+                      },
+                      icon: const Icon(
+                        CupertinoIcons.smiley_fill,
+                        //color: Colors.white,
+                        size: 25,
+                      ),
                     ),
 
                     Expanded(
                       child: CupertinoTextField(
-                        placeholder: "Message",
+                        placeholder: " Message",
                         cursorColor: Colors.blueAccent,
                         controller: _textController,
                         keyboardType: TextInputType.multiline,
@@ -291,25 +292,26 @@ class _ChatScreenState extends State<ChatScreen> {
 
                     //take image from camera button
                     IconButton(
-                        onPressed: () async {
-                          final ImagePicker picker = ImagePicker();
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
 
-                          // Pick an image
-                          final XFile? image = await picker.pickImage(
-                              source: ImageSource.camera, imageQuality: 70);
-                          if (image != null) {
-                            log('Image Path: ${image.path}');
-                            setState(() => _isUploading = true);
+                        // Pick an image
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.camera, imageQuality: 70);
+                        if (image != null) {
+                          log('Image Path: ${image.path}');
+                          setState(() => _isUploading = true);
 
-                            await APIs.sendChatImage(
-                                widget.user, File(image.path));
-                            setState(() => _isUploading = false);
-                          }
-                        },
-                        icon: const Icon(CupertinoIcons.camera_fill,
-                            //color: Colors.white,
-                          size: 26,
-                        ),
+                          await APIs.sendChatImage(
+                              widget.user, File(image.path));
+                          setState(() => _isUploading = false);
+                        }
+                      },
+                      icon: const Icon(
+                        CupertinoIcons.camera_fill,
+                        //color: Colors.white,
+                        size: 26,
+                      ),
                     ),
 
                     //adding some space
@@ -341,9 +343,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   top: 10, bottom: 10, right: 5, left: 10),
               shape: const CircleBorder(),
               color: Colors.deepPurpleAccent,
-              child: Image.asset("images/Logo.png", color: Colors.white,
-              height: mq.height*0.07,
-                width: mq.width*0.07,
+              child: Image.asset(
+                "images/Logo.png",
+                color: Colors.white,
+                height: mq.height * 0.07,
+                width: mq.width * 0.07,
               ),
             ),
             const SizedBox(

@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           Scaffold(
-             backgroundColor: Theme.of(context).colorScheme.background,
+              backgroundColor: Theme.of(context).colorScheme.background,
               //app bar
               appBar: AppBar(
                   leading: IconButton(
@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 activeColor: Colors.white,
                 inactiveColor: Colors.grey.shade500,
                 currentIndex:
-                _currentIndex, // You need to maintain a currentIndex variable
+                    _currentIndex, // You need to maintain a currentIndex variable
                 onTap: (int index) {
                   // Handle navigation based on the tapped index
                   setState(() {
@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   });
                   switch (index) {
                     case 0:
-                    // Navigate to the Groups page
+                      // Navigate to the Groups page
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -89,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                       break;
                     case 1:
-                    // Navigate to the Settings page
+                      // Navigate to the Settings page
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -132,25 +132,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Theme.of(context).cardColor,
                       ),
-                      margin: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                      margin: const EdgeInsets.only(
+                          top: 10, bottom: 10, left: 10, right: 10),
                       child: Form(
                         key: _formKey,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: mq.width * .05, vertical: mq.height * .05),
+                              horizontal: mq.width * .05,
+                              vertical: mq.height * .05),
                           child: Column(
                             children: [
                               //user profile picture
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color:  Theme.of(context).colorScheme.background,
+                                  color:
+                                      Theme.of(context).colorScheme.background,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -161,8 +166,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ? //local image
                                           Container(
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(
-                                                    mq.height * .2),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        mq.height * .2),
                                                 border: Border.all(
                                                   color: Colors
                                                       .deepPurpleAccent, // Choose your desired border color
@@ -174,7 +180,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           mq.height * .1),
-                                                  child: Image.file(File(_image!),
+                                                  child: Image.file(
+                                                      File(_image!),
                                                       width: mq.height * .2,
                                                       height: mq.height * .2,
                                                       fit: BoxFit.cover)),
@@ -184,8 +191,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           //image from server
                                           Container(
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(
-                                                    mq.height * .2),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        mq.height * .2),
                                                 border: Border.all(
                                                   color: Colors
                                                       .deepPurpleAccent, // Choose your desired border color
@@ -194,18 +202,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               ),
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(
-                                                    mq.height * .1),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        mq.height * .1),
                                                 child: CachedNetworkImage(
                                                   width: mq.height * .2,
                                                   height: mq.height * .2,
                                                   fit: BoxFit.cover,
                                                   imageUrl: widget.user.image,
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const CircleAvatar(
-                                                          child: Icon(CupertinoIcons
-                                                              .person)),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          const CircleAvatar(
+                                                              child: Icon(
+                                                                  CupertinoIcons
+                                                                      .person)),
                                                 ),
                                               ),
                                             ),
@@ -233,92 +243,118 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // user email label
                               Container(
                                 height: 30,
-                                margin: const EdgeInsets.only(left: 10,right: 10),
+                                margin:
+                                    const EdgeInsets.only(left: 10, right: 10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Theme.of(context).colorScheme.background,
+                                  color:
+                                      Theme.of(context).colorScheme.background,
                                 ),
                                 child: Center(
-                                  child: Text(widget.user.email,
-                                    style: Theme.of(context).textTheme.titleMedium,
+                                  child: Text(
+                                    widget.user.email,
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
                                   ),
                                 ),
                               ),
                               SizedBox(height: mq.height * .02),
                               // name input field
-                              const Text("Name", style: TextStyle(fontSize: 20),),
+                              const Text(
+                                "Name",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               SizedBox(height: mq.height * .01),
                               TextFormField(
                                 initialValue: widget.user.name,
                                 onSaved: (val) => APIs.me.name = val ?? '',
-                                validator: (val) => val != null && val.isNotEmpty
-                                    ? null
-                                    : 'Required Field',
+                                validator: (val) =>
+                                    val != null && val.isNotEmpty
+                                        ? null
+                                        : 'Required Field',
                                 decoration: InputDecoration(
-                                    fillColor: Theme.of(context)
-                                        .inputDecorationTheme
-                                        .fillColor,
-                                    prefixIcon: Icon(
-                                      CupertinoIcons.person_crop_circle,
-                                      color: Theme.of(context).colorScheme.tertiary,
-                                    ),
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)),
-                                    hintText: 'Your Name',
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                                  fillColor: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .fillColor,
+                                  prefixIcon: Icon(
+                                    CupertinoIcons.person_crop_circle,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  hintText: 'Your Name',
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                 ),
                               ),
                               // for adding some space
                               SizedBox(height: mq.height * .02),
                               // about input field
-                              const Text("About", style: TextStyle(fontSize: 20),),
+                              const Text(
+                                "About",
+                                style: TextStyle(fontSize: 20),
+                              ),
                               SizedBox(height: mq.height * .01),
                               TextFormField(
                                 initialValue: widget.user.about,
                                 onSaved: (val) => APIs.me.about = val ?? '',
-                                validator: (val) => val != null && val.isNotEmpty
-                                    ? null
-                                    : 'Required Field',
+                                validator: (val) =>
+                                    val != null && val.isNotEmpty
+                                        ? null
+                                        : 'Required Field',
                                 decoration: InputDecoration(
-                                    fillColor: Theme.of(context)
-                                        .inputDecorationTheme
-                                        .fillColor,
-                                    prefixIcon: Icon(
-                                      CupertinoIcons.grid_circle,
-                                      color: Theme.of(context).colorScheme.tertiary,
-                                    ),
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)),
-                                    hintText: 'eg. Feeling Happy',
-                                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
-                                    ),
+                                  fillColor: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .fillColor,
+                                  prefixIcon: Icon(
+                                    CupertinoIcons.grid_circle,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  hintText: 'eg. Feeling Happy',
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                ),
                               ),
 
                               // for adding some space
                               SizedBox(height: mq.height * .02),
 
                               // update profile button
-                              FloatingActionButton.extended(
-                                backgroundColor: Colors.white,
+                              CupertinoButton(
+                                color: Theme.of(context).colorScheme.primary,
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();
                                     APIs.updateUserInfo().then((value) {
-                                      Dialogs.showSnackbar(
-                                          context, 'Profile Updated Successfully!');
+                                      Dialogs.showSnackbar(context,
+                                          'Profile Updated Successfully!');
                                     });
                                   }
                                 },
-                                label: Text(
-                                  'UPDATE',
-                                  selectionColor:
-                                      Theme.of(context).colorScheme.tertiary,
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w900,
-                                  ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      CupertinoIcons.pencil_circle,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    ),
+                                    Text(
+                                      ' UPDATE',
+                                      selectionColor: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                  ],
                                 ),
-                                icon: const Icon(CupertinoIcons.pencil_circle_fill),
                               ),
                             ],
                           ),

@@ -73,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
     mq = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-
       child: WillPopScope(
         onWillPop: () {
           if (_isSearching) {
@@ -97,30 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 70,
                 ),
                 Center(
-                    child: Container(
-                      height: 40,
-                      margin: const EdgeInsets.only(left: 10,right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Messager",
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                    )),
-                const SizedBox(
-                  height: 50,
-                ),
-                Center(
                   child: Form(
                     key: _formKey,
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Theme.of(context).colorScheme.background,
+                        borderRadius: BorderRadius.circular(20),
+                        color: Theme.of(context).colorScheme.background,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -129,65 +110,66 @@ class _HomeScreenState extends State<HomeScreen> {
                             //profile picture
                             _image != null
                                 ?
-                            //local image
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    mq.height * .2),
-                                border: Border.all(
-                                  color: Colors
-                                      .white, // Choose your desired border color
-                                  width:
-                                  5.0, // Choose your desired border width
-                                ),
-                              ),
-                              child: ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(
-                                      mq.height * .1),
-                                  child: Image.file(File(_image!),
-                                      width: mq.height * .1,
-                                      height: mq.height * .1,
-                                      fit: BoxFit.cover)),
-                            )
+                                //local image
+                                Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(mq.height * .2),
+                                      border: Border.all(
+                                        color: Colors
+                                            .white, // Choose your desired border color
+                                        width:
+                                            5.0, // Choose your desired border width
+                                      ),
+                                    ),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            mq.height * .1),
+                                        child: Image.file(File(_image!),
+                                            width: mq.height * .1,
+                                            height: mq.height * .1,
+                                            fit: BoxFit.cover)),
+                                  )
                                 :
-                            //image from server
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    mq.height * .2),
-                                border: Border.all(
-                                  color: Colors
-                                      .blueAccent, // Choose your desired border color
-                                  width:
-                                  5.0, // Choose your desired border width
-                                ),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    mq.height * .1),
-                                child: CachedNetworkImage(
-                                  width: mq.height * .1,
-                                  height: mq.height * .1,
-                                  fit: BoxFit.cover,
-                                  imageUrl: widget.user.image,
-                                  errorWidget: (context, url,
-                                      error) =>
-                                  const CircleAvatar(
-                                      child: Icon(CupertinoIcons.person_alt_circle)),
-                                ),
-                              ),
-                            ),
+                                //image from server
+                                Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(mq.height * .2),
+                                      border: Border.all(
+                                        color: Colors
+                                            .blueAccent, // Choose your desired border color
+                                        width:
+                                            5.0, // Choose your desired border width
+                                      ),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.circular(mq.height * .1),
+                                      child: CachedNetworkImage(
+                                        width: mq.height * .1,
+                                        height: mq.height * .1,
+                                        fit: BoxFit.cover,
+                                        imageUrl: widget.user.image,
+                                        errorWidget: (context, url, error) =>
+                                            const CircleAvatar(
+                                                child: Icon(CupertinoIcons
+                                                    .person_alt_circle)),
+                                      ),
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
                 Container(
                   height: 40,
-                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Theme.of(context).cardColor,
@@ -199,10 +181,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 50,),
-                const Divider(thickness: 2,),
+                const SizedBox(
+                  height: 50,
+                ),
+                const Divider(
+                  thickness: 2,
+                ),
                 Container(
-                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Theme.of(context).cardColor,
@@ -225,9 +211,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                const Divider(thickness: 2,),
+                const Divider(
+                  thickness: 2,
+                ),
                 Container(
-                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Theme.of(context).cardColor,
@@ -249,9 +237,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                const Divider(thickness: 2,),
+                const Divider(
+                  thickness: 2,
+                ),
                 Container(
-                  margin: const EdgeInsets.only(left: 10,right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Theme.of(context).cardColor,
@@ -294,7 +284,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                const Divider(thickness: 2,),
+                const Divider(
+                  thickness: 2,
+                ),
               ],
             ),
           ),
@@ -302,13 +294,11 @@ class _HomeScreenState extends State<HomeScreen> {
           //app bar
           appBar: AppBar(
             title: _isSearching
-                ? CupertinoTextField.borderless(
-                    placeholder: "Search..",
-                    // decoration: const InputDecoration(
-                    //     border: InputBorder.none, hintText: 'Search...'),
+                ? CupertinoTextField(
+                    cursorColor: Theme.of(context).colorScheme.primary,
+                    placeholder: "  Search..",
                     autofocus: true,
                     style: Theme.of(context).textTheme.titleMedium,
-                    //when search text changes then updated search list
                     onChanged: (val) {
                       //search logic
                       _searchList.clear();
