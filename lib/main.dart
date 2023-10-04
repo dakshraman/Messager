@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_notification_channel/flutter_notification_channel.dart';
 import 'package:flutter_notification_channel/notification_importance.dart';
+import 'package:flutter_webrtc/flutter_webrtc.dart';
 
 import 'firebase_options.dart';
 
@@ -25,6 +26,7 @@ void main() {
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((value) {
     _initializeFirebase();
+    RTCVideoRenderer.();
     runApp(const MyApp());
   });
 }
@@ -35,11 +37,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Messager',
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        home: const SplashScreen(),
+      title: 'Messager',
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      home: const SplashScreen(),
     );
   }
 }
