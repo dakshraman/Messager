@@ -325,9 +325,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   icon: Icon(
                     _isSearching
-                        ? CupertinoIcons.clear_circled_solid
-                        : Icons.search,
-                    size: 30,
+                        ? CupertinoIcons.xmark_square_fill
+                        : CupertinoIcons.search,
                   )),
             ],
           ),
@@ -503,11 +502,12 @@ class _HomeScreenState extends State<HomeScreen> {
           CupertinoAlertDialog(
             // No direct equivalent for contentPadding, use padding for content spacing
             title: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  CupertinoIcons.person_add_solid,
+                  CupertinoIcons.person_crop_circle_fill_badge_plus,
                   color: Colors.blueAccent,
-                  size: 28,
+                  //size: 28,
                 ),
                 Text(
                   '  Add User',

@@ -326,6 +326,10 @@ class _MessageCardState extends State<MessageCard> {
     showCupertinoDialog(
       context: context,
       builder: (_) => CupertinoAlertDialog(
+        title: const Text(
+          "Edit Message",
+          style: TextStyle(color: Colors.blueAccent),
+        ),
         content: Column(
           children: [
             CupertinoTextField(

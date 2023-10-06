@@ -42,21 +42,27 @@ class _GroupsPageState extends State<GroupsPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text("Groups"),
         leading: IconButton(
-            icon: const Icon(CupertinoIcons.back),
-                  onPressed: () {
-            Navigator.pop(context);
-              },
+          icon: const Icon(CupertinoIcons.back),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => HomeScreen(user: APIs.me)));
+          },
+        ),
+      ),
+      body: Center(
+        child: CupertinoButton.filled(
+            child: Text(
+              "Comming Soon",
+              style: Theme.of(context).textTheme.titleMedium,
             ),
-          ),
-          body: Center(
-            child: CupertinoButton.filled(child: Text("Comming Soon", style: Theme.of(context).textTheme.titleMedium,), onPressed: (){}),
-          ),
+            onPressed: () {}),
+      ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         activeColor: Colors.white,
         inactiveColor: Colors.grey.shade500,
         currentIndex:
-        _currentIndex, // You need to maintain a currentIndex variable
+            _currentIndex, // You need to maintain a currentIndex variable
         onTap: (int index) {
           // Handle navigation based on the tapped index
           setState(() {
@@ -64,7 +70,7 @@ class _GroupsPageState extends State<GroupsPage> {
           });
           switch (index) {
             case 0:
-            // Navigate to the Groups page
+              // Navigate to the Groups page
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -73,7 +79,7 @@ class _GroupsPageState extends State<GroupsPage> {
               );
               break;
             case 1:
-            // Navigate to the Settings page
+              // Navigate to the Settings page
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -111,7 +117,6 @@ class _GroupsPageState extends State<GroupsPage> {
           ),
         ],
       ),
-
     );
   }
 }

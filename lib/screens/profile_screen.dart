@@ -57,7 +57,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               appBar: AppBar(
                   leading: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => HomeScreen(user: APIs.me)));
                     },
                     icon: const Icon(
                       CupertinoIcons.back,

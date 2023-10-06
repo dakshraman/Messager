@@ -44,6 +44,8 @@ ThemeData darkTheme = ThemeData(
     onPrimary: Colors.grey.shade900,
   ),
 
+  //primaryIconTheme: const IconThemeData(color: Colors.blueAccent),
+
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Colors.black,
     foregroundColor: Colors.blueAccent,
