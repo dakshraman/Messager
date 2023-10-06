@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           BorderRadius.circular(mq.height * .2),
                                       border: Border.all(
                                         color: Colors
-                                            .blueAccent, // Choose your desired border color
+                                            .deepPurpleAccent, // Choose your desired border color
                                         width:
                                             5.0, // Choose your desired border width
                                       ),
@@ -295,8 +295,9 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: _isSearching
                 ? CupertinoTextField(
-                    cursorColor: Theme.of(context).colorScheme.primary,
+                    cursorColor: Theme.of(context).colorScheme.tertiary,
                     placeholder: "  Search..",
+                    showCursor: true,
                     autofocus: true,
                     style: Theme.of(context).textTheme.titleMedium,
                     onChanged: (val) {

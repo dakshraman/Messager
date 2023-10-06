@@ -60,6 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
               leading: IconButton(
                 icon: const Icon(CupertinoIcons.back),
                 onPressed: () => Navigator.pop(context),
+                //splashRadius: 1,
               ),
               title: _buildAppBarTitle(),
               actions: [
@@ -165,8 +166,8 @@ class _ChatScreenState extends State<ChatScreen> {
         final data = snapshot.data?.docs;
         final list =
             data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
-
         return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             //user profile picture
             ClipRRect(
