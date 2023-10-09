@@ -17,7 +17,7 @@ ThemeData darkTheme = ThemeData(
     titleTextStyle: TextStyle(
       color: white,
       fontWeight: FontWeight.bold,
-      fontSize: 15,
+      fontSize: 20,
     ),
     backgroundColor: black, // Set the background color for app bar
   ),

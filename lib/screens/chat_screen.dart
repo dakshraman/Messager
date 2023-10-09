@@ -271,25 +271,26 @@ class _ChatScreenState extends State<ChatScreen> {
 
                     //pick image from gallery button
                     IconButton(
-                        onPressed: () async {
-                          final ImagePicker picker = ImagePicker();
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
 
-                          // Picking multiple images
-                          final List<XFile> images =
-                              await picker.pickMultiImage(imageQuality: 70);
+                        // Picking multiple images
+                        final List<XFile> images =
+                            await picker.pickMultiImage(imageQuality: 70);
 
-                          // uploading & sending image one by one
-                          for (var i in images) {
-                            log('Image Path: ${i.path}');
-                            setState(() => _isUploading = true);
-                            await APIs.sendChatImage(widget.user, File(i.path));
-                            setState(() => _isUploading = false);
-                          }
-                        },
-                        icon: const Icon(
-                            CupertinoIcons.photo_fill_on_rectangle_fill,
-                            //color: Colors.white,
-                            size: 26)),
+                        // uploading & sending image one by one
+                        for (var i in images) {
+                          log('Image Path: ${i.path}');
+                          setState(() => _isUploading = true);
+                          await APIs.sendChatImage(widget.user, File(i.path));
+                          setState(() => _isUploading = false);
+                        }
+                      },
+                      icon: const Icon(
+                          CupertinoIcons.photo_fill_on_rectangle_fill,
+                          //color: Colors.white,
+                          size: 26),
+                    ),
 
                     //take image from camera button
                     IconButton(
