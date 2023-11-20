@@ -57,10 +57,10 @@ class _ChatScreenState extends State<ChatScreen> {
             backgroundColor: Theme.of(context).colorScheme.background,
             //app bar
             appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(CupertinoIcons.back),
-                onPressed: () => Navigator.pop(context),
-                //splashRadius: 1,
+              leading: CupertinoNavigationBarBackButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
               title: _buildAppBarTitle(),
               actions: [

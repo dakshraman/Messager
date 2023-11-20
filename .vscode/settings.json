@@ -1,8 +1,12 @@
 {
     "editor.fontFamily": "Arial",
     "cSpell.words": [
+        "autofocus",
         "cupertino",
-        "Messager"
+        "LTRB",
+        "Messager",
+        "unfocus",
+        "xmark"
     ],
     "cmake.sourceDirectory": "E:/Project/Messager/windows/flutter"
 }
