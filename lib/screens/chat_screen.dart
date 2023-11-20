@@ -65,6 +65,28 @@ class _ChatScreenState extends State<ChatScreen> {
               title: _buildAppBarTitle(),
               actions: [
                 IconButton(
+                  icon: const Icon(CupertinoIcons.phone_circle_fill),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ViewProfileScreen(user: widget.user),
+                      ),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(CupertinoIcons.videocam_circle_fill),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ViewProfileScreen(user: widget.user),
+                      ),
+                    );
+                  },
+                ),
+                IconButton(
                   icon: const Icon(CupertinoIcons.info_circle_fill),
                   onPressed: () {
                     Navigator.push(
@@ -167,6 +189,7 @@ class _ChatScreenState extends State<ChatScreen> {
         final list =
             data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
         return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             //user profile picture
@@ -186,31 +209,35 @@ class _ChatScreenState extends State<ChatScreen> {
             const SizedBox(width: 10),
 
             //user name & last seen time
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //user name
-                Text(
-                  list.isNotEmpty ? list[0].name : widget.user.name,
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
-                ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //user name
+                  Text(
+                    list.isNotEmpty ? list[0].name : widget.user.name,
+                    style: Theme.of(context).appBarTheme.titleTextStyle,
+                  ),
 
-                //for adding some space
-                const SizedBox(height: 2),
+                  //for adding some space
+                  const SizedBox(height: 2),
 
-                //last seen time of user
-                Text(
-                  list.isNotEmpty
-                      ? list[0].isOnline
-                          ? 'Online'
-                          : MyDateUtil.getLastActiveTime(
-                              context: context, lastActive: list[0].lastActive)
-                      : MyDateUtil.getLastActiveTime(
-                          context: context, lastActive: widget.user.lastActive),
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
+                  //last seen time of user
+                  Text(
+                    list.isNotEmpty
+                        ? list[0].isOnline
+                            ? 'Online'
+                            : MyDateUtil.getLastActiveTime(
+                                context: context,
+                                lastActive: list[0].lastActive)
+                        : MyDateUtil.getLastActiveTime(
+                            context: context,
+                            lastActive: widget.user.lastActive),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
             ),
           ],
         );
