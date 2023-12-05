@@ -505,11 +505,6 @@ class _HomeScreenState extends State<HomeScreen> {
             title: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  CupertinoIcons.person_crop_circle_fill_badge_plus,
-                  color: Colors.blueAccent,
-                  //size: 28,
-                ),
                 Text(
                   '  Add User',
                   style: TextStyle(color: Colors.blueAccent),
