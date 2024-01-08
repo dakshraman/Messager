@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, deprecated_member_use
 
 import 'dart:developer';
 import 'dart:io';

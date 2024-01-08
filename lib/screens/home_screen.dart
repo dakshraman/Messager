@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
@@ -22,7 +24,7 @@ import 'profile_screen.dart';
 class HomeScreen extends StatefulWidget {
   final ChatUser user; // Add this line to accept a ChatUser object
 
-  const HomeScreen({Key? key, required this.user}) : super(key: key);
+  const HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
