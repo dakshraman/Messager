@@ -1,0 +1,96 @@
+name: Build and Release Flutter Apps
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        platform: [linux, windows, macos, android]
+
+    steps:
+    # Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Set up Flutter
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: stable
+
+    # Install dependencies
+    - name: Install Dependencies
+      run: flutter pub get
+
+    # Build for each platform
+    - name: Build App
+      run: |
+        case ${{ matrix.platform }} in
+          linux)
+            flutter build linux --release
+            ;;
+          windows)
+            flutter build windows --release
+            ;;
+          macos)
+            flutter build macos --release
+            ;;
+          android)
+            flutter build apk --release
+            ;;
+        esac
+
+    # Upload artifacts
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.platform }}-build
+        path: |
+          build/linux/runner/*.AppImage
+          build/windows/runner/Release/*.exe
+          build/macos/Build/Products/Release/*.app
+          build/app/outputs/flutter-apk/app-release.apk
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: linux-build
+        path: artifacts/linux
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: windows-build
+        path: artifacts/windows
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: macos-build
+        path: artifacts/macos
+    - name: Download Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: android-build
+        path: artifacts/android
+
+    # Create a release and upload files
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          artifacts/linux/*
+          artifacts/windows/*
+          artifacts/macos/*
+          artifacts/android/*
+      env:
+        GITHUB_TOKEN: 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
